@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
         'NewGoal3': (context) => NewGoalDirectionPageThree(),
         'NewGoal4': (context) => NewGoalDirectionPageFour(),
         'PrincipleView': (context) => PrinciplePeak(),
+                'PrincipleView2': (context) => PrinciplePeak2(),
+
         'Register': (context) => RegisterPage(),
         'ChangePassword': (context) => ChangePasswordPage(),
         'ViewFollowing': (context) => ViewFollowingPage(),

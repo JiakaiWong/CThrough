@@ -1,6 +1,37 @@
 import 'package:flutter/material.dart';
 
+
+class DemoDocumentScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DocumentScreen(
+      userName: '名字',
+      userIdentity: '',
+      ultimateGoal1: 'To understand the world',
+      ultimateGoal2: 'To impact the world',
+      ultimateGoal3: 'To learn/evolve',
+      avatar: Image.asset('lib/assets/figure4.png'),
+    );
+  }
+}
+
+//“我”页面
 class DocumentScreen extends StatelessWidget {
+  DocumentScreen({
+    Key key,
+    this.userName,
+    this.userIdentity,
+    this.ultimateGoal1,
+    this.ultimateGoal2,
+    this.ultimateGoal3,
+    this.avatar,
+  }) : super(key: key); //constructor?
+  final String userName;
+  final String userIdentity;
+  final String ultimateGoal1;
+  final String ultimateGoal2;
+  final String ultimateGoal3;
+  final Image avatar;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,31 +50,41 @@ class DocumentScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(10.0),
         children: <Widget>[
-          // 用fittedbox来放图片
-
-          // ConfigurableExpansionTile(
-          //   headerExpanded:
-          //       Flexible(child: Center(child: Text("A Header Changed"))),
-          //   header: Container(child: Center(child: Text("A Header"))),
-          //   children: [
-          //     Row(
-          //       children: <Widget>[Text("CHILD 1")],
-          //     ),
-          //     // + more params, see example !!
-          //   ],
-          // ),
-
-          Center(
-            child: Container(
-              child: Text(
-                '张三丰',
-                textScaleFactor: 3,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 7,
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Align(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Container(
+                      // decoration: BoxDecoration(
+                      //   image: DecorationImage(
+                      //     image: avatar.image,
+                      //     //fit: BoxFit.fill,
+                      //   ),
+                      //   shape: BoxShape.circle,
+                      // ),
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  child: Center(
+                    child: Text(
+                      '$userName',
+                      textScaleFactor: 3,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 7,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           Container(
             child: Row(
@@ -53,43 +94,19 @@ class DocumentScreen extends StatelessWidget {
                   child: SizedBox(
                     child: Icon(
                       Icons.verified_user,
-                      color: Colors.green,
+                      color: userIdentity ==''||userIdentity==null?Colors.grey : Colors.green,
                     ),
                   ),
                 ),
-                Expanded(flex: 4, child: Text('华南理工大学')),
-                Expanded(
-                  flex: 4,
-                  child: FlatButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'EditProfileScreen');
-                    },
-                    child: Container(
-                      height: 30,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '我的关注列表',
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                Expanded(flex: 4, child: Text('$userIdentity')),
               ],
             ),
           ),
-          ListTile(
-            subtitle: Text('目标树'),
-            isThreeLine: false,
-          ),
+
           ListTile(
             title: Text('终极目标'),
             subtitle: Text(
-                'To understand the world, To impact the world, To learn/evolve'),
+                '&ultimateGoal1,$ultimateGoal2,$ultimateGoal3'),
           ),
           FlatButton(
             onPressed: () {
@@ -110,23 +127,23 @@ class DocumentScreen extends StatelessWidget {
             ),
           ),
           FlatButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'ViewFollowing');
-                    },
-                    child: Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '我的关注列表',
-                        ),
-                      ),
-                    ),
-                  ),
+            onPressed: () {
+              Navigator.pushNamed(context, 'ViewFollowing');
+            },
+            child: Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Center(
+                child: Text(
+                  '我的关注列表',
+                ),
+              ),
+            ),
+          ),
           //GoalAndObstaclesExtensionListView(),
         ],
       ),

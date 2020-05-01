@@ -12,7 +12,7 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Goal'),
+        title: Text('新目标'),
         elevation: 0,
         actions: <Widget>[
           IconButton(
@@ -27,17 +27,87 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
         child: Center(
           child: ListView(
             children: <Widget>[
-              ListTile(
-                title: Text('请描述您的目标'),
-                subtitle: Text('''
-    无论目标大或小，请让您的目标符合你的核心价值，并具体的描述您的目标。例如：“成为一个老师”比“改变这个世界”更为具体.
-    请不要将“目标”与“欲望”混淆，请确保您写下的目标符合您的核心价值实现。例如“获得好身材”是一个目标，而“吃好吃的垃圾食品”无益于目标的实现.
-    请不要按照“我觉得我可以达到”来限制您设定的目标，不要因为您未充分分析的障碍而限制你的目标实现。
-                    '''),
+              Text('请描述您的目标'),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '无论目标大或小，请让您的目标符合你的核心价值，并具体的描述您的目标。',
+                      style: TextStyle(
+                          height: 1,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none,
+                          color: Theme.of(context).iconTheme.color),
+                    ),
+                    TextSpan(
+                      text:
+                          '例如：“成为一个老师”比“改变这个世界”更为具体.',
+                      style: TextStyle(
+                          height: 1,
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                          decoration: TextDecoration.none,
+                          color: Theme.of(context).iconTheme.color),
+                    ),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '请不要将“目标”与“欲望”混淆。',
+                      style: TextStyle(
+                          height: 2,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none,
+                          color: Theme.of(context).iconTheme.color),
+                    ),
+                    TextSpan(
+                      text:
+                          '请确保您写下的目标符合您的核心价值实现。例如“获得好身材”是一个目标，而“吃好吃的垃圾食品”无益于目标的实现.',
+                      style: TextStyle(
+                          height: 1,
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                          decoration: TextDecoration.none,
+                          color: Theme.of(context).iconTheme.color),
+                    ),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '请不要按照“我觉得我可以达到”来限制您设定的目标.',
+                      style: TextStyle(
+                          height: 2,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none,
+                          color: Theme.of(context).iconTheme.color),
+                    ),
+                    TextSpan(
+                      text: '，不要因为您未充分分析的障碍而限制你的目标实现。',
+                      style: TextStyle(
+                          height: 1,
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                          decoration: TextDecoration.none,
+                          color: Theme.of(context).iconTheme.color),
+                    ),
+                  ],
+                ),
               ),
               TextField(
                 decoration: InputDecoration(
-                    hintText: 'Goal',
+                    hintText: '目标',
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey),
                     )),
@@ -51,3 +121,4 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
     );
   }
 }
+

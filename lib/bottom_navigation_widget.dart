@@ -20,7 +20,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
       ..add(MyGoalsPage())
       ..add(MyPrinciplesScreen())
       ..add(DiscoverPage())
-      ..add(DocumentScreen());
+      ..add(DemoDocumentScreen());
       //..add(LoginPage());
     super.initState();
   }

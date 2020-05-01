@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:date_matching/pages/utilities/avatar_and_nickname_tile.dart';
+import 'avatar_and_nickname_tile.dart';
 
 class ViewFollowingPage extends StatelessWidget {
   @override
