@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'avatar_and_nickname_tile.dart';
-
 class ViewFollowingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

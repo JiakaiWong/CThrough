@@ -21,74 +21,78 @@ class _AvatarAndNickName extends StatelessWidget {
   final int followed;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Expanded(
-          child: Align(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: thumbnail,
+    return Container(
+      height: 50,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: Align(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: thumbnail,
+              ),
             ),
           ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                '$nick_name',
-                textScaleFactor: 0.9,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+          Expanded(
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  '$nick_name',
+                  textScaleFactor: 0.9,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(
-                '$personal_message',
-                textScaleFactor: 1,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Colors.grey,
+                Text(
+                  '$personal_message',
+                  textScaleFactor: 1,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child:Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                '被喜欢：$liked',
-                textScaleFactor: 0.9,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+          Expanded(
+            flex: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  '被喜欢：$liked',
+                  textScaleFactor: 0.9,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(
-                '被关注：$followed',
-                textScaleFactor: 1,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Colors.grey,
+                Text(
+                  '被关注：$followed',
+                  textScaleFactor: 1,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
-
+//发现页面的卡片
 class AvatarAndPersonalMessageCard extends StatelessWidget {
   AvatarAndPersonalMessageCard({
     Key key,
@@ -121,24 +125,19 @@ class AvatarAndPersonalMessageCard extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: 300,
+          child: Container(
             child: Column(
               children: <Widget>[
-                Expanded(
-                    flex: 2,
-                    child: _AvatarAndNickName(
-                      thumbnail: thumbnail,
-                      nick_name: nick_name,
-                      personal_message: personal_message,
-                      liked: liked,
-                      followed: followed,
-                    )),
-                Expanded(
-                    flex: 10,
-                    child: SizedBox(
-                      child: SmallPrincipleDescription,
-                    ))
+                _AvatarAndNickName(
+                  thumbnail: thumbnail,
+                  nick_name: nick_name,
+                  personal_message: personal_message,
+                  liked: liked,
+                  followed: followed,
+                ),
+                SizedBox(
+                  child: SmallPrincipleDescription,
+                )
               ],
             ),
           ),
@@ -169,9 +168,9 @@ class AvatarAndPersonalMessageTileScrollView extends StatelessWidget {
           nick_name: '北大教授王铁崖',
           personal_message: '就要豪迈',
           SmallPrincipleDescription: SmallPrincipleDescription(
-          principle_text: '成为超级现实主义的人',
-          principle_description: '成功达到目标的人必须明白真实的因果关系，而理想主义者只创造问题，而不是推动进步。',
-        ),
+            principle_text: '成为超级现实主义的人',
+            principle_description: '成功达到目标的人必须明白真实的因果关系，而理想主义者只创造问题，而不是推动进步。',
+          ),
           liked: 100,
           followed: 30,
         ),

@@ -2,6 +2,44 @@
 
 import 'package:flutter/material.dart';
 
+
+//五步方法的基本模型
+class BareFiveStep {
+  BareFiveStep({
+    this.goal_setted,
+    this.action_performed,
+    this.plan_designed,
+    this.problems_identified,
+    this.root_causes_identified
+  });
+  String goal_setted;
+  String problems_identified;
+  String root_causes_identified;
+  String plan_designed;
+  String action_performed;
+}
+
+final List<BareFiveStep> demoData = <BareFiveStep>[
+  BareFiveStep(
+    goal_setted: 'demodata',
+    problems_identified:'时间太少' ,
+    root_causes_identified: '对完整性要求太高',
+    plan_designed: '减少完整性、账户认证方面采用网易的api',
+    action_performed: '取得初步成功',
+    )
+];
+
+BareFiveStep oneDemoBareFiveStep = BareFiveStep(
+    goal_setted: 'demodata',
+    problems_identified:'时间太少' ,
+    root_causes_identified: '对完整性要求太高',
+    plan_designed: '减少完整性、账户认证方面采用网易的api',
+    action_performed: '取得初步成功',
+);
+
+
+
+//用不同大小显示5行字
 class FiveStep extends StatelessWidget {
   FiveStep({
     Key key,
@@ -135,6 +173,7 @@ class FiveStep extends StatelessWidget {
   }
 }
 
+//放进圆角矩形里
 class FiveStepCard extends StatelessWidget {
   FiveStepCard({
     Key key,
@@ -164,12 +203,12 @@ class FiveStepCard extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, 'NewGoal');
+            Navigator.pushNamed(context, 'EditGoal');
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 400,
+            child: Container(
+              
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -209,40 +248,37 @@ class FiveStepCard extends StatelessWidget {
   }
 }
 
+
+
+
+//这是一个stateful widget
 class FiveStepCardScrollView extends StatelessWidget {
-  FiveStepCardScrollView({Key key}) : super(key: key);
+FiveStepCardScrollView({
+    Key key,
+    this.goal_setted,
+    this.problems_identified,
+    this.root_causes_identified,
+    this.plan_designed,
+    this.action_performed,
+  }) : super(key: key); //constructor?
 
+final String goal_setted;
+  final String problems_identified;
+  final String root_causes_identified;
+  final String plan_designed;
+  final String action_performed;
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return 
+    ListView(
       padding: const EdgeInsets.all(10.0),
       children: <Widget>[
         FiveStepCard(
-          goal_setted: '程序竞赛进决赛',
-          problems_identified: '知识太少了',
-          root_causes_identified: '之前没认识到提前学习的重要性',
-          plan_designed: '多接触新技术',
-          action_performed: '还没干啥来实现',
-        ),
-      ],
-    );
-  }
-}
-
-class FiveStepCardScrollView2 extends StatelessWidget {
-  FiveStepCardScrollView2({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(10.0),
-      children: <Widget>[
-        FiveStepCard(
-          goal_setted: '在4天内上线一个程序',
-          problems_identified: '时间太少',
-          root_causes_identified: '对完整性要求太高',
-          plan_designed: '减少完整性、账户认证方面采用网易的api',
-          action_performed: '取得初步成功',
+          goal_setted: goal_setted,
+          problems_identified: problems_identified,
+          root_causes_identified: root_causes_identified,
+          plan_designed: plan_designed,
+          action_performed: action_performed,
         ),
       ],
     );

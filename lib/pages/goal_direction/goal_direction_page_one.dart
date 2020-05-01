@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'pop_result.dart';
 
 class NewGoalDirectionPageOne extends StatefulWidget {
+
   @override
   _NewGoalDirectionPageOneState createState() =>
       _NewGoalDirectionPageOneState();
 }
 
 class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
+        static final String pageName = "NewGoal1";
+
   List<bool> checkboxesForConsumptivePower = [false, false, false, false];
   @override
   Widget build(BuildContext context) {
@@ -16,9 +20,20 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
         elevation: 0,
         actions: <Widget>[
           IconButton(
+            
               icon: Icon(Icons.arrow_forward),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, 'NewGoal2');
+                Navigator.of(context).pushNamed('NewGoal2').then((results) {
+                  PopWithResults popResult = results as PopWithResults;
+                  if (popResult != null) {
+                    if (popResult.toPage == pageName) {
+                      print(popResult.results.values.toList()[0]);
+                    } else {
+                      Navigator.of(context).pop(results);
+                    }
+                  };
+                }
+                );
               })
         ],
       ),

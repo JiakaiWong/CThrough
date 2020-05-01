@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
+import 'pop_result.dart';
 
 class NewGoalDirectionPageFour extends StatefulWidget {
+
   @override
   _NewGoalDirectionPageFourState createState() =>
       _NewGoalDirectionPageFourState();
 }
 
 class _NewGoalDirectionPageFourState extends State<NewGoalDirectionPageFour> {
+          static final String pageName = "NewGoal4";
+
   List<bool> checkboxesForConsumptivePower = [false, false, false, false];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('困难分析'),
+        title: Text('计划制定'),
         elevation: 0,
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.arrow_forward),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, 'NewGoal3');
+                Navigator.of(context).pop(
+                  PopWithResults(
+                    fromPage: pageName,
+                    toPage: 'Navigator',
+                    results: {"pop_result": "this is the pop's result"},
+                  ),
+                );
+                //Navigator.popUntil(context.withName('Navigator'));
               })
         ],
       ),
@@ -32,7 +43,7 @@ class _NewGoalDirectionPageFourState extends State<NewGoalDirectionPageFour> {
                   style: DefaultTextStyle.of(context).style,
                   children: <TextSpan>[
                     TextSpan(
-                        text: '请试着分析出造成障碍的根本原因',
+                        text: '请试着做出解决方案',
                         style: TextStyle(
                           height: 2,
                           fontStyle: FontStyle.normal,

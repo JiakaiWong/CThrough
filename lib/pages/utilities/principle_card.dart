@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 //两行字(最多四行)
 class SmallPrincipleDescription extends StatelessWidget {
   SmallPrincipleDescription({
@@ -24,7 +22,7 @@ class SmallPrincipleDescription extends StatelessWidget {
               textScaleFactor: 2.2,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle( 
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -40,7 +38,6 @@ class SmallPrincipleDescription extends StatelessWidget {
             ),
           ],
         ),
-        
       ],
     );
   }
@@ -60,34 +57,30 @@ class FullPrincipleDescription extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          flex: 2,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                '$principle_text',
-                textScaleFactor: 2.2,
-                maxLines: 7,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle( 
-                  fontWeight: FontWeight.bold,
-                ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              '$principle_text',
+              textScaleFactor: 2.2,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 100,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
               ),
-              const Padding(padding: EdgeInsets.only(bottom: 2.0)),
-              Text(
-                '$principle_description',
-                textScaleFactor: 1.5,
-                maxLines: 10,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Colors.grey,
-                ),
+            ),
+            const Padding(padding: EdgeInsets.only(bottom: 2.0)),
+            Text(
+              '$principle_description',
+              textScaleFactor: 1.5,
+              maxLines: 100,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.grey,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        
       ],
     );
   }
@@ -132,6 +125,7 @@ class PrincipleCard extends StatelessWidget {
     );
   }
 }
+//可以变长的卡片
 class FullPrincipleCard extends StatelessWidget {
   FullPrincipleCard({
     Key key,
@@ -144,8 +138,7 @@ class FullPrincipleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: SizedBox(
-        height: 300,
+      child: Container(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -165,6 +158,7 @@ class FullPrincipleCard extends StatelessWidget {
   }
 }
 
+//不限制行数
 class PrincipleCardScrollView extends StatelessWidget {
   PrincipleCardScrollView({Key key}) : super(key: key);
   @override
@@ -172,11 +166,11 @@ class PrincipleCardScrollView extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(10.0),
       children: <Widget>[
-        PrincipleCard(
-          principle_text: '使用First principles, 不要用analogy',
+        FullPrincipleCard(
+          principle_text: '''使用First principles, 不要用analogy''',
           principle_description: 'from Elon Musk',
         ),
-        PrincipleCard(
+        FullPrincipleCard(
           principle_text: 'Follow principles',
           principle_description: 'from Ray Dalio',
         ),
@@ -185,6 +179,7 @@ class PrincipleCardScrollView extends StatelessWidget {
   }
 }
 
+//限制行数
 class PrincipleCardScrollView2 extends StatelessWidget {
   PrincipleCardScrollView2({Key key}) : super(key: key);
   @override

@@ -48,6 +48,9 @@ flutter:
     - lib/assets/figure2.png
     - lib/assets/figure3.png
     - lib/assets/figure4.png
+    - lib/assets/background1.jpg
+    - lib/assets/background2.jpg
+
 
 
 

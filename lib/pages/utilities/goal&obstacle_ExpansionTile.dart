@@ -89,12 +89,6 @@ class GoalAndObstaclesItem extends StatelessWidget {
             textScaleFactor: 1.6,
           ),
           subtitle: Text(''),
-          // trailing: IconButton(
-          //   icon: Icon(Icons.edit),
-          //   onPressed: () {
-          //     Navigator.pushNamed(context, 'NewPrinciple');
-          //   },
-          // ),
           children: root.children.map(_buildTiles).toList(),
         )
       ],
@@ -106,7 +100,7 @@ class GoalAndObstaclesItem extends StatelessWidget {
     return _buildTiles(goalAndObstacles);
   }
 }
-
+ 
 class GoalAndObstaclesExtensionListView extends StatefulWidget {
   @override
   _GoalAndObstaclesExtensionListViewState createState() =>
