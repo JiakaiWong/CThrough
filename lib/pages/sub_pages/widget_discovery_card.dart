@@ -3,22 +3,53 @@
 import 'package:flutter/material.dart';
 import 'widget_principle_card.dart';
 
-//头像昵称签名和喜欢关注的一小条个人信息
-class _AvatarAndNickName extends StatelessWidget {
-  _AvatarAndNickName({
-    Key key,
-    this.thumbnail, //图片
+//个人基本数据结构
+class NameAnduserIdentity {
+  NameAnduserIdentity({
+    this.uuid,
+    this.userName,
+    this.userIdentity,
+  });
+  String uuid;
+  @required
+  String userName;
+  String userIdentity;
+}
 
-    this.nick_name,
-    this.personal_message,
-    this.liked,
+//头像昵称签名和关注的一小条个人信息结构
+class PersonTileData {
+  PersonTileData({
+    this.uuid,
+    this.userName,
+    this.userIdentity,
     this.followed,
-  }) : super(key: key); //constructor?
-  final Widget thumbnail;
-  final String nick_name;
-  final String personal_message;
-  final int liked;
-  final int followed;
+    this.thumbnail,
+  });
+  String uuid;
+  @required
+  String userName;
+  String userIdentity;
+  int followed;
+  Widget thumbnail;
+}
+
+//头像昵称签名和关注的一小条个人信息还会显示认证信息(小号)
+class SmallPersonalTile extends StatelessWidget {
+  SmallPersonalTile({
+    Key key,
+    this.uuid,
+    this.userName,
+    this.userIdentity,
+    this.followed,
+    this.thumbnail,
+  }) : super(key: key);
+  String uuid;
+  @required
+  String userName;
+  String userIdentity;
+  int followed;
+  Widget thumbnail;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +75,7 @@ class _AvatarAndNickName extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  '$nick_name',
+                  '$userName',
                   textScaleFactor: 0.9,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -53,7 +84,7 @@ class _AvatarAndNickName extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '$personal_message',
+                  '$userIdentity',
                   textScaleFactor: 1,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -64,31 +95,23 @@ class _AvatarAndNickName extends StatelessWidget {
               ],
             ),
           ),
+          Icon(
+            Icons.verified_user,
+            size: 15,
+            color: userIdentity == '' || userIdentity == null
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).accentColor,
+          ),
           Expanded(
             flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '被喜欢：$liked',
-                  textScaleFactor: 0.9,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
-                ),
-                Text(
-                  '被关注：$followed',
-                  textScaleFactor: 1,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
+            child: Text(
+              '被关注：$followed',
+              textScaleFactor: 1,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.grey,
+              ),
             ),
           ),
         ],
@@ -99,24 +122,24 @@ class _AvatarAndNickName extends StatelessWidget {
 
 //发现页面的原则卡片（个人信息+1条原则）
 class DiscoverPrincipleCard extends StatelessWidget {
-  DiscoverPrincipleCard({
-    Key key,
-    this.thumbnail, //图片
-    this.nick_name,
-    this.personal_message,
-    this.liked,
-    this.followed,
-    this.principle_text,
-    this.principle_description,
-  }) : super(key: key);
-  final Widget thumbnail;
-  final String nick_name;
-  final String personal_message;
-  final int liked;
-  final int followed;
-  final String principle_text;
-  final String principle_description;
+  DiscoverPrincipleCard(
+      {Key key,
+      this.uuid,
+      this.userName,
+      this.userIdentity,
+      this.followed,
+      this.thumbnail,
+      this.principleText,
+      this.principleDescription});
+  String uuid;
+  @required
+  String userName;
+  String userIdentity;
+  int followed;
+  Widget thumbnail;
   @override
+  String principleText;
+  String principleDescription;
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -137,17 +160,17 @@ class DiscoverPrincipleCard extends StatelessWidget {
             child: Container(
               child: Column(
                 children: <Widget>[
-                  _AvatarAndNickName(
+                  SmallPersonalTile(
+                    userName: userName,
                     thumbnail: thumbnail,
-                    nick_name: nick_name,
-                    personal_message: personal_message,
-                    liked: liked,
+                    userIdentity: userIdentity,
                     followed: followed,
+                    uuid: uuid,
                   ),
                   SizedBox(
                     child: SmallPrincipleDescription(
-                      principle_description: principle_description,
-                      principle_text: principle_text,
+                      principleDescription: principleDescription,
+                      principleText: principleText,
                     ),
                   )
                 ],
@@ -160,19 +183,22 @@ class DiscoverPrincipleCard extends StatelessWidget {
   }
 }
 
-//只显示人个人信息的卡片
+//比较大的显示人个人信息的卡片，比_AvatarAndNickName大
 class PersonCard extends StatelessWidget {
   PersonCard({
     Key key,
-    this.thumbnail, //图片
-    this.nick_name,
-    this.personal_message,
+    this.uuid,
+    this.userName,
+    this.userIdentity,
     this.followed,
-  }) : super(key: key);
-  final Widget thumbnail;
-  final String nick_name;
-  final String personal_message;
-  final int followed;
+    this.thumbnail,
+  });
+  String uuid;
+  @required
+  String userName;
+  String userIdentity;
+  int followed;
+  Widget thumbnail;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -192,12 +218,7 @@ class PersonCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              child: _PersonalTile(
-                thumbnail: thumbnail,
-                nick_name: nick_name,
-                personal_message: personal_message,
-                followed: followed,
-              ),
+              child: BigPersonalTile(),
             ),
           ),
         ),
@@ -215,6 +236,9 @@ class DiscoverPrincipleScrollView extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       children: <Widget>[
         DiscoverPrincipleCard(
+          userIdentity: '成为超级现实主义的人',
+          userName: '北大教授王铁崖',
+          followed: 30,
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
@@ -224,31 +248,30 @@ class DiscoverPrincipleScrollView extends StatelessWidget {
               shape: BoxShape.circle,
             ),
           ),
-          nick_name: '北大教授王铁崖',
-          personal_message: '',
-          principle_text: '成为超级现实主义的人',
-          principle_description: '成功达到目标的人必须明白真实的因果关系，而理想主义者只创造问题，而不是推动进步。',
-          liked: 100,
-          followed: 30,
+          principleText: 'Principle',
+          principleDescription: '成功达到目标的人必须明白真实的因果关系，而理想主义者只创造问题，而不是推动进步。',
         ),
       ],
     );
   }
 }
 
-class _PersonalTile extends StatelessWidget {
-  _PersonalTile({
+//头像昵称签名和关注的一小条个人信息还会显示认证信息(大号)
+class BigPersonalTile extends StatelessWidget {
+  BigPersonalTile({
     Key key,
-    this.thumbnail, //图片
-
-    this.nick_name,
-    this.personal_message,
+    this.uuid,
+    this.userName,
+    this.userIdentity,
     this.followed,
-  }) : super(key: key); //constructor?
-  final Widget thumbnail;
-  final String nick_name;
-  final String personal_message;
-  final int followed;
+    this.thumbnail,
+  });
+  String uuid;
+  @required
+  String userName;
+  String userIdentity;
+  int followed;
+  Widget thumbnail;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -275,7 +298,7 @@ class _PersonalTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  '$nick_name',
+                  '$userName',
                   textScaleFactor: 1.4,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -284,7 +307,7 @@ class _PersonalTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '$personal_message',
+                  '$userIdentity',
                   textScaleFactor: 1,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -298,7 +321,7 @@ class _PersonalTile extends StatelessWidget {
           Icon(
             Icons.verified_user,
             size: 15,
-            color: personal_message == '' || personal_message == null
+            color: userIdentity == '' || userIdentity == null
                 ? Theme.of(context).primaryColor
                 : Theme.of(context).accentColor,
           ),

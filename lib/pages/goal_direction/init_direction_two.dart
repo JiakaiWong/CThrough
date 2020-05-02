@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class InitPage extends StatefulWidget {
+class InitPageTwo extends StatefulWidget {
   @override
-  _InitPageState createState() => _InitPageState();
+  _InitPageTwoState createState() => _InitPageTwoState();
 }
 
-class _InitPageState extends State<InitPage> {
+class _InitPageTwoState extends State<InitPageTwo> {
   startTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool firstTime = prefs.getBool('first_time');
@@ -23,12 +23,12 @@ class _InitPageState extends State<InitPage> {
     }
   }
   void navigationPageHome() {
-    Navigator.of(context).pushReplacementNamed('Navigator');
+    Navigator.of(context).pushReplacementNamed('Navitator');
   }
 
   void navigationPageWel() {
 
-    Navigator.of(context).pushReplacementNamed('WelcomePage2');
+    Navigator.of(context).pushReplacementNamed('WelcomePage');
   }
 
 
@@ -62,8 +62,8 @@ class _InitPageState extends State<InitPage> {
                   width: MediaQuery.of(context).size.width *3/4,
                   child: Text(
                     '''
-    希望大家和我一样，把自己的失败经验，失败的人生，一字一句，仔仔细细的总结起来，和盘托出，毫无保留的，实名制的告诉全世界，告诉世界上的每一个人。           
-                ————曾博''',
+                    
+                ''',
                     style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600),
                     textScaleFactor: 1.6,
                   ),
@@ -77,7 +77,7 @@ class _InitPageState extends State<InitPage> {
                       icon: Icon(Icons.arrow_forward_ios), 
                       iconSize: 50,
                       color: Colors.black,
-                      onPressed:(){ Navigator.pushReplacementNamed(context, 'WelcomePage2');}
+                      onPressed:(){ Navigator.pushReplacementNamed(context, 'LogIn');}
                       )
                   )
                   ),

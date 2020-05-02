@@ -1,9 +1,9 @@
-
 import 'package:date_matching/pages/sub_pages/widget_discovery_card.dart';
+import 'package:date_matching/pages/sub_pages/widget_principle_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'sub_pages/page_edit_profile.dart';
-import 'sub_pages/widget_principle_card.dart';
+import 'sub_pages/widget_discovery_card.dart';
 // class DemoDocumentScreen extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
@@ -29,27 +29,26 @@ class DocumentScreen extends StatelessWidget {
   //   this.ultimateGoal3,
   //   this.avatar,
   // }) : super(key: key); //constructor?
-  
+
   @override
   Widget build(BuildContext context) {
     final userName = Provider.of<NameAndMessage>(context).userName;
-  final  userIdentity= Provider.of<NameAndMessage>(context).userIdentity;
-  final  ultimateGoal1 = Provider.of<NameAndMessage>(context).ultimateGoal1;
-  final  ultimateGoal2 = Provider.of<NameAndMessage>(context).ultimateGoal2;
-  final  ultimateGoal3 = Provider.of<NameAndMessage>(context).ultimateGoal3;
-  //final Image avatar;
+    final userIdentity = Provider.of<NameAndMessage>(context).userIdentity;
+    final ultimateGoal1 = Provider.of<NameAndMessage>(context).ultimateGoal1;
+    final ultimateGoal2 = Provider.of<NameAndMessage>(context).ultimateGoal2;
+    final ultimateGoal3 = Provider.of<NameAndMessage>(context).ultimateGoal3;
+    //final Image avatar;
     return Scaffold(
       appBar: AppBar(
         title: Text(''),
         elevation: 0,
         leading: IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, 'EditProfileScreen');
-              },
-              icon: Icon(Icons.edit),
-              ),
+          onPressed: () {
+            Navigator.pushNamed(context, 'EditProfileScreen');
+          },
+          icon: Icon(Icons.edit),
+        ),
         actions: <Widget>[
-          
           IconButton(
             icon: Icon(Icons.alternate_email),
             onPressed: () {
@@ -58,27 +57,30 @@ class DocumentScreen extends StatelessWidget {
           )
         ],
       ),
-      body: ListView(
+      body: 
+      ListView(
         padding: const EdgeInsets.all(10.0),
         children: <Widget>[
-          PersonCard(
-            thumbnail: AspectRatio(
-                    aspectRatio: 1,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('lib/assets/figure1.png'),
-                          //fit: BoxFit.fill,
-                        ),
-                        shape: BoxShape.circle,
-                      ),
+          BigPersonalTile(
+            
+            
+                userName: userName,
+                userIdentity: userIdentity,
+              
+              followed: 23,
+              thumbnail: AspectRatio(
+                aspectRatio: 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('lib/assets/figure1.png'),
                     ),
+                    shape: BoxShape.circle,
                   ),
-            nick_name: userName,
-            followed: 23,
-            personal_message: userIdentity,
+                ),
+              ),
+            
           ),
-     
           ListTile(
             title: Text('终极目标'),
             subtitle: Text('$ultimateGoal1,$ultimateGoal2,$ultimateGoal3'),

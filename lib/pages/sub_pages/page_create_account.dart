@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatefulWidget {
+class CreateAccount extends StatefulWidget {
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  CreateAccountState createState() => CreateAccountState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class CreateAccountState extends State<CreateAccount> {
   List<bool> checkboxesForConsumptivePower = [false, false, false, false];
   @override
   Widget build(BuildContext context) {
@@ -72,8 +72,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 maxLength: 50,
               ),
-              
-              
               
               FlatButton(
                 onPressed: () {

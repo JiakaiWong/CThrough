@@ -464,6 +464,23 @@ class MyGoalPage extends StatelessWidget {
     );
   }
 }
+
+// ListView.builder(
+//           itemCount: null,
+//           // itemExtent: 50.0, //强制高度为50.0
+//           itemBuilder: (BuildContext context, int index) {
+//             return FiveStepCard(
+//               goal_setted: Uuid().v4(),
+//               problems_identified: '这是实现第$index个目标遇到的问题',
+//               root_causes_identified: '这是实现第$index个目标遇到的问题背后的根本原因',
+//               plan_designed: '这是为了克服第$index个目标遇到的问题所制定的计划',
+//               action_performed: '这是为了克服第$index个目标遇到的问题所制定的计划的完成情况',
+//             );
+//           }),
+
+
+
+
 // ListView(
 //   padding: const EdgeInsets.all(10.0),
 //   children: <Widget>[

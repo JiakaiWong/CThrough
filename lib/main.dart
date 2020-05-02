@@ -1,47 +1,66 @@
 import 'package:flutter/material.dart';
-import 'pages/sub_pages/edit_profile_screen.dart';
-import 'pages/sub_pages/new_principle_page.dart';
+import 'package:provider/provider.dart';
+import 'pages/sub_pages/page_edit_profile.dart';
+import 'pages/sub_pages/page_new_principle.dart';
 
-import 'pages/goal_direction/goal_direction_page_one.dart';
-import 'pages/goal_direction/goal_direction_page_two.dart';
-import 'pages/goal_direction/goal_direction_page_three.dart';
-import 'pages/goal_direction/goal_direction_page_four.dart';
-import 'pages/utilities/edit_goal.dart';
+import 'pages/goal_direction/page_goal_dir_one.dart';
+import 'pages/goal_direction/page_goal_dir_two.dart';
+import 'pages/goal_direction/page_goal_dir_three.dart';
+import 'pages/goal_direction/page_goal_dir_four.dart';
 
-import 'pages/utilities/others_goal_and_principles.dart';
-import 'pages/sub_pages/register_page.dart';
+import 'pages/sub_pages/page_edit_goal.dart';
+import 'pages/sub_pages/page_create_account.dart';
 import 'bottom_navigation_widget.dart';
-import 'pages/sub_pages/about_us_page.dart';
-import 'pages/sub_pages/log_in_page.dart';
-import 'pages/sub_pages/change_password_page.dart';
-import 'pages/utilities/view_following.dart';
+import 'pages/sub_pages/page_about_us.dart';
+import 'pages/sub_pages/page_log_in.dart';
+import 'pages/sub_pages/page_change_password.dart';
 import 'pages/goal_direction/init_direction.dart';
+import 'pages/goal_direction/init_direction_two.dart';
 
-void main() => runApp(new MyApp());
+void main() {
+  final myProfileNotifier = ProfileNotifier();
+  var myNameAndMessage = NameAndMessage(
+    '默认用户名',
+    '',
+    'To understand the world',
+    'To impact the world',
+    'To learn/evolve',
+  );
+
+  runApp(
+    Provider<NameAndMessage>.value(
+      value: myNameAndMessage,
+      child: ChangeNotifierProvider.value(
+        value: myProfileNotifier,
+        child: MyApp(),
+      ),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      initialRoute: 'init',
+      initialRoute: 'WelcomePage',
       routes: {
         'Navigator': (context) => BottomNavigationWidget(),
-        'EditProfileScreen': (context) => EditProfilePage(),
+        'WelcomePage': (context) => InitPage(),
+        'WelcomePage2': (context) => InitPageTwo(),
         'AboutPage': (context) => AboutPage(),
-        'NewPrinciple': (context) => NewPrinciplePage(),
-        'LogIn': (context) => LoginPage(),
-        'EditGoal': (context) => EditGoal(),
-
         'NewGoal1': (context) => NewGoalDirectionPageOne(),
         'NewGoal2': (context) => NewGoalDirectionPageTwo(),
         'NewGoal3': (context) => NewGoalDirectionPageThree(),
         'NewGoal4': (context) => NewGoalDirectionPageFour(),
-        'PrincipleView': (context) => PrinciplePeak(),
-        'PrincipleView2': (context) => PrinciplePeak2(),
-        'Register': (context) => RegisterPage(),
+        'NewPrinciple': (context) => NewPrinciplePage(),
+        'LogIn': (context) => LoginPage(),
+        'EditGoal': (context) => EditGoal(),
+        
+        'Register': (context) => CreateAccount(),
         'ChangePassword': (context) => ChangePasswordPage(),
-        'ViewFollowing': (context) => ViewFollowingPage(),
-        'init': (context) => InitPage(),
+        
+        'EditProfileScreen': (context) => EditProfilePage(),
+
       },
       title: 'Flutter bottomNavigationBar',
       theme: ThemeData(
