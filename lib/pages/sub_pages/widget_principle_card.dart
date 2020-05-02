@@ -19,7 +19,7 @@ class SmallPrincipleDescription extends StatelessWidget {
           children: <Widget>[
             Text(
               '$principle_text',
-              textScaleFactor: 2.2,
+              textScaleFactor: 1.4,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
@@ -29,7 +29,7 @@ class SmallPrincipleDescription extends StatelessWidget {
             const Padding(padding: EdgeInsets.only(bottom: 2.0)),
             Text(
               '$principle_description',
-              textScaleFactor: 1.5,
+              textScaleFactor: 1,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
@@ -107,19 +107,12 @@ class PrincipleCard extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(30),
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                child: SmallPrincipleDescription(
-                  principle_text: principle_text,
-                  principle_description: principle_description,
-                ),
-              ),
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+          child: SmallPrincipleDescription(
+            principle_text: principle_text,
+            principle_description: principle_description,
+          ),
         ),
       ),
     );
@@ -139,25 +132,25 @@ class FullPrincipleCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
-                child: FullPrincipleDescription(
-                  principle_text: principle_text,
-                  principle_description: principle_description,
-                ),
-              ),
-            )
-          ],
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey,
+            width: 0,
+          ),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20.0, 20, 20, 20),
+          child: FullPrincipleDescription(
+            principle_text: principle_text,
+            principle_description: principle_description,
+          ),
         ),
       ),
     );
   }
 }
-
+//光光显示principle的
 //不限制行数
 class PrincipleCardScrollView extends StatelessWidget {
   PrincipleCardScrollView({Key key}) : super(key: key);
@@ -166,6 +159,22 @@ class PrincipleCardScrollView extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(10.0),
       children: <Widget>[
+        FullPrincipleCard(
+          principle_text: '''使用First principles, 不要用analogy''',
+          principle_description: 'from Elon Musk',
+        ),
+        FullPrincipleCard(
+          principle_text: '观察客观世界了解事物运作的方式',
+          principle_description: '不要拘泥于你所认为事物“应该”如何，因为这样会帮助你你会忘记事物的真相。要想“做好”，一个人必须持续按照自然规律行动',
+        ),
+        FullPrincipleCard(
+          principle_text: '''进化是生命最伟大的成就和最丰厚的奖赏''',
+          principle_description: '个人的目标必须与集体目标一致。客观世界总是趋向于整体优化，而不是个人。频繁的试错中获得的适应力是无价的。一个人总是既伟大又平凡，了解这一点，然后决定你想成为的样子。',
+        ),
+        FullPrincipleCard(
+          principle_text: 'Follow principles',
+          principle_description: 'from Ray Dalio',
+        ),
         FullPrincipleCard(
           principle_text: '''使用First principles, 不要用analogy''',
           principle_description: 'from Elon Musk',

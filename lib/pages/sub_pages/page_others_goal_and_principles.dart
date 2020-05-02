@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'my_goal_view.dart';
-import 'principle_card.dart';
-import 'goal&obstacle_ExpansionTile.dart';
+import 'widget_my_goals_view.dart';
+import 'widget_principle_card.dart';
 
 class PrinciplePeak extends StatelessWidget {
   @override
@@ -18,17 +17,17 @@ class PrinciplePeak extends StatelessWidget {
             flex: 1,
             child: PrincipleCardScrollView(),
           ),
-          Expanded(
-            flex: 1,
-            child: GoalAndObstaclesExtensionListView(),
-          )
+          // Expanded(
+          //   flex: 1,
+          //   child: GoalAndObstaclesExtensionListView(),
+          // )
         ]),
       ),
       //PrincipleCardScrollView(),
     );
   }
 }
-
+//看别人的原则
 class PrinciplePeak2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

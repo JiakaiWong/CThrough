@@ -25,9 +25,11 @@ class InitPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width *3/4,
                   child: Text(
                     '''
-    希望大家和我一样，把自己的失败经验，失败的人生，一字一句，仔仔细细的总结起来，和盘托出，毫无保留的，实名制的告诉全世界，告诉世界上的每一个人。    ————曾博                ''',
+    希望大家和我一样，把自己的失败经验，失败的人生，一字一句，仔仔细细的总结起来，和盘托出，毫无保留的，实名制的告诉全世界，告诉世界上的每一个人。           
+                ————曾博''',
                     maxLines: 999,
-                    textScaleFactor: 1.5,
+                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600),
+                    textScaleFactor: 1.6,
                   ),
                 ),
                   )
@@ -38,6 +40,7 @@ class InitPage extends StatelessWidget {
                     child: IconButton(
                       icon: Icon(Icons.arrow_forward_ios), 
                       iconSize: 50,
+                      color: Colors.black,
                       onPressed:(){ Navigator.pushReplacementNamed(context, 'LogIn');}
                       )
                   )
