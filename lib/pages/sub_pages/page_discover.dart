@@ -18,7 +18,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80.0),
@@ -51,14 +51,18 @@ class _DiscoverPageState extends State<DiscoverPage> {
             ],
             bottom: TabBar(tabs: [
               Tab(
-                text: "推荐",
+                text: "推荐的原则",
               ),
               Tab(
-                text: "关注",
+                text: "推荐的经历",
               ),
               Tab(
-                text: '附近',
+                text: "关注的人的原则",
               ),
+              Tab(
+                text: "关注的人的经历",
+              ),
+
               // Tab(
               //   text: '搜索',
               // ),
@@ -69,6 +73,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
           children: <Widget>[
             DiscoverRecommended(),
             DiscoverFollowing(),
+            DiscoverNearby(),
             DiscoverNearby(),
           ],
         ),

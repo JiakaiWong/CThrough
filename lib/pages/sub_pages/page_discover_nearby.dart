@@ -17,7 +17,7 @@ class DiscoverNearby extends StatelessWidget {
             ),
           ),
           nick_name: '北大教授王铁崖',
-          personal_message: '就要豪迈',
+          personal_message: '',
           followed: 30,
         ),
         PersonCard(

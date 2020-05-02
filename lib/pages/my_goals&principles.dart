@@ -23,7 +23,7 @@ class MyGoalsAndPrinciplesPage extends StatelessWidget {
           ),
           body: TabBarView(
             children: <Widget>[
-              DemoPrincipleCardScrollView(),
+              MyGoalPage(),
               PrincipleCardScrollView(),
             ],
           )),

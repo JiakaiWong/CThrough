@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'widget_principle_card.dart';
 
-//头像昵称签名和喜欢关注的一小条信息
+//头像昵称签名和喜欢关注的一小条个人信息
 class _AvatarAndNickName extends StatelessWidget {
   _AvatarAndNickName({
     Key key,
@@ -97,9 +97,9 @@ class _AvatarAndNickName extends StatelessWidget {
   }
 }
 
-//发现页面的原则卡片
-class AvatarAndPersonalMessageCard extends StatelessWidget {
-  AvatarAndPersonalMessageCard({
+//发现页面的原则卡片（个人信息+1条原则）
+class DiscoverPrincipleCard extends StatelessWidget {
+  DiscoverPrincipleCard({
     Key key,
     this.thumbnail, //图片
     this.nick_name,
@@ -160,6 +160,7 @@ class AvatarAndPersonalMessageCard extends StatelessWidget {
   }
 }
 
+//只显示人个人信息的卡片
 class PersonCard extends StatelessWidget {
   PersonCard({
     Key key,
@@ -205,15 +206,15 @@ class PersonCard extends StatelessWidget {
   }
 }
 
-class AvatarAndPersonalMessageTileScrollView extends StatelessWidget {
-  AvatarAndPersonalMessageTileScrollView({Key key}) : super(key: key);
+class DiscoverPrincipleScrollView extends StatelessWidget {
+  DiscoverPrincipleScrollView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(10.0),
       children: <Widget>[
-        AvatarAndPersonalMessageCard(
+        DiscoverPrincipleCard(
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
@@ -224,7 +225,7 @@ class AvatarAndPersonalMessageTileScrollView extends StatelessWidget {
             ),
           ),
           nick_name: '北大教授王铁崖',
-          personal_message: '就要豪迈',
+          personal_message: '',
           principle_text: '成为超级现实主义的人',
           principle_description: '成功达到目标的人必须明白真实的因果关系，而理想主义者只创造问题，而不是推动进步。',
           liked: 100,
@@ -293,6 +294,13 @@ class _PersonalTile extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          Icon(
+            Icons.verified_user,
+            size: 15,
+            color: personal_message == '' || personal_message == null
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).accentColor,
           ),
           Expanded(
             flex: 2,

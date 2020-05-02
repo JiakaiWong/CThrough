@@ -16,7 +16,9 @@ class _NewGoalDirectionPageThreeState extends State<NewGoalDirectionPageThree> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('困难分析'),
+                leading: Container(),
+
+        title: Text('障碍透视'),
         elevation: 0,
         actions: <Widget>[
           IconButton(

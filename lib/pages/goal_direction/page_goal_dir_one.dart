@@ -18,6 +18,7 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
       appBar: AppBar(
         title: Text('新目标'),
         elevation: 0,
+        leading: Container(),
         actions: <Widget>[
           IconButton(
             

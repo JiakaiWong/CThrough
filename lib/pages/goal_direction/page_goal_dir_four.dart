@@ -16,6 +16,8 @@ class _NewGoalDirectionPageFourState extends State<NewGoalDirectionPageFour> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+                leading: Container(),
+
         title: Text('计划制定'),
         elevation: 0,
         actions: <Widget>[

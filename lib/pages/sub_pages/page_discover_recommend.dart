@@ -6,7 +6,7 @@ class DiscoverRecommended extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        AvatarAndPersonalMessageCard(
+        DiscoverPrincipleCard(
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
@@ -23,7 +23,7 @@ class DiscoverRecommended extends StatelessWidget {
           liked: 423,
           followed: 12,
         ),
-        AvatarAndPersonalMessageCard(
+        DiscoverPrincipleCard(
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
@@ -40,7 +40,7 @@ class DiscoverRecommended extends StatelessWidget {
           liked: 213,
           followed: 43,
         ),
-        AvatarAndPersonalMessageCard(
+        DiscoverPrincipleCard(
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
@@ -57,7 +57,7 @@ class DiscoverRecommended extends StatelessWidget {
           liked: 321,
           followed: 99,
         ),
-        AvatarAndPersonalMessageCard(
+        DiscoverPrincipleCard(
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
@@ -74,7 +74,7 @@ class DiscoverRecommended extends StatelessWidget {
           liked: 423,
           followed: 12,
         ),
-        AvatarAndPersonalMessageCard(
+        DiscoverPrincipleCard(
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
@@ -91,7 +91,7 @@ class DiscoverRecommended extends StatelessWidget {
           liked: 213,
           followed: 43,
         ),
-        AvatarAndPersonalMessageCard(
+        DiscoverPrincipleCard(
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(

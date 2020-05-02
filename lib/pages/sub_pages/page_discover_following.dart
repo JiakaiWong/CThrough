@@ -6,7 +6,7 @@ class DiscoverFollowing extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        AvatarAndPersonalMessageCard(
+        DiscoverPrincipleCard(
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
@@ -17,13 +17,13 @@ class DiscoverFollowing extends StatelessWidget {
             ),
           ),
           nick_name: '北大教授王铁崖',
-          personal_message: '就要豪迈',
+          personal_message: '',
           principle_text: '成为超级现实主义的人',
           principle_description: '成功达到目标的人必须明白真实的因果关系，而理想主义者只创造问题，而不是推动进步。',
           liked: 423,
           followed: 12,
         ),
-        AvatarAndPersonalMessageCard(
+        DiscoverPrincipleCard(
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
@@ -40,7 +40,7 @@ class DiscoverFollowing extends StatelessWidget {
           liked: 213,
           followed: 43,
         ),
-        AvatarAndPersonalMessageCard(
+        DiscoverPrincipleCard(
           thumbnail: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
