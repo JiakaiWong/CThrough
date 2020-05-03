@@ -51,7 +51,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                       text: '请不要将“目标”与“欲望”混淆。',
                       style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.none,
@@ -67,7 +67,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                       text: '不要因为您未充分分析的障碍而限制你的目标实现。.',
                       style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.none,
@@ -86,8 +86,7 @@ class _EditGoalState extends State<EditGoal> {
                 maxLines: 10,
               ),
               Text('''
-    那些最主要的阻碍您达到目标的障碍是什么？
-                    '''),
+那些最主要的阻碍您达到目标的障碍是什么？'''),
               RichText(
                 text: TextSpan(
                   style: DefaultTextStyle.of(context).style,
@@ -95,7 +94,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                       text: '请不要将问题和原因混淆。',
                       style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.none,
@@ -111,7 +110,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                       text: '当识别困难时，保持专注和有逻辑很重要。',
                       style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.none,
@@ -127,7 +126,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                       text: '请留意“温水煮青蛙”现象.',
                       style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.none,
@@ -152,7 +151,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                         text: '请试着分析出造成障碍的根本原因',
                         style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.w600,
                           fontSize: 30,
@@ -171,7 +170,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                       text: '分辨根本原因和直接原因很重要。',
                       style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.none,
@@ -187,7 +186,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                       text: '不停的问“为什么”，通常能帮助你找到根本原因',
                       style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.none,
@@ -212,7 +211,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                         text: '请试着分析出造成障碍的根本原因',
                         style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.w600,
                           fontSize: 30,
@@ -231,7 +230,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                       text: '分辨根本原因和直接原因很重要。',
                       style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.none,
@@ -247,7 +246,7 @@ class _EditGoalState extends State<EditGoal> {
                     TextSpan(
                       text: '根本原因不是行为，而是一种理论',
                       style: TextStyle(
-                          height: 2,
+                          height: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.none,

@@ -1,4 +1,4 @@
-import 'package:date_matching/pages/sub_pages/page_discover_following.dart';
+import 'page_discover_following.dart';
 
 import 'package:flutter/material.dart';
 import 'widget_discovery_card.dart';

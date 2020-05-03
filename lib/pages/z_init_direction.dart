@@ -28,7 +28,7 @@ class _InitPageState extends State<InitPage> {
 
   void navigationPageWel() {
 
-    Navigator.of(context).pushReplacementNamed('WelcomePage2');
+    Navigator.of(context).pushReplacementNamed('WelcomePage');
   }
 
 
@@ -48,10 +48,11 @@ class _InitPageState extends State<InitPage> {
           flex: 3,
           child: Container(
             decoration: new BoxDecoration(
-              image: DecorationImage(
-                image: new AssetImage('lib/assets/background2.jpg'),
-                fit: BoxFit.fill,
-              ),
+              color: Theme.of(context).primaryColor,
+              // image: DecorationImage(
+              //   image: new AssetImage('lib/assets/background2.jpg'),
+              //   fit: BoxFit.fill,
+              // ),
             ),
             child: Column(
               children: <Widget>[
@@ -62,8 +63,7 @@ class _InitPageState extends State<InitPage> {
                   width: MediaQuery.of(context).size.width *3/4,
                   child: Text(
                     '''
-    希望大家和我一样，把自己的失败经验，失败的人生，一字一句，仔仔细细的总结起来，和盘托出，毫无保留的，实名制的告诉全世界，告诉世界上的每一个人。           
-                ————曾博''',
+    陌生人结识的障碍在于有太多不合，我们试图通过扣问心门的的追问让用户将心底的想法以及人生的行程暴露出来，提高陌生人社交的效率''',
                     style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600),
                     textScaleFactor: 1.6,
                   ),
@@ -77,7 +77,7 @@ class _InitPageState extends State<InitPage> {
                       icon: Icon(Icons.arrow_forward_ios), 
                       iconSize: 50,
                       color: Colors.black,
-                      onPressed:(){ Navigator.pushReplacementNamed(context, 'WelcomePage2');}
+                      onPressed:(){ Navigator.pushReplacementNamed(context, 'LogIn');}
                       )
                   )
                   ),

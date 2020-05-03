@@ -1,48 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'pages/sub_pages/page_edit_profile.dart';
-import 'pages/sub_pages/page_new_principle.dart';
+import 'pages/page_edit_profile.dart';
+import 'pages/page_new_principle.dart';
 
-import 'pages/goal_direction/page_goal_dir_one.dart';
-import 'pages/goal_direction/page_goal_dir_two.dart';
-import 'pages/goal_direction/page_goal_dir_three.dart';
-import 'pages/goal_direction/page_goal_dir_four.dart';
+import 'pages/page_goal_dir_one.dart';
+import 'pages/page_goal_dir_two.dart';
+import 'pages/page_goal_dir_three.dart';
+import 'pages/page_goal_dir_four.dart';
 
-import 'pages/sub_pages/page_edit_goal.dart';
-import 'pages/sub_pages/page_create_account.dart';
+import 'pages/page_edit_goal.dart';
+import 'pages/page_create_account.dart';
 import 'bottom_navigation_widget.dart';
-import 'pages/sub_pages/page_about_us.dart';
-import 'pages/sub_pages/page_log_in.dart';
-import 'pages/sub_pages/page_change_password.dart';
-import 'pages/goal_direction/init_direction.dart';
-import 'pages/goal_direction/init_direction_two.dart';
+import 'pages/page_about_us.dart';
+import 'pages/page_log_in.dart';
+import 'pages/page_change_password.dart';
+import 'pages/z_init_direction.dart';
+import 'pages/init_direction_two.dart';
 
-void main() {
-  final myProfileNotifier = ProfileNotifier();
-  var myNameAndMessage = NameAndMessage(
-    '默认用户名',
-    '',
-    'To understand the world',
-    'To impact the world',
-    'To learn/evolve',
-  );
-
-  runApp(
-    Provider<NameAndMessage>.value(
-      value: myNameAndMessage,
-      child: ChangeNotifierProvider.value(
-        value: myProfileNotifier,
-        child: MyApp(),
-      ),
-    ),
-  );
-}
+// void main() {
+//   final myProfileNotifier = ProfileNotifier();
+//   var myNameAndMessage = NameAndMessage(
+//     '默认用户名',
+//     '',
+//     'To understand the world',
+//     'To impact the world',
+//     'To learn/evolve',
+//   );
+  
+//   runApp(
+//     Provider<NameAndMessage>.value(
+//       value: myNameAndMessage,
+//       child: ChangeNotifierProvider.value(
+//         value: myProfileNotifier,
+//         child: MyApp(),
+//       ),
+//     ),
+//   );
+// }
+void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      initialRoute: 'WelcomePage',
+      initialRoute: 'WelcomePage2',
       routes: {
         'Navigator': (context) => BottomNavigationWidget(),
         'WelcomePage': (context) => InitPage(),
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
         'LogIn': (context) => LoginPage(),
         'EditGoal': (context) => EditGoal(),
         
-        'Register': (context) => CreateAccount(),
+        'Register': (context) => CreateAccountPage(),
         'ChangePassword': (context) => ChangePasswordPage(),
         
         'EditProfileScreen': (context) => EditProfilePage(),

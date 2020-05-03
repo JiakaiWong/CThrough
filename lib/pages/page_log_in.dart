@@ -11,6 +11,23 @@ class _LoginPageState extends State<LoginPage> {
   bool _isObscure = true;
   Color _eyeColor;
 
+  Future<bool> Faliure() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('密码不正确'),
+            content: new Text('请重试'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text('确定'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                 buildEmailTextField(),
                 SizedBox(height: 30.0),
                 buildPasswordTextField(context),
-                buildForgetPasswordText(context),
+                //buildForgetPasswordText(context),
                 SizedBox(height: 60.0),
                 buildLoginButton(context),
                 SizedBox(height: 30.0),
@@ -52,7 +69,6 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextStyle(color: Colors.green),
               ),
               onTap: () {
-                //TODO 跳转到注册页面
                 print('去注册');
                 Navigator.pushNamed(context, 'Register');
               },
@@ -81,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
             //   print('email:$_email , password:$_password');
             //   print('pushed button');
             Navigator.pushReplacementNamed(context, 'Navigator');
-            // }
           },
         ),
       ),

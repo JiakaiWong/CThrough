@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'sub_pages/widget_my_goals_view.dart';
-import 'sub_pages/widget_principle_card.dart';
+import 'widget_my_goals_view.dart';
+import 'widget_principle_card.dart';
 
 class MyGoalsAndPrinciplesPage extends StatelessWidget {
   @override

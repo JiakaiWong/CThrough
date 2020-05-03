@@ -438,8 +438,15 @@ class FiveStepCardScrollView extends StatelessWidget {
   }
 }
 
-class MyGoalPage extends StatelessWidget {
+class MyGoalPage extends StatefulWidget {
   MyGoalPage({Key key}) : super(key: key);
+  @override
+  _MyGoalPageState createState() => _MyGoalPageState();
+}
+
+class _MyGoalPageState extends State<MyGoalPage> with AutomaticKeepAliveClientMixin{
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -459,75 +466,12 @@ class MyGoalPage extends StatelessWidget {
           label: Text('新的目标'),
           icon: Icon(Icons.add_circle_outline),
           onPressed: () {
+            //TODO:
             Navigator.pushNamed(context, 'NewGoal1');
           }),
     );
   }
 }
-
-// ListView.builder(
-//           itemCount: null,
-//           // itemExtent: 50.0, //强制高度为50.0
-//           itemBuilder: (BuildContext context, int index) {
-//             return FiveStepCard(
-//               goal_setted: Uuid().v4(),
-//               problems_identified: '这是实现第$index个目标遇到的问题',
-//               root_causes_identified: '这是实现第$index个目标遇到的问题背后的根本原因',
-//               plan_designed: '这是为了克服第$index个目标遇到的问题所制定的计划',
-//               action_performed: '这是为了克服第$index个目标遇到的问题所制定的计划的完成情况',
-//             );
-//           }),
-
-
-
-
-// ListView(
-//   padding: const EdgeInsets.all(10.0),
-//   children: <Widget>[
-// FiveStepCard(
-//   goal_setted: '想在五一期间把项目做个七七八八',
-//   problems_identified: '前后端之间接口不熟练，后端不能明确需求情况',
-//   root_causes_identified: '我之前学得少，也没有项目经验',
-//   plan_designed: '多花时间，',
-//   action_performed: '4月30号下午和5月1日全天都在做项目前端',
-//   ),
-//     FiveStepCard(
-//       goal_setted: '要高唱红歌',
-//       problems_identified: '没有时间唱',
-//       root_causes_identified: '不喜欢红歌',
-//       plan_designed: '多听红歌',
-//       action_performed: '听了很多红歌，认识到改革开放以来，中国大陆渐放开一些文艺管制，随着港澳台文化同西方文化开始涌入，大量流行歌曲进入中国大陆；且此时大陆民众的文化水平和认知能力逐渐提高，有些人开始对曾经的一些政策和运动产生反思，这对红色歌曲造成了一定的冲击。不过直到现在，中国政府依然实行言论控制，反映到歌曲上，要么不涉政治，要涉政治则必是红歌。因此，时至如今，中国大陆仍有部分人钟爱红歌。官方举办的大型文艺活动，红色歌曲也仍然是必不可少的节目；以至于一些来大陆发展的外国歌手，也通过表演红歌来获得大陆一些人的好感和认同。',
-//       ),
-//   ],
-// );
-
-// ListView.builder(
-//     itemCount: null,
-//     // itemExtent: 50.0, //强制高度为50.0
-//     itemBuilder: (BuildContext context, int index) {
-//       return FiveStepCard(
-//       goal_setted: '这是第$index个目标',
-//       problems_identified: '这是实现第$index个目标遇到的问题',
-//       root_causes_identified: '这是实现第$index个目标遇到的问题背后的根本原因',
-//       plan_designed: '这是为了克服第$index个目标遇到的问题所制定的计划',
-//       action_performed: '这是为了克服第$index个目标遇到的问题所制定的计划的完成情况',
-//       );
-//     });
-
-// final List<BareFiveStep> demoData = <BareFiveStep>[
-//   BareFiveStep(
-//     goal_setted: 'demodata',
-//     problems_identified: '时间太少',
-//     root_causes_identified: '对完整性要求太高',
-//     plan_designed: '减少完整性、账户认证方面采用网易的api',
-//     action_performed: '取得初步成功',
-//   )
-// ];
-
-// BareFiveStep oneDemoBareFiveStep = BareFiveStep(
-//   goal_setted: 'demodata',
-//   problems_identified: '时间太少',
-//   root_causes_identified: '对完整性要求太高',
-//   plan_designed: '减少完整性、账户认证方面采用网易的api',
-//   action_performed: '取得初步成功',
-// );
+Future<String> NewGoalRequest() async {
+  return await ('http://47.107.117.59/fff/set_target.php');
+}

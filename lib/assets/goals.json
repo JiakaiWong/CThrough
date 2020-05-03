@@ -1,10 +1,5 @@
 {
-    "BarePrinciple": [
-        {
-            "uuid":"dasds",
-            "principle_text": "Princi1",
-            "principle_description": "Des1"
-        }
-        
-    ]
+    "uuid": "dasds",
+    "principleText": "Princi1",
+    "principleDescription": "Des1"
 }

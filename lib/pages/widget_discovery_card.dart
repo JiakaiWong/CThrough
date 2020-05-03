@@ -23,15 +23,32 @@ class PersonTileData {
     this.userName,
     this.userIdentity,
     this.followed,
-    this.thumbnail,
+    this.avatarId,
   });
   String uuid;
   @required
   String userName;
   String userIdentity;
   int followed;
-  Widget thumbnail;
+  int avatarId;
+  PersonTileData.fromJson(Map<String, dynamic> json) {
+    uuid = json['uuid'];
+    userName = json['userName'];
+    userIdentity = json['userIdentity'];
+    followed = int.parse(json['followed']);
+    avatarId = int.parse(json['avatarId']) ;
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['uuid'] = this.uuid;
+    data['userName'] = this.userName;
+    data['userIdentity'] = this.userIdentity;
+    data['followed'] = this.followed;
+    data['avatarId'] = this.avatarId;
+    return data;
+  }
 }
+
 
 //头像昵称签名和关注的一小条个人信息还会显示认证信息(小号)
 class SmallPersonalTile extends StatelessWidget {
@@ -41,14 +58,14 @@ class SmallPersonalTile extends StatelessWidget {
     this.userName,
     this.userIdentity,
     this.followed,
-    this.thumbnail,
+    this.avatarId,
   }) : super(key: key);
   String uuid;
   @required
   String userName;
   String userIdentity;
   int followed;
-  Widget thumbnail;
+  int avatarId;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +81,15 @@ class SmallPersonalTile extends StatelessWidget {
               child: Align(
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: thumbnail,
+                  child: Container(
+            decoration: new BoxDecoration(
+              image: DecorationImage(
+                image: new AssetImage('lib/assets/avatar/$avatarId.png'),
+                fit: BoxFit.fill,
+              ),
+              shape: BoxShape.circle,
+            ),
+          ),
                 ),
               ),
             ),
@@ -128,7 +153,7 @@ class DiscoverPrincipleCard extends StatelessWidget {
       this.userName,
       this.userIdentity,
       this.followed,
-      this.thumbnail,
+      this.avatarId,
       this.principleText,
       this.principleDescription});
   String uuid;
@@ -136,7 +161,7 @@ class DiscoverPrincipleCard extends StatelessWidget {
   String userName;
   String userIdentity;
   int followed;
-  Widget thumbnail;
+  int avatarId;
   @override
   String principleText;
   String principleDescription;
@@ -162,7 +187,7 @@ class DiscoverPrincipleCard extends StatelessWidget {
                 children: <Widget>[
                   SmallPersonalTile(
                     userName: userName,
-                    thumbnail: thumbnail,
+                    avatarId: avatarId,
                     userIdentity: userIdentity,
                     followed: followed,
                     uuid: uuid,
@@ -239,15 +264,7 @@ class DiscoverPrincipleScrollView extends StatelessWidget {
           userIdentity: '成为超级现实主义的人',
           userName: '北大教授王铁崖',
           followed: 30,
-          thumbnail: Container(
-            decoration: new BoxDecoration(
-              image: DecorationImage(
-                image: new AssetImage('lib/assets/figure1.png'),
-                fit: BoxFit.fill,
-              ),
-              shape: BoxShape.circle,
-            ),
-          ),
+          avatarId: 1,
           principleText: 'Principle',
           principleDescription: '成功达到目标的人必须明白真实的因果关系，而理想主义者只创造问题，而不是推动进步。',
         ),
