@@ -113,23 +113,6 @@ class CreateAccountPageState extends State<CreateAccountPage> {
         }));
   }
 
-  TextFormField buildTextFormField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: '昵称',
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return '请输入昵称';
-        }
-      },
-      onChanged: (text) {
-        _userName = text;
-        print('username:$_userName');
-      },
-      maxLength: 30,
-    );
-  }
 
   Align buildLoginButton(BuildContext context) {
     return Align(
@@ -152,6 +135,24 @@ class CreateAccountPageState extends State<CreateAccountPage> {
               }
             }),
       ),
+    );
+  }
+
+  TextFormField buildTextFormField() {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: '昵称',
+      ),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return '请输入昵称';
+        }
+      },
+      onChanged: (text) {
+        _userName = text;
+        print('username:$_userName');
+      },
+      maxLength: 30,
     );
   }
 

@@ -115,45 +115,57 @@ class _NewGoalDirectionPageTwoState extends State<NewGoalDirectionPageTwo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Container(),
-        title: Text('障碍识别'),
-        elevation: 0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.arrow_forward),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Center(
-          child: ListView(
-            children: <Widget>[
-              NewGoal2Column(),
-              TextField(
-                decoration: InputDecoration(
-                    hintText: '障碍',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    )),
-                maxLength: 300,
-                maxLines: 10,
+    return new FutureBuilder(
+        future: GetGoal(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Scaffold(
+              appBar: AppBar(
+                leading: Container(),
+                title: Text('障碍识别'),
+                elevation: 0,
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.arrow_forward),
+                    onPressed: () {
+                      EditGoal();
+                    },
+                  )
+                ],
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+              body: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Center(
+                  child: ListView(
+                    children: <Widget>[
+                      NewGoal2Direction(),
+                      TextField(
+                        onChanged: (text) {
+                          problems_identified = text;
+                        },
+                        decoration: InputDecoration(
+                            hintText: '障碍',
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            )),
+                        maxLength: 300,
+                        maxLines: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return new Text('%{snapshot.hasError');
+          }
+          return Center(child: new CircularProgressIndicator());
+        });
   }
 }
 
-class NewGoal2Column extends StatelessWidget {
-  const NewGoal2Column({
+class NewGoal2Direction extends StatelessWidget {
+  const NewGoal2Direction({
     Key key,
   }) : super(key: key);
 

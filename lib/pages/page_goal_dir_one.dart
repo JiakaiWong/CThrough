@@ -17,11 +17,12 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
   String root_causes_identified;
   String plan_designed;
   String action_performed;
-    final uuid = Uuid().v1(); 
-changeCurrentGoal() async {
+  final uuid = Uuid().v1();
+  changeCurrentGoal() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('currentGoal', "$uuid");
   }
+
   Future<bool> Faliure() async {
     return (await showDialog(
           context: context,
@@ -30,7 +31,9 @@ changeCurrentGoal() async {
             content: new Text('内容未保存，请手动保存至应用外'),
             actions: <Widget>[
               new FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: new Text('确定'),
               ),
             ],
@@ -43,9 +46,16 @@ changeCurrentGoal() async {
     print('begin async');
     Response response;
     try {
-      var data = {'uuid':uuid ,'goal_setted': goal_setted,'problems_identified':problems_identified,'root_causes_identified':root_causes_identified,'plan_designed':plan_designed,'action_performed':action_performed};
+      var data = {
+        'uuid': uuid,
+        'goal_setted': goal_setted,
+        'problems_identified': problems_identified,
+        'root_causes_identified': root_causes_identified,
+        'plan_designed': plan_designed,
+        'action_performed': action_performed
+      };
       response = await post(
-        "http://47.107.117.59/fff/register.php",//TODO
+        "http://47.107.117.59/fff/register.php", //TODO
         body: data,
       );
       Map<String, dynamic> mapFromJson = json.decode(response.body.toString());
@@ -59,6 +69,7 @@ changeCurrentGoal() async {
     }
     return;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +81,7 @@ changeCurrentGoal() async {
           IconButton(
             icon: Icon(Icons.arrow_forward),
             onPressed: () {
-              //
+              EditGoal();
             },
           )
         ],
@@ -80,8 +91,7 @@ changeCurrentGoal() async {
         child: Center(
           child: ListView(
             children: <Widget>[
-              NewGoal2Colum
-            (),
+              NewGoal1Direction(),
               TextField(
                 onChanged: (text) {
                   goal_setted = text;
@@ -102,9 +112,8 @@ changeCurrentGoal() async {
   }
 }
 
-class NewGoal2Colum extends StatelessWidget {
-  const NewGoal2Colum
-({
+class NewGoal1Direction extends StatelessWidget {
+  const NewGoal1Direction({
     Key key,
   }) : super(key: key);
 
