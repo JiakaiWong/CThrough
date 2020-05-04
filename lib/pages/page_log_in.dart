@@ -85,20 +85,21 @@ class _LoginPageState extends State<LoginPage> {
         height: 45.0,
         width: 170.0,
         child: FlatButton(
-          child: Text(
-            'Login',
-            style: Theme.of(context).primaryTextTheme.headline,
-          ),
-          onPressed: () {
-            // if (_formKey.currentState.validate()) {
-            //   //只有输入的内容符合要求通过才会到达此处
-            //   _formKey.currentState.save();
-            //   //TODO 执行登录方法
-            //   print('email:$_email , password:$_password');
-            //   print('pushed button');
-            Navigator.pushReplacementNamed(context, 'Navigator');
-          },
-        ),
+            child: Text(
+              '登陆',
+              style: Theme.of(context).primaryTextTheme.headline,
+            ),
+            onPressed: () {
+              if (!_formKey.currentState.validate()) {
+                Scaffold.of(context)
+                    .showSnackBar(SnackBar(content: Text('输入内容出错')));
+              } else {
+                Scaffold.of(context)
+                    .showSnackBar(SnackBar(content: Text('正在请求')));
+                //   //TODO 执行登录方法
+                //  Navigator.pushReplacementNamed(context, 'Navigator');
+              }
+            }),
       ),
     );
   }
@@ -123,7 +124,11 @@ class _LoginPageState extends State<LoginPage> {
 
   TextFormField buildPasswordTextField(BuildContext context) {
     return TextFormField(
-      onSaved: (String value) => _password = value,
+      onChanged: (text) {
+        _password = text;
+        print('password:$_password');
+      },
+      //onSaved: (String value) => _password = value,
       obscureText: _isObscure,
       validator: (String value) {
         if (value.isEmpty) {
@@ -131,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
       decoration: InputDecoration(
-          labelText: 'Password',
+          labelText: '密码',
           suffixIcon: IconButton(
               icon: Icon(
                 Icons.remove_red_eye,
@@ -151,16 +156,22 @@ class _LoginPageState extends State<LoginPage> {
   TextFormField buildEmailTextField() {
     return TextFormField(
       decoration: InputDecoration(
-        labelText: 'Emall Address',
+        labelText: '邮箱',
       ),
+      //validator: (val)=> (val == null || val.isEmpty) ? "请输入商品名称": null,
       validator: (String value) {
         var emailReg = RegExp(
             r"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?");
         if (!emailReg.hasMatch(value)) {
+          print('正则不通过');
           return '请输入正确的邮箱地址';
         }
       },
-      onSaved: (String value) => _email = value,
+      onChanged: (text) {
+        _email = text;
+        print('email:$_email');
+      },
+      //onSaved: (String value) => _email = value,
     );
   }
 
@@ -184,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Text(
         'Log In',
         textScaleFactor: 1.5,
-        style: TextStyle(fontSize: 42.0),
+        style: TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
       ),
     );
   }

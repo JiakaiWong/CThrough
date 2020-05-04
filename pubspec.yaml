@@ -25,6 +25,7 @@ dependencies:
   provider: ^4.0.5+1
   uuid: ^2.0.4
   shared_preferences: ^0.5.7
+  http: ^0.12.1
 
 dev_dependencies:
   flutter_test:
