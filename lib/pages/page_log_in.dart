@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
         "http://47.107.117.59/fff/login.php",
         body: data,
       );
-      Map<String, dynamic> mapFromJson = json.decode(response.body.toString());
+      Map<String, dynamic> mapFromJson = json.decode(response.body);
       print(response.bodyBytes.toString());
       if (mapFromJson['status'] == 10000) {
         uuid = mapFromJson['uuid'];
@@ -74,8 +74,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Builder(
+    return Scaffold(body: Builder(
       builder: (BuildContext context) {
         return Form(
           key: _formKey,

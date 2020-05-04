@@ -23,12 +23,12 @@ class _InitPageState extends State<InitPage> {
     }
   }
   void navigationPageHome() {
-    Navigator.of(context).pushReplacementNamed('Navigator');
+    Navigator.of(context).pushReplacementNamed('WelcomePage2');
   }
 
   void navigationPageWel() {
 
-    Navigator.of(context).pushReplacementNamed('WelcomePage');
+    Navigator.of(context).pushReplacementNamed('WelcomePage1');
   }
 
 

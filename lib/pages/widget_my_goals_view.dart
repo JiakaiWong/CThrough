@@ -1,5 +1,135 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class MyGoalPage extends StatefulWidget {
+  MyGoalPage({Key key}) : super(key: key);
+  @override
+  _MyGoalPageState createState() => _MyGoalPageState();
+}
+
+class _MyGoalPageState extends State<MyGoalPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  Future<bool> Faliure() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('无法获取个人信息'),
+            content: new Text('请稍后再试'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text('确定'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
+  //get uuid from local shared_preference
+  Future<String> getUuid() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var myuuid = prefs.getString('uuid');
+    return myuuid;
+  }
+
+  Future<Null> GetMyGoalData() async {
+    var myuuid = await getUuid();
+    print('begin GetMyGoalData');
+    print(myuuid);
+    Response response;
+    try {
+      var data = {'uuid': myuuid};
+      
+      response = await post(
+        "http://47.107.117.59/fff/getTargets.php",
+        body: data,
+      );
+      print('body: [${response.body}]');
+      Map<String, dynamic> mapFromJson = json.decode(response.body);
+      print(mapFromJson);
+      // print(data);
+      // print(personTileData.uuid);
+      // if (mapFromJson['status'] == 10000) {
+      //   print('请求成功');
+      //   personTileData.avatarId = mapFromJson['avartarId'];
+      //   personTileData.followed = mapFromJson['followed'];
+      //   personTileData.userIdentity = mapFromJson['identity'];
+      //   personTileData.userName = mapFromJson['nick'];
+      //   print(personTileData.avatarId);
+      //   print(personTileData.userName);
+      // } else if (mapFromJson['status'] == 20000) {
+      //   Scaffold.of(context).showSnackBar(new SnackBar(
+      //     content: new Text("请求失败"),
+      //     action: new SnackBarAction(
+      //       label: "OK",
+      //       onPressed: () {},
+      //     ),
+      //   ));
+      // }
+    } on Error catch (e) {
+      print(e);
+      Faliure();
+    }
+    return;
+  }
+
+  Widget futureWidget() {
+    return new FutureBuilder(
+        future: GetMyGoalData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return new Text(
+                  'Press button to start'); //如果_calculation未执行则提示：请点击开始
+            case ConnectionState.waiting:
+              return new Text('Awaiting result...'); //如果_calculation正在执行则提示：加载中
+            default: //如果_calculation执行完毕
+              if (snapshot.hasError) //若_calculation执行出现异常
+                return new Text('Error: ${snapshot.error}');
+              else //若_calculation执行正常完成
+                return new Scaffold(
+                  body: ListView.builder(
+                      itemCount: null,
+                      // itemExtent: 50.0, //强制高度为50.0
+                      itemBuilder: (BuildContext context, int index) {
+                        return FiveStepCard(
+                          goal_setted: '',
+                          problems_identified: '别看了，这个功能还没实现。',
+                          root_causes_identified: '',
+                          plan_designed: '',
+                          action_performed: '',
+                        );
+                      }),
+                  floatingActionButton: FloatingActionButton.extended(
+                      label: Text('新的目标'),
+                      icon: Icon(Icons.add_circle_outline),
+                      onPressed: () {
+                        //TODO:
+
+                        Navigator.pushNamed(context, 'NewGoal1');
+                      }),
+                );
+          }
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return futureWidget();
+  }
+}
+
+Future<String> NewGoalRequest() async {
+  return await ('http://47.107.117.59/fff/set_target.php');
+}
 
 //最基本的最重要的五步方法数据结构
 class BareFiveStep {
@@ -436,43 +566,4 @@ class FiveStepCardScrollView extends StatelessWidget {
       ],
     );
   }
-}
-
-class MyGoalPage extends StatefulWidget {
-  MyGoalPage({Key key}) : super(key: key);
-  @override
-  _MyGoalPageState createState() => _MyGoalPageState();
-}
-
-class _MyGoalPageState extends State<MyGoalPage> with AutomaticKeepAliveClientMixin{
-  @override
-  bool get wantKeepAlive => true;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-          itemCount: null,
-          // itemExtent: 50.0, //强制高度为50.0
-          itemBuilder: (BuildContext context, int index) {
-            return FiveStepCard(
-              goal_setted: Uuid().v1(),
-              problems_identified: '这是实现第$index个目标遇到的问题',
-              root_causes_identified: '这是实现第$index个目标遇到的问题背后的根本原因',
-              plan_designed: '这是为了克服第$index个目标遇到的问题所制定的计划',
-              action_performed: '这是为了克服第$index个目标遇到的问题所制定的计划的完成情况',
-            );
-          }),
-      floatingActionButton: FloatingActionButton.extended(
-          label: Text('新的目标'),
-          icon: Icon(Icons.add_circle_outline),
-          onPressed: () {
-            //TODO:
-            
-            Navigator.pushNamed(context, 'NewGoal1');
-          }),
-    );
-  }
-}
-Future<String> NewGoalRequest() async {
-  return await ('http://47.107.117.59/fff/set_target.php');
 }

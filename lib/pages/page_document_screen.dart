@@ -1,12 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'widget_principle_card.dart';
-import 'page_edit_profile.dart';
 import 'widget_discovery_card.dart';
 
 //用于异步读取本地json
@@ -60,30 +56,48 @@ class _MypersonTileState extends State<MyPersonTile> {
     }
 
     //get uuid from local shared_preference
-    void getUuid() async {
+    Future<String> getUuid() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //set uuid
       personTileData.uuid = prefs.getString('uuid');
+      return personTileData.uuid;
     }
 
     Future<Null> GetPersonTileData() async {
-      getUuid();
+      var myuuid = await getUuid();
       print('begin async');
       Response response;
+      print('before try:');
+      print(myuuid);
       try {
-        var data = {'uuid': personTileData.uuid};
+        var data = {'uuid': myuuid};
+        print('when try:');
+        print(myuuid);
         response = await post(
-          "http://47.107.117.59/fff/register.php", //TODO
+          "http://47.107.117.59/fff/getUserInof.php",
           body: data,
         );
         Map<String, dynamic> mapFromJson =
             json.decode(response.body.toString());
+        print(mapFromJson);
+        print(data);
+        print(personTileData.uuid);
         if (mapFromJson['status'] == 10000) {
           print('请求成功');
-          personTileData.avatarId = mapFromJson['avatarId'];
+          personTileData.avatarId = mapFromJson['avartarId'];
           personTileData.followed = mapFromJson['followed'];
-          personTileData.userIdentity = mapFromJson['userIdentity'];
-          personTileData.userName = mapFromJson['userName'];
+          personTileData.userIdentity = mapFromJson['identity'];
+          personTileData.userName = mapFromJson['nick'];
+          print(personTileData.avatarId);
+          print(personTileData.userName);
+        } else if (mapFromJson['status'] == 20000) {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text("请求失败"),
+            action: new SnackBarAction(
+              label: "OK",
+              onPressed: () {},
+            ),
+          ));
         }
       } on Error catch (e) {
         print(e);
@@ -94,13 +108,22 @@ class _MypersonTileState extends State<MyPersonTile> {
 
     return new FutureBuilder<PersonTileData>(
         future: GetPersonTileData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return BigPersonalTile(
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return new Text(
+                  'Press button to start'); //如果_calculation未执行则提示：请点击开始
+            case ConnectionState.waiting:
+              return new Text('Awaiting result...'); //如果_calculation正在执行则提示：加载中
+            default: //如果_calculation执行完毕
+              if (snapshot.hasError) //若_calculation执行出现异常
+                return new Text('Error: ${snapshot.error}');
+              else //若_calculation执行正常完成
+                return new BigPersonalTile(
               //在futur builder 中返回一个个人资料栏
-              userName: snapshot.data.userName,
-              userIdentity: snapshot.data.userIdentity,
-              followed: snapshot.data.followed,
+              userName: personTileData.userName,
+              userIdentity: personTileData.userIdentity,
+              followed: personTileData.followed,
               thumbnail: AspectRatio(
                 aspectRatio: 1,
                 child: Container(
@@ -114,10 +137,7 @@ class _MypersonTileState extends State<MyPersonTile> {
                 ),
               ),
             );
-          } else if (snapshot.hasError) {
-            return new Text("${snapshot.hasError}");
           }
-          return Center(child: new CircularProgressIndicator());
         });
   }
 
@@ -151,7 +171,7 @@ class DocumentPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.alternate_email),
             onPressed: () {
-              Navigator.pushNamed(context, 'AboutPage');
+              Navigator.pushNamed(context, 'NewGoal1');
             },
           )
         ],

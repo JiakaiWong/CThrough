@@ -14,6 +14,119 @@ class AboutPage extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
         child: ListView(
           children: <Widget>[
+            // Column(
+            //   children: <Widget>[
+            //     Row(
+            //       children: <Widget>[
+            //         AspectRatio(
+            //           aspectRatio: 1,
+            //           child: InkWell(
+            //             onTap: () {
+            //               //TODO
+            //             },
+            //             child: Container(
+            //              // height: 60,
+            //               decoration: BoxDecoration(
+            //                 image: DecorationImage(
+            //                     image: AssetImage('lib/assets/avatar/1.png')),
+            //                 shape: BoxShape.circle,
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //         AspectRatio(
+            //           aspectRatio: 1,
+            //           child: InkWell(
+            //             onTap: () {
+            //               //TODO
+            //             },
+            //             child: Container(
+            //              // height: 60,
+            //               decoration: BoxDecoration(
+            //                 image: DecorationImage(
+            //                     image: AssetImage('lib/assets/avatar/2.png')),
+            //                 shape: BoxShape.circle,
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //     Row(
+            //       children: <Widget>[
+            //         AspectRatio(
+            //           aspectRatio: 1,
+            //           child: InkWell(
+            //             onTap: () {
+            //               //TODO
+            //             },
+            //             child: Container(
+            //               //height: 60,
+            //               decoration: BoxDecoration(
+            //                 image: DecorationImage(
+            //                     image: AssetImage('lib/assets/avatar/3.png')),
+            //                 shape: BoxShape.circle,
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //         AspectRatio(
+            //           aspectRatio: 1,
+            //           child: InkWell(
+            //             onTap: () {
+            //               //TODO
+            //             },
+            //             child: Container(
+            //              // height: 60,
+            //               decoration: BoxDecoration(
+            //                 image: DecorationImage(
+            //                     image: AssetImage('lib/assets/avatar/4.png')),
+            //                 shape: BoxShape.circle,
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //     Row(
+            //       children: <Widget>[
+            //         AspectRatio(
+            //           aspectRatio: 1,
+            //           child: InkWell(
+            //             onTap: () {
+            //               //TODO
+            //             },
+            //             child: Container(
+            //              // height: 60,
+            //               decoration: BoxDecoration(
+            //                 image: DecorationImage(
+            //                     image: AssetImage('lib/assets/avatar/5.png')),
+            //                 shape: BoxShape.circle,
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //         AspectRatio(
+            //           aspectRatio: 1,
+            //           child: InkWell(
+            //             onTap: () {
+            //               //TODO
+            //             },
+            //             child: Container(
+            //             //  height: 60,
+            //               decoration: BoxDecoration(
+            //                 image: DecorationImage(
+            //                     image: AssetImage('lib/assets/avatar/6.png')),
+            //                 shape: BoxShape.circle,
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -26,7 +139,6 @@ class AboutPage extends StatelessWidget {
                     textScaleFactor: 1,
                   ),
                 ),
-                
               ],
             ),
             Row(
@@ -145,10 +257,9 @@ class AboutPage extends StatelessWidget {
                     textScaleFactor: 1,
                   ),
                 ),
-                
               ],
             ),
-            
+
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
             //   children: <Widget>[
