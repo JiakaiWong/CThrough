@@ -50,7 +50,13 @@ flutter:
     - lib/assets/figure1.png
     - lib/assets/figure2.png
     - lib/assets/figure3.png
-    - lib/assets/figure4.png
+    - lib/assets/avatar/1.png
+    - lib/assets/avatar/2.png
+    - lib/assets/avatar/3.png
+    - lib/assets/avatar/4.png
+    - lib/assets/avatar/5.png
+    - lib/assets/avatar/6.png
+
 
     - lib/assets/figure5.png
     - lib/assets/background1.jpg

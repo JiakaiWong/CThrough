@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String _email, _password,uuid;
+  String _email, _password, uuid;
   bool _isObscure = true;
   Color _eyeColor;
 
@@ -34,25 +34,37 @@ class _LoginPageState extends State<LoginPage> {
         false;
   }
 
-  addStringToSF() async {
+//用shared_preference存储uuid
+  addUuid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('uuid', "$uuid");
   }
 
-  Future<Null> CreateAccount() async {
+//登陆操作
+  Future<Null> LogIn() async {
     print('begin async');
     Response response;
     try {
-      var data = {'email': _email, 'password': _password};
+      var data = {'mail': _email, 'password': _password};
       response = await post(
-        "http://47.107.117.59/fff/register.php",//TODO
+        "http://47.107.117.59/fff/login.php",
         body: data,
       );
+      Map<String, dynamic> mapFromJson = json.decode(response.body.toString());
       print(response.bodyBytes.toString());
-      if (response.statusCode == 200) {
-        uuid = response.bodyBytes.toString();
+      if (mapFromJson['status'] == 10000) {
+        uuid = mapFromJson['uuid'];
         print('请求成功');
-        addStringToSF();
+        addUuid();
+        Navigator.popAndPushNamed(context, 'Navigator');
+      } else if (mapFromJson['status'] == 20000) {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text("登陆失败"),
+          action: new SnackBarAction(
+            label: "OK",
+            onPressed: () {},
+          ),
+        ));
       }
     } on Error catch (e) {
       Faliure();
@@ -63,26 +75,31 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Form(
-            key: _formKey,
-            child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 22.0),
-              children: <Widget>[
-                SizedBox(
-                  height: kToolbarHeight,
-                ),
-                buildTitle(),
-                buildTitleLine(),
-                SizedBox(height: 70.0),
-                buildEmailTextField(),
-                SizedBox(height: 30.0),
-                buildPasswordTextField(context),
-                SizedBox(height: 60.0),
-                buildLoginButton(context),
-                SizedBox(height: 30.0),
-                buildRegisterText(context),
-              ],
-            )));
+      body: Builder(
+      builder: (BuildContext context) {
+        return Form(
+          key: _formKey,
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 22.0),
+            children: <Widget>[
+              SizedBox(
+                height: kToolbarHeight,
+              ),
+              buildTitle(),
+              buildTitleLine(),
+              SizedBox(height: 70.0),
+              buildEmailTextField(),
+              SizedBox(height: 30.0),
+              buildPasswordTextField(context),
+              SizedBox(height: 60.0),
+              buildLoginButton(context),
+              SizedBox(height: 30.0),
+              buildRegisterText(context),
+            ],
+          ),
+        );
+      },
+    ));
   }
 
   Align buildRegisterText(BuildContext context) {
@@ -125,10 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                 Scaffold.of(context)
                     .showSnackBar(SnackBar(content: Text('输入内容出错')));
               } else {
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text('正在请求')));
-                //   //TODO 执行登录方法
-                //  Navigator.pushReplacementNamed(context, 'Navigator');
+                LogIn();
               }
             }),
       ),

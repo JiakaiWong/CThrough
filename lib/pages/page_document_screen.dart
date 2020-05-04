@@ -2,26 +2,31 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'widget_principle_card.dart';
 import 'page_edit_profile.dart';
 import 'widget_discovery_card.dart';
 
-Future<String> _loadDocumentFile() async {
-  return await rootBundle.loadString('lib/assets/Document.json');
-}
+//用于异步读取本地json
 
-Future wait(int milliseconds) {
-  return new Future.delayed(Duration(milliseconds: milliseconds), () => {});
-}
+// Future<String> _loadDocumentFile() async {
+//   return await rootBundle.loadString('lib/assets/Document.json');
+// }
 
-Future<PersonTileData> loadDocument() async {
-  await wait(1000);
-  String jsonString = await _loadDocumentFile();
-  final jsonResponse = json.decode(jsonString);
-  return new PersonTileData.fromJson(jsonResponse);
-}
+// Future wait(int milliseconds) {
+//   return new Future.delayed(Duration(milliseconds: milliseconds), () => {});
+// }
 
+// Future<PersonTileData> loadDocument() async {
+//   await wait(1000);
+//   String jsonString = await _loadDocumentFile();
+//   final jsonResponse = json.decode(jsonString);
+//   return new PersonTileData.fromJson(jsonResponse);
+// }
+
+//我的个人信息标签
 class MyPersonTile extends StatefulWidget {
   @override
   _MypersonTileState createState() => _MypersonTileState();
@@ -29,11 +34,70 @@ class MyPersonTile extends StatefulWidget {
 
 class _MypersonTileState extends State<MyPersonTile> {
   Widget futureWidget() {
+    PersonTileData personTileData = PersonTileData(
+      uuid: 'default',
+      avatarId: 1,
+      userName: '正在加载昵称',
+      userIdentity: '正在加载身份',
+      followed: 0,
+    );
+
+    Future<bool> Faliure() async {
+      return (await showDialog(
+            context: context,
+            builder: (context) => new AlertDialog(
+              title: new Text('无法获取个人信息'),
+              content: new Text('请稍后再试'),
+              actions: <Widget>[
+                new FlatButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: new Text('确定'),
+                ),
+              ],
+            ),
+          )) ??
+          false;
+    }
+
+    //get uuid from local shared_preference
+    void getUuid() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //set uuid
+      personTileData.uuid = prefs.getString('uuid');
+    }
+
+    Future<Null> GetPersonTileData() async {
+      getUuid();
+      print('begin async');
+      Response response;
+      try {
+        var data = {'uuid': personTileData.uuid};
+        response = await post(
+          "http://47.107.117.59/fff/register.php", //TODO
+          body: data,
+        );
+        Map<String, dynamic> mapFromJson =
+            json.decode(response.body.toString());
+        if (mapFromJson['status'] == 10000) {
+          print('请求成功');
+          personTileData.avatarId = mapFromJson['avatarId'];
+          personTileData.followed = mapFromJson['followed'];
+          personTileData.userIdentity = mapFromJson['userIdentity'];
+          personTileData.userName = mapFromJson['userName'];
+        }
+      } on Error catch (e) {
+        print(e);
+        Faliure();
+      }
+      return;
+    }
+
     return new FutureBuilder<PersonTileData>(
-        future: loadDocument(),
+        future: GetPersonTileData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return BigPersonalTile(
+              //在futur builder 中返回一个个人资料栏
               userName: snapshot.data.userName,
               userIdentity: snapshot.data.userIdentity,
               followed: snapshot.data.followed,
@@ -43,7 +107,7 @@ class _MypersonTileState extends State<MyPersonTile> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
-                          'lib/assets/avatar/${snapshot.data.avatarId}.png'),
+                          'lib/assets/avatar/${personTileData.avatarId}.png'),
                     ),
                     shape: BoxShape.circle,
                   ),
@@ -63,13 +127,16 @@ class _MypersonTileState extends State<MyPersonTile> {
   }
 }
 
+//我的个人信息页面
 class DocumentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //below are only for Provider-Consumer
     // final ultimateGoal1 = Provider.of<NameAndMessage>(context).ultimateGoal1;
     // final ultimateGoal2 = Provider.of<NameAndMessage>(context).ultimateGoal2;
     // final ultimateGoal3 = Provider.of<NameAndMessage>(context).ultimateGoal3;
     //final Image avatar;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(''),
@@ -93,12 +160,6 @@ class DocumentPage extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         children: <Widget>[
           MyPersonTile(),
-          // ListTile(
-          //   title: Text('终极目标'),
-          //   subtitle: Text('$ultimateGoal1,$ultimateGoal2,$ultimateGoal3'),
-          // ),
-          // Text(
-          //   '''
           //   TODO :
           //   我的目标原则左
           //   滑打开菜单添加删除，

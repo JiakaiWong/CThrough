@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:uuid/uuid.dart';
+
+
 
 class CreateAccountPage extends StatefulWidget {
   @override
@@ -54,13 +58,14 @@ class CreateAccountPageState extends State<CreateAccountPage> {
     print('begin async');
     Response response;
     try {
-      var data = {'uuid':uuid ,'email': _email, 'password': _password, 'nick': _userName};
+      var data = {'uuid':uuid ,'mail': _email, 'password': _password, 'nick': _userName};
       response = await post(
         "http://47.107.117.59/fff/register.php",
         body: data,
       );
-      print(response.bodyBytes.toString());
-      if (response.bodyBytes == uuid) {
+      Map<String, dynamic> mapFromJson = json.decode(response.body.toString());
+      print(response.body.toString());
+      if (mapFromJson['status'] == 10000) {
         Success();
         print('请求成功');
       }
@@ -69,7 +74,14 @@ class CreateAccountPageState extends State<CreateAccountPage> {
     }
     return;
   }
-
+//把scaffold分离防止FlutterError (Scaffold.of() called with a context that does not contain a Scaffold.
+// No Scaffold ancestor could be found starting from the context that was passed to Scaffold.of(). This usually happens when the context provided is from the same StatefulWidget as that whose build function actually creates the Scaffold widget being sought.
+// There are several ways to avoid this problem. The simplest is to use a Builder to get a context that is "under" the Scaffold. For an example of this, please see the documentation for Scaffold.of():
+//   https://api.flutter.dev/flutter/material/Scaffold/of.html
+// A more efficient solution is to split your build function into several widgets. This introduces a new context from which you can obtain the Scaffold. In this solution, you would have an outer widget that creates the Scaffold populated by instances of your new inner widgets, and then in these inner widgets you would use Scaffold.of().
+// A less elegant but more expedient solution is assign a GlobalKey to the Scaffold, then use the key.currentState property to obtain the ScaffoldState rather than using the Scaffold.of() function.
+// The context used was:
+//   LoginPage)
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -6,7 +6,6 @@ class EditGoal extends StatefulWidget {
 }
 
 class _EditGoalState extends State<EditGoal> {
-  List<bool> checkboxesForConsumptivePower = [false, false, false, false];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

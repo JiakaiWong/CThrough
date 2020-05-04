@@ -22,6 +22,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
           preferredSize: Size.fromHeight(80.0),
           child: AppBar(
               title: cusSearchBar,
+              leading: Container(),
               actions: <Widget>[
                 IconButton(
                   icon: cusIcon,

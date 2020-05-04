@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'pages/page_document_screen.dart';
 import 'pages/page_discover.dart';
 import 'pages/my_goals&principles.dart';
@@ -13,7 +14,18 @@ class BottomNavigationWidget extends StatefulWidget {
 class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   int _currentIndex = 1;
   List<Widget> list = List();
-
+  //在退出程序时自动删除保存的账号信息
+removeUuid() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  //Remove String
+  prefs.remove("uuid");
+  // //Remove bool
+  // prefs.remove("boolValue");
+  // //Remove int
+  // prefs.remove("intValue");
+  // //Remove double
+  // prefs.remove("doubleValue");
+}
   Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,
@@ -26,7 +38,8 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                 child: new Text('取消'),
               ),
               new FlatButton(
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () {removeUuid();
+                  Navigator.of(context).pop(true);},
                 child: new Text('退出程序'),
               ),
             ],
