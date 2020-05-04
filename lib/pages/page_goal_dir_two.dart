@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'pop_result.dart';
 
 class NewGoalDirectionPageTwo extends StatefulWidget {
 
@@ -24,17 +23,11 @@ class _NewGoalDirectionPageTwoState extends State<NewGoalDirectionPageTwo> {
           IconButton(
               icon: Icon(Icons.arrow_forward),
               onPressed: () {
-                Navigator.of(context,).pushNamed('NewGoal3',).then((results) {
-                  if (results is PopWithResults) {
-                    PopWithResults popResult = results;
-                    if (popResult.toPage == pageName) {
-                      // TODO do stuff
-                    } else {
-                      Navigator.of(context).pop(results);
-                    }
-                  }
-                }
-                );
+                      Navigator.of(context).pop();
+                    
+                  
+                
+                
               },
               )
         ],

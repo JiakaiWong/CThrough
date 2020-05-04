@@ -26,6 +26,8 @@ dependencies:
   uuid: ^2.0.4
   shared_preferences: ^0.5.7
   http: ^0.12.1
+  json_model: ^0.0.2
+  path_provider: "^0.4.0"
 
 dev_dependencies:
   flutter_test:
@@ -53,7 +55,6 @@ flutter:
     - lib/assets/figure5.png
     - lib/assets/background1.jpg
     - lib/assets/background2.jpg
-
 
 
 

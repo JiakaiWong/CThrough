@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/document_screen.dart';
+import 'pages/page_document_screen.dart';
 import 'pages/page_discover.dart';
 import 'pages/my_goals&principles.dart';
 

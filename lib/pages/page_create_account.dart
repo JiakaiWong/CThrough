@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateAccountPage extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class CreateAccountPageState extends State<CreateAccountPage> {
   String _email, _password, _userName;
   bool _isObscure = true;
   Color _eyeColor;
+  final uuid = Uuid().v1(); 
 
   Future<bool> Success() async {
     return (await showDialog(
@@ -52,13 +54,13 @@ class CreateAccountPageState extends State<CreateAccountPage> {
     print('begin async');
     Response response;
     try {
-      var data = {'mail': _email, 'password': _password, 'nick': _userName};
+      var data = {'uuid':uuid ,'email': _email, 'password': _password, 'nick': _userName};
       response = await post(
         "http://47.107.117.59/fff/register.php",
         body: data,
       );
-      print(response.statusCode.toString());
-      if (response.statusCode == 200) {
+      print(response.bodyBytes.toString());
+      if (response.bodyBytes == uuid) {
         Success();
         print('请求成功');
       }
@@ -71,34 +73,32 @@ class CreateAccountPageState extends State<CreateAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-      ),
-        body: Builder(
-          builder: (BuildContext context) {
-            return Form(
-                key: formKey,
-                child: ListView(
-                  padding: EdgeInsets.symmetric(horizontal: 22.0),
-                  children: <Widget>[
-                    SizedBox(
-                      height: kToolbarHeight,
-                    ),
-                    buildTitle(),
-                    buildTitleLine(),
-                    SizedBox(height: 70.0),
-                    buildEmailTextField(),
-                    SizedBox(height: 30.0),
-                    buildTextFormField(),
-                    SizedBox(height: 30.0),
-                    buildPasswordTextField(context),
-                    SizedBox(height: 60.0),
-                    buildLoginButton(context),
-                    SizedBox(height: 30.0),
-                  ],
-                ));
-          }
-        ));
+        appBar: AppBar(
+          elevation: 0,
+        ),
+        body: Builder(builder: (BuildContext context) {
+          return Form(
+              key: formKey,
+              child: ListView(
+                padding: EdgeInsets.symmetric(horizontal: 22.0),
+                children: <Widget>[
+                  SizedBox(
+                    height: kToolbarHeight,
+                  ),
+                  buildTitle(),
+                  buildTitleLine(),
+                  SizedBox(height: 70.0),
+                  buildEmailTextField(),
+                  SizedBox(height: 30.0),
+                  buildTextFormField(),
+                  SizedBox(height: 30.0),
+                  buildPasswordTextField(context),
+                  SizedBox(height: 60.0),
+                  buildLoginButton(context),
+                  SizedBox(height: 30.0),
+                ],
+              ));
+        }));
   }
 
   TextFormField buildTextFormField() {

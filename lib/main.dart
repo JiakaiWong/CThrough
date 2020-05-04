@@ -37,13 +37,15 @@ import 'pages/init_direction_two.dart';
 //     ),
 //   );
 // }
+
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      initialRoute: 'WelcomePage2',
+      initialRoute: 'Navigator',
       routes: {
         'Navigator': (context) => BottomNavigationWidget(),
         'WelcomePage': (context) => InitPage(),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'pop_result.dart';
 
 class NewGoalDirectionPageOne extends StatefulWidget {
 
@@ -16,28 +15,25 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('新目标'),
+                leading: Container(),
+
+        title: Text('障碍透视'),
         elevation: 0,
-        leading: Container(),
         actions: <Widget>[
           IconButton(
-            
               icon: Icon(Icons.arrow_forward),
               onPressed: () {
-                Navigator.of(context).pushNamed('NewGoal2').then((results) {
-                  PopWithResults popResult = results as PopWithResults;
-                  if (popResult != null) {
-                    if (popResult.toPage == pageName) {
-                      print(popResult.results.values.toList()[0]);
-                    } else {
-                      Navigator.of(context).pop(results);
-                    }
-                  };
-                }
-                );
-              })
+                      Navigator.of(context).pop();
+                    
+                  
+                
+                
+              },)
+              
+                
         ],
       ),
+     
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Center(

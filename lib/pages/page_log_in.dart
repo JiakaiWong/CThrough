@@ -1,4 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -7,7 +13,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String _email, _password;
+  String _email, _password,uuid;
   bool _isObscure = true;
   Color _eyeColor;
 
@@ -28,6 +34,32 @@ class _LoginPageState extends State<LoginPage> {
         false;
   }
 
+  addStringToSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('uuid', "$uuid");
+  }
+
+  Future<Null> CreateAccount() async {
+    print('begin async');
+    Response response;
+    try {
+      var data = {'email': _email, 'password': _password};
+      response = await post(
+        "http://47.107.117.59/fff/register.php",//TODO
+        body: data,
+      );
+      print(response.bodyBytes.toString());
+      if (response.statusCode == 200) {
+        uuid = response.bodyBytes.toString();
+        print('请求成功');
+        addStringToSF();
+      }
+    } on Error catch (e) {
+      Faliure();
+    }
+    return;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +77,6 @@ class _LoginPageState extends State<LoginPage> {
                 buildEmailTextField(),
                 SizedBox(height: 30.0),
                 buildPasswordTextField(context),
-                //buildForgetPasswordText(context),
                 SizedBox(height: 60.0),
                 buildLoginButton(context),
                 SizedBox(height: 30.0),

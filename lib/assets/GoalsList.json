@@ -1,8 +1,0 @@
-{
-    "uuid": "uuid",
-    "goal_setted": "goal_setted",
-    "problems_identified": "problems_identified",
-    "root_causes_identified":"root_causes_identified",
-    "plan_designed":"plan_designed",
-    "action_performed":"action_performed"
-}
