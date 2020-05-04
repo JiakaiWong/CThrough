@@ -135,7 +135,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   IconButton(
                     icon: Icon(Icons.check),
                     onPressed: () {
-                      //TODO
+                      sendPersonTileData();
                       // Navigator.pop(context);
                     },
                   )
@@ -224,13 +224,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           )),
                       maxLength: 100,
                     ),
-                    FlatButton(
-                        color: Colors.grey,
-                        onPressed: () {
-                          //TODO
-                          Navigator.pop(context);
-                        },
-                        child: Text('完成'))
+                    // FlatButton(
+                    //     color: Colors.grey,
+                    //     onPressed: () {
+                    //       //TODO
+                    //       Navigator.pop(context);
+                    //     },
+                    //     child: Text('完成'))
                   ],
                 ),
               ),

@@ -143,7 +143,7 @@ class _NewGoalDirectionPageFourState extends State<NewGoalDirectionPageFour> {
                           plan_designed = text;
                         },
                         decoration: InputDecoration(
-                            hintText: '障碍',
+                            hintText: '计划',
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             )),
