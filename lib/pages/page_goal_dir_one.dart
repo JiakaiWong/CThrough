@@ -40,35 +40,6 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
       prefs.setString('currentGoalSetted', "$goal_setted");
     }
 
-    void getCurrentGoalSetted() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //set uuid
-      goal_setted = prefs.getString('currentGoalSetted');
-    }
-
-    void getCurrentProblemsIdentified() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //set uuid
-      problems_identified = prefs.getString('currentProblemsIdentified');
-    }
-
-    void getCurrentRootCausesIdentified() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //set uuid
-      root_causes_identified = prefs.getString('currentRootCausesIdentified');
-    }
-
-    void getCurrentPlanDesigned() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //set uuid
-      plan_designed = prefs.getString('currentPlanDesigned');
-    }
-
-    void getCurrentActionPerformed() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //set uuid
-      action_performed = prefs.getString('currentActionPerformed');
-    }
 
 //init
     Future<String> getThingsDone() async {
@@ -120,7 +91,6 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
         print(response.body.toString());
         if (mapFromJson['status'] == 10000) {
           print('新建目标成功');
-
           changeCurrentGoalSetted();
           Navigator.pushReplacementNamed(context, 'NewGoal2');
           print('请求成功');

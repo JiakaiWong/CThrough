@@ -22,23 +22,21 @@ class AboutPage extends StatelessWidget {
                   children: <Widget>[
                     Align(
                       alignment: Alignment.centerLeft,
-                                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'About us',
-                              textScaleFactor: 1.5,
-                              style: TextStyle(
-                                  fontSize: 42.0, fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          'About us',
+                          textScaleFactor: 1.5,
+                          style: TextStyle(
+                              fontSize: 42.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
-                    
                   ],
                 ),
               ],
             ),
 
-            
             Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,171 +156,163 @@ class AboutPage extends StatelessWidget {
               ],
             ),
             Align(
-                      alignment: Alignment.centerLeft,
-                                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              '原画欣赏',
-                              textScaleFactor: 1.2,
-                              style: TextStyle(
-                                  fontSize: 42.0, fontWeight: FontWeight.bold),
-                            ),
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  '原画欣赏',
+                  textScaleFactor: 1.2,
+                  style: TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 1 / 6,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: InkWell(
+                        onTap: () {
+                          //TODO
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('lib/assets/avatar/1.jpg')),
+                            shape: BoxShape.rectangle,
                           ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 1 / 6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: InkWell(
-                                onTap: () {
-                                  //TODO
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'lib/assets/avatar/1.jpg')),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 1 / 15,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: InkWell(
-                                onTap: () {
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'lib/assets/avatar/2.jpg')),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 1 / 6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: InkWell(
-                                onTap: () {
-                                  //TODO
-                                },
-                                child: Container(
-                                  //height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'lib/assets/avatar/3.jpg')),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                ),
-                              ),
-                            ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 1 / 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('lib/assets/avatar/2.jpg')),
+                            shape: BoxShape.rectangle,
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 1 / 15,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: InkWell(
-                                onTap: () {
-                                  //TODO
-                                },
-                                child: Container(
-                                  // height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'lib/assets/avatar/4.jpg')),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 1 / 6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: InkWell(
-                                onTap: () {
-                                  //TODO
-                                },
-                                child: Container(
-                                  //height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'lib/assets/avatar/5.jpg')),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                ),
-                              ),
-                            ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 1 / 6,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: InkWell(
+                        onTap: () {
+                          //TODO
+                        },
+                        child: Container(
+                          //height: 60,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('lib/assets/avatar/3.jpg')),
+                            shape: BoxShape.rectangle,
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 1 / 15,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: InkWell(
-                                onTap: () {
-                                  //TODO
-                                },
-                                child: Container(
-                                  // height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'lib/assets/avatar/6.jpg')),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  Row(
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 1 / 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: InkWell(
+                        onTap: () {
+                          //TODO
+                        },
+                        child: Container(
+                          // height: 60,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('lib/assets/avatar/4.jpg')),
+                            shape: BoxShape.rectangle,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 1 / 6,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: InkWell(
+                        onTap: () {
+                          //TODO
+                        },
+                        child: Container(
+                          //height: 60,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('lib/assets/avatar/5.jpg')),
+                            shape: BoxShape.rectangle,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 1 / 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: InkWell(
+                        onTap: () {
+                          //TODO
+                        },
+                        child: Container(
+                          // height: 60,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('lib/assets/avatar/6.jpg')),
+                            shape: BoxShape.rectangle,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(

@@ -18,8 +18,8 @@ class _NewGoalDirectionPageFourState extends State<NewGoalDirectionPageFour> {
     String root_causes_identified = '';
     String plan_designed = '';
     String action_performed = '';
-    var uuid;
-    var tuid;
+    String uuid;
+    String tuid;
 
     //get uuid from local shared_preference
     Future<String> getUuid() async {
@@ -57,7 +57,6 @@ class _NewGoalDirectionPageFourState extends State<NewGoalDirectionPageFour> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('currentPlanDesigned', "$plan_designed");
     }
-
 
     //init
     Future<String> getThingsDone() async {

@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'widget_edit_goal_utility.dart';
 
 class MyGoalPage extends StatefulWidget {
   MyGoalPage({Key key}) : super(key: key);
@@ -13,15 +13,6 @@ class MyGoalPage extends StatefulWidget {
 
 class _MyGoalPageState extends State<MyGoalPage>
     with AutomaticKeepAliveClientMixin {
-  var itemCount = 0;
-  Map<String, dynamic> mapFromJson;
-
-  List listOfBareFiveStep = List<BareFiveStep>();
-//List<BareFiveStep> listOfBareFiveStep = List<BareFiveStep>();//如果这样写就是fixed sized list, 无法增加item
-
-  void printlength() {
-    print(listOfBareFiveStep.length);
-  }
 
   @override
   bool get wantKeepAlive => true;
@@ -53,7 +44,6 @@ class _MyGoalPageState extends State<MyGoalPage>
   Future<int> GetMyGoalData() async {
     var myuuid = await getUuid();
     print('begin GetMyGoalData');
-    print(myuuid);
     Response response;
     try {
       var data = {'uuid': myuuid};
@@ -62,24 +52,10 @@ class _MyGoalPageState extends State<MyGoalPage>
         "http://47.107.117.59/fff/getTargets.php",
         body: data,
       );
-      //print('body: [${response.body}]');
       mapFromJson = json.decode(response.body);
-      // print(mapFromJson);
-      // print(data);
       if (mapFromJson['status'] == 10000) {
-        print('sum:');
-        print(mapFromJson['sum']);
-        //print('results');
-        //print(mapFromJson['results'][0]);
-
-        //print(mapFromJson['results'][1]);
-
         itemCount = await mapFromJson['sum'] as int;
-        print('开始初始化');
-        print(myuuid);
-        printlength();
         for (int i = 0; i < (mapFromJson['sum'] as int); i++) {
-          print(i);
           listOfBareFiveStep.add(BareFiveStep(
             goal_setted: '默认目标',
             problems_identified: ' ',
@@ -87,13 +63,8 @@ class _MyGoalPageState extends State<MyGoalPage>
             plan_designed: ' ',
             action_performed: ' ',
           ));
-          print(listOfBareFiveStep[i].goal_setted);
         }
-        print('初始化结束');
         for (int i = 0; i < (mapFromJson['sum'] as int); i++) {
-          print(i);
-          print("before:  " + listOfBareFiveStep[i].goal_setted);
-          print('############'+mapFromJson['results'][i]['reason']);
           listOfBareFiveStep[i].uuid = mapFromJson['results'][i]['tuid'];
           listOfBareFiveStep[i].problems_identified =
               mapFromJson['results'][i]['problem'];
@@ -104,28 +75,20 @@ class _MyGoalPageState extends State<MyGoalPage>
               mapFromJson['results'][i]['plan'];
           listOfBareFiveStep[i].action_performed =
               mapFromJson['results'][i]['action'];
-          print(listOfBareFiveStep[i].goal_setted +
-              "   " +
-              listOfBareFiveStep[i].problems_identified +
-              "   " +
-              listOfBareFiveStep[i].root_causes_identified +
-              "end");
+          
         }
         print('赋值结束');
-        //printlength();
       } else if (mapFromJson['status'] == 20000) {
         print('失败码');
         Failure();
       }
     } on Error catch (e) {
-      //print(mapFromJson);
 
       print(e);
       print('出错');
 
       Failure();
     }
-    printlength();
     return itemCount;
   }
 
@@ -133,11 +96,9 @@ class _MyGoalPageState extends State<MyGoalPage>
     return new FutureBuilder(
         future: GetMyGoalData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          print('enter builder');
-          print(snapshot.data);
           switch (snapshot.connectionState) {
             case ConnectionState.none:
-              return new Text('未请求'); //如果_calculation未执行则提示：请点击开始
+              return new Text('未请求'); 
             case ConnectionState.waiting:
               {
                 return new Text('Awaiting result...');
@@ -148,14 +109,7 @@ class _MyGoalPageState extends State<MyGoalPage>
                 return new Text('Error: ${snapshot.error}');
               } //若_calculation执行出现异常
               else {
-                print('return scaffold');
-                printlength();
-                for (int i = 0; i < (mapFromJson['sum'] as int); i++) {
-                  print(i);
-                  print(listOfBareFiveStep[i].goal_setted);
-                }
-                print(snapshot.data);
-                return new Scaffold(
+                                return new Scaffold(
                   body: new ListView.builder(
                       itemCount: snapshot.data,
                       // itemExtent: 50.0, //强制高度为50.0
@@ -191,7 +145,6 @@ class _MyGoalPageState extends State<MyGoalPage>
 
   @override
   Widget build(BuildContext context) {
-    print('begin build');
     return futureWidget();
   }
 }
