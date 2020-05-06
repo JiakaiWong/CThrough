@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 import 'widget_edit_goal_utility.dart';
+
 class NewGoalDirectionPageOne extends StatefulWidget {
   @override
   _NewGoalDirectionPageOneState createState() =>
@@ -39,32 +40,36 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
       prefs.setString('currentGoalSetted', "$goal_setted");
     }
 
-
     void getCurrentGoalSetted() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //set uuid
       goal_setted = prefs.getString('currentGoalSetted');
     }
+
     void getCurrentProblemsIdentified() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //set uuid
       problems_identified = prefs.getString('currentProblemsIdentified');
     }
+
     void getCurrentRootCausesIdentified() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //set uuid
       root_causes_identified = prefs.getString('currentRootCausesIdentified');
     }
+
     void getCurrentPlanDesigned() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //set uuid
       plan_designed = prefs.getString('currentPlanDesigned');
     }
+
     void getCurrentActionPerformed() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //set uuid
       action_performed = prefs.getString('currentActionPerformed');
     }
+
 //init
     Future<String> getThingsDone() async {
       getUuid();
@@ -142,11 +147,19 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
               else //若_calculation执行正常完成
                 return new Scaffold(
                   appBar: AppBar(
-                    leading: Container(),
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      tooltip: '取消编辑并且返回',
+                      onPressed: () {
+                        Navigator.popUntil(
+                            context, ModalRoute.withName('Navigator'));
+                      },
+                    ),
                     title: Text('请描述您的目标'),
                     elevation: 0,
                     actions: <Widget>[
                       IconButton(
+                        tooltip: '继续',
                         icon: Icon(Icons.arrow_forward),
                         onPressed: () {
                           EditGoal();
@@ -186,4 +199,3 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
     return futureWidget();
   }
 }
-
