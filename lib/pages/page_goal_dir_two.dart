@@ -142,7 +142,7 @@ class _NewGoalDirectionPageTwoState extends State<NewGoalDirectionPageTwo> {
                 return new Scaffold(
                   appBar: AppBar(
                     leading: Container(),
-                    title: Text('请描述您的目标'),
+                    title: Text('障碍识别'),
                     elevation: 0,
                     actions: <Widget>[
                       IconButton(
@@ -164,7 +164,7 @@ class _NewGoalDirectionPageTwoState extends State<NewGoalDirectionPageTwo> {
                               problems_identified = text; //TODO
                             },
                             decoration: InputDecoration(
-                                hintText: '目标',
+                                hintText: '障碍识别',
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 )),

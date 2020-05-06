@@ -125,7 +125,6 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
                             context, ModalRoute.withName('Navigator'));
                       },
                     ),
-                    title: Text('请描述您的目标'),
                     elevation: 0,
                     actions: <Widget>[
                       IconButton(

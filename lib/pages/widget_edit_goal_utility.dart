@@ -1,7 +1,8 @@
 import 'package:date_matching/pages/widget_my_goals_view.dart';
 import 'package:flutter/material.dart';
 
-var itemCount = 0;
+
+
 Map<String, dynamic> mapFromJson;
 
 List listOfBareFiveStep = List<BareFiveStep>();

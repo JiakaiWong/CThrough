@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'pages/page_edit_profile.dart';
 import 'pages/page_new_principle.dart';
 

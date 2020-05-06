@@ -20,66 +20,7 @@ class _EditGoalState extends State<EditGoal> {
     String plan_designed;
     String action_performed;
 
-    //get uuid from local shared_preference
-    Future<String> getUuid() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //set uuid
-      uuid = prefs.getString('uuid');
-      return uuid;
-    }
-
-    void getTheGoal() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //set tuid
-      tuid = prefs.getString('currentGoal');
-    }
-
-    Future<String> getThingsDone() async {
-      print('编辑目标开始读取信息');
-      getUuid();
-      getTheGoal();
-      for (int i = 0; i < itemCount; i++) {
-        if (listOfBareFiveStep[i].uuid == tuid) {
-          goal_setted = listOfBareFiveStep[i].goal_setted;
-          goal_setted = listOfBareFiveStep[i].problems_identified;
-          goal_setted = listOfBareFiveStep[i].root_causes_identified;
-          goal_setted = listOfBareFiveStep[i].plan_designed;
-          goal_setted = listOfBareFiveStep[i].action_performed;
-        }
-      }
-    }
-
-    // void getTheGoalSetted() async {
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   //set uuid
-    //   goal_setted = prefs.getString('currentGoalSetted');
-    // }
-
-    // void getTheProblemsIdentified() async {
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   //set uuid
-    //   problems_identified = prefs.getString('currentProblemsIdentified');
-    // }
-
-    // void getTheRootCausesIdentified() async {
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   //set uuid
-    //   root_causes_identified = prefs.getString('currentRootCausesIdentified');
-    // }
-
-    // void getTheActionPerformed() async {
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   //set uuid
-    //   root_causes_identified = prefs.getString('currentRootCausesIdentified');
-    // }
-
-    // void getCurrentActionPerformed() async {
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   //set uuid
-    //   action_performed = prefs.getString('currentActionPerformed');
-    // }
-
-    Future<bool> Faliure1() async {
+    Future<bool> Failure1() async {
       return (await showDialog(
             context: context,
             builder: (context) => new AlertDialog(
@@ -87,7 +28,10 @@ class _EditGoalState extends State<EditGoal> {
               content: new Text('不能获取当前目标内容'),
               actions: <Widget>[
                 new FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.popUntil(
+                        context, ModalRoute.withName('Navigator'));
+                  },
                   child: new Text('确定'),
                 ),
               ],
@@ -96,7 +40,7 @@ class _EditGoalState extends State<EditGoal> {
           false;
     }
 
-    Future<bool> Faliure2() async {
+    Future<bool> Failure2() async {
       return (await showDialog(
             context: context,
             builder: (context) => new AlertDialog(
@@ -104,7 +48,9 @@ class _EditGoalState extends State<EditGoal> {
               content: new Text('内容未保存，请手动保存至应用外'),
               actions: <Widget>[
                 new FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   child: new Text('确定'),
                 ),
               ],
@@ -114,16 +60,16 @@ class _EditGoalState extends State<EditGoal> {
     }
 
     Future<Null> EditGoal() async {
-      print('begin async');
       Response response;
       try {
         var data = {
           'uuid': uuid,
-          'goal_setted': goal_setted,
-          'problems_identified': problems_identified,
-          'root_causes_identified': root_causes_identified,
-          'plan_designed': plan_designed,
-          'action_performed': action_performed
+          'tuid': tuid,
+          'goal': goal_setted,
+          'problem': problems_identified,
+          'reason': root_causes_identified,
+          'plan': plan_designed,
+          'action': action_performed
         };
         response = await post(
           "http://47.107.117.59/fff/setTarget.php", //TODO
@@ -131,15 +77,60 @@ class _EditGoalState extends State<EditGoal> {
         );
         Map<String, dynamic> mapFromJson =
             json.decode(response.body.toString());
-        print(response.body.toString());
         if (mapFromJson['status'] == 10000) {
           Navigator.pop(context);
-          print('请求成功');
+          print('编辑成功');
+        } else if (mapFromJson['status'] == 20000) {
+          Failure2();
         }
       } on Error catch (e) {
-        Faliure2();
+        Failure2();
       }
       return;
+    }
+
+    //get uuid from local shared_preference
+    Future<String> getUuid() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //set uuid
+      uuid = prefs.getString('uuid');
+      return uuid;
+    }
+
+    Future getTheGoal() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //set tuid
+      tuid = prefs.getString('currentGoal');
+    }
+
+    Future<String> getThingsDone() async {
+      print('编辑页面开始读取信息');
+      getUuid();
+      getTheGoal().then((response) {
+        print('找到目标，开始给文本框内容赋值');
+        var foundTarget = false;
+        for (int i = 0; i < listOfBareFiveStep.length; i++) {
+          print(listOfBareFiveStep[i].uuid);
+          print(listOfBareFiveStep[i].goal_setted);
+          print(listOfBareFiveStep[i].problems_identified);
+          print(listOfBareFiveStep[i].root_causes_identified);
+          print(listOfBareFiveStep[i].plan_designed);
+          print(listOfBareFiveStep[i].action_performed);
+
+          if (listOfBareFiveStep[i].uuid == tuid) {
+            goal_setted = listOfBareFiveStep[i].goal_setted;
+            problems_identified = listOfBareFiveStep[i].problems_identified;
+            root_causes_identified =
+                listOfBareFiveStep[i].root_causes_identified;
+            plan_designed = listOfBareFiveStep[i].plan_designed;
+            action_performed = listOfBareFiveStep[i].action_performed;
+            foundTarget = true;
+          }
+        }
+        if (!foundTarget) {
+          Failure1();
+        }
+      });
     }
 
     return new FutureBuilder(
@@ -156,8 +147,7 @@ class _EditGoalState extends State<EditGoal> {
                 return new Text('Error: ${snapshot.error}');
               else //若_calculation执行正常完成
               {
-                print('11111');
-                print('开始返回Scaffold');
+                print('开始生成编辑目标的页面');
                 print(tuid);
                 print(goal_setted);
                 print(problems_identified);
@@ -173,7 +163,6 @@ class _EditGoalState extends State<EditGoal> {
                           icon: Icon(Icons.check),
                           onPressed: () {
                             EditGoal();
-                            Navigator.pop(context);
                           })
                     ],
                   ),
@@ -257,7 +246,7 @@ class _EditGoalState extends State<EditGoal> {
                           ),
                           TextField(
                             controller:
-                                TextEditingController(text: plan_designed),
+                                TextEditingController(text: action_performed),
                             onChanged: (text) {
                               action_performed = text;
                             },
@@ -269,12 +258,6 @@ class _EditGoalState extends State<EditGoal> {
                             maxLength: 300,
                             maxLines: 10,
                           ),
-                          FlatButton(
-                              color: Colors.grey,
-                              onPressed: () {
-                                EditGoal();
-                              },
-                              child: Text('完成'))
                         ],
                       ),
                     ),

@@ -36,7 +36,7 @@ class CreateAccountPageState extends State<CreateAccountPage> {
         false;
   }
 
-  Future<bool> Faliure() async {
+  Future<bool> Failure() async {
     return (await showDialog(
           context: context,
           builder: (context) => new AlertDialog(
@@ -70,7 +70,7 @@ class CreateAccountPageState extends State<CreateAccountPage> {
         print('请求成功');
       }
     } on Error catch (e) {
-      Faliure();
+      Failure();
     }
     return;
   }

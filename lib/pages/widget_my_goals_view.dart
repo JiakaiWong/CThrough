@@ -13,7 +13,6 @@ class MyGoalPage extends StatefulWidget {
 
 class _MyGoalPageState extends State<MyGoalPage>
     with AutomaticKeepAliveClientMixin {
-
   @override
   bool get wantKeepAlive => true;
 
@@ -21,7 +20,7 @@ class _MyGoalPageState extends State<MyGoalPage>
     return (await showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: new Text('无法获取个人信息'),
+            title: new Text('出错'),
             content: new Text('请稍后再试'),
             actions: <Widget>[
               new FlatButton(
@@ -38,6 +37,7 @@ class _MyGoalPageState extends State<MyGoalPage>
   Future<String> getUuid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var myuuid = prefs.getString('uuid');
+    print(myuuid);
     return myuuid;
   }
 
@@ -52,9 +52,10 @@ class _MyGoalPageState extends State<MyGoalPage>
         "http://47.107.117.59/fff/getTargets.php",
         body: data,
       );
-      mapFromJson = json.decode(response.body);
+      var mapFromJson = json.decode(response.body);
+      listOfBareFiveStep.removeRange(0, listOfBareFiveStep.length);
+
       if (mapFromJson['status'] == 10000) {
-        itemCount = await mapFromJson['sum'] as int;
         for (int i = 0; i < (mapFromJson['sum'] as int); i++) {
           listOfBareFiveStep.add(BareFiveStep(
             goal_setted: '默认目标',
@@ -75,21 +76,43 @@ class _MyGoalPageState extends State<MyGoalPage>
               mapFromJson['results'][i]['plan'];
           listOfBareFiveStep[i].action_performed =
               mapFromJson['results'][i]['action'];
-          
         }
-        print('赋值结束');
+        print('我的目标列表存储结束,长度为：');
+        print(listOfBareFiveStep.length);
       } else if (mapFromJson['status'] == 20000) {
         print('失败码');
         Failure();
       }
     } on Error catch (e) {
-
       print(e);
       print('出错');
 
       Failure();
     }
-    return itemCount;
+    return listOfBareFiveStep.length;
+  }
+
+  Future DeleteGoal(String tuid) async {
+    print('开始删除目标');
+    Response response;
+    try {
+      var data = {'tuid': tuid};
+      response = await post(
+        "http://47.107.117.59/fff/deleteTarget.php",
+        body: data,
+      );
+      var mapFromJson = json.decode(response.body);
+      if (mapFromJson['status'] == 10000) {
+        print('删除成功');
+      } else if (mapFromJson['status'] == 20000) {
+        print('失败码');
+        Failure();
+      }
+    } on Error catch (e) {
+      print(e);
+      print('出错');
+      Failure();
+    }
   }
 
   Widget futureWidget() {
@@ -98,36 +121,80 @@ class _MyGoalPageState extends State<MyGoalPage>
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
-              return new Text('未请求'); 
+              return new Text('未请求');
             case ConnectionState.waiting:
               {
                 return new Text('Awaiting result...');
-              } //如果_calculation正在执行则提示：加载中
-            default: //如果_calculation执行完毕
+              } 
+            default: 
               if (snapshot.hasError) {
                 print('snapshot.hasError');
                 return new Text('Error: ${snapshot.error}');
-              } //若_calculation执行出现异常
+              } 
               else {
-                                return new Scaffold(
+                return new Scaffold(
                   body: new ListView.builder(
                       itemCount: snapshot.data,
-                      // itemExtent: 50.0, //强制高度为50.0
                       itemBuilder: (context, index) {
-                        //return Text(listOfBareFiveStep[index].goal_setted);
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: FiveStepCard(
-                            goal_setted: listOfBareFiveStep[index].goal_setted,
-                            problems_identified:
-                                listOfBareFiveStep[index].problems_identified,
-                            root_causes_identified: listOfBareFiveStep[index]
-                                .root_causes_identified,
-                            plan_designed:
-                                listOfBareFiveStep[index].plan_designed,
-                            action_performed:
-                                listOfBareFiveStep[index].action_performed,
-                            uuid: listOfBareFiveStep[index].uuid,
+                          child: Dismissible(
+                            key: Key('keyOfFiveStepCard$index'),
+                            onDismissed: (direction) {
+                              var _snackStr = '删除了一个目标';
+                              if (direction == DismissDirection.endToStart) {
+                                // 从右向左
+                                _snackStr = '从右向左删除了目标';
+                              } else if (direction ==
+                                  DismissDirection.startToEnd) {
+                                _snackStr = '从左向右删除了目标';
+                              }
+                              DeleteGoal(listOfBareFiveStep[index].uuid);
+                              // 展示 SnackBar
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                content: Text(_snackStr),
+                              ));
+                              setState(() {});
+                            },
+                            background: Container(
+                              color: Colors.red,
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                                trailing: Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            secondaryBackground: Container(
+                              color: Colors.blue,
+                              child: ListTile(
+                                title: Text(
+                                  '            你是删不掉我的',
+                                  textScaleFactor: 2.0,
+                                ),
+                                trailing: Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            child: FiveStepCard(
+                              uuid: listOfBareFiveStep[index].uuid,
+                              goal_setted:
+                                  listOfBareFiveStep[index].goal_setted,
+                              problems_identified:
+                                  listOfBareFiveStep[index].problems_identified,
+                              root_causes_identified: listOfBareFiveStep[index]
+                                  .root_causes_identified,
+                              plan_designed:
+                                  listOfBareFiveStep[index].plan_designed,
+                              action_performed:
+                                  listOfBareFiveStep[index].action_performed,
+                            ),
                           ),
                         );
                       }),
@@ -493,7 +560,7 @@ class MiniFiveStep extends StatelessWidget {
 
 //放进圆角矩形里
 class FiveStepCard extends StatelessWidget {
-  changeCurrentGoal() async {
+  Future<Null> changeCurrentGoal() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('currentGoal', "$uuid");
   }
@@ -528,8 +595,12 @@ class FiveStepCard extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            changeCurrentGoal();
-            Navigator.pushNamed(context, 'EditGoal');
+            print('开始设置目标');
+            changeCurrentGoal().then((response) {
+              Navigator.pushNamed(context, 'EditGoal');
+            }).then((response) {
+              print('跳转');
+            });
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),

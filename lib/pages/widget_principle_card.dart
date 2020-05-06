@@ -1,241 +1,207 @@
+import 'dart:convert';
+import 'package:date_matching/pages/widget_edit_principle_utility.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-
-
-class PrincipleCardScrollView extends StatefulWidget {
-  PrincipleCardScrollView({Key key}) : super(key: key);
+class MyPrinciplePage extends StatefulWidget {
+  MyPrinciplePage({Key key}) : super(key: key);
 
   @override
-  _PrincipleCardScrollViewState createState() =>
-      _PrincipleCardScrollViewState();
+  _MyPrinciplePageState createState() => _MyPrinciplePageState();
 }
 
-class _PrincipleCardScrollViewState extends State<PrincipleCardScrollView>
+class _MyPrinciplePageState extends State<MyPrinciplePage>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+  
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-          itemCount: null,
-          // itemExtent: 50.0, //强制高度为50.0
-          itemBuilder: (BuildContext context, int index) {
-            return FullPrincipleCard(
-                principleText: '这是第$index条原则',
-                principleDescription: '这是第$index条原则的介绍');
-          }),
-      floatingActionButton: FloatingActionButton.extended(
-          label: Text('新的原则'),
-          icon: Icon(Icons.add_circle_outline),
-          onPressed: () {
-            Navigator.pushNamed(context, 'NewPrinciple');
-          }),
-    );
-  }
-}
-
-
-class BarePrinciple {
-  String uuid;
-  String principleText;
-  String principleDescription;
-  factory BarePrinciple.fromJson(Map<String, dynamic> parsedJson) {
-    return BarePrinciple(
-      uuid: parsedJson['uuid'],
-      principleText: parsedJson['principleText'],
-      principleDescription: parsedJson['principleDescription'],
-    );
+  Future<bool> Failure() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('出错'),
+            content: new Text('请稍后再试'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text('确定'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
   }
 
-  BarePrinciple({this.uuid, this.principleText, this.principleDescription});
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uuid'] = this.uuid;
-    data['principle_text'] = this.principleText;
-    data['principle_description'] = this.principleDescription;
-    return data;
+  //get puid from local shared_preference
+  Future<String> getUuid() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var myuuid = prefs.getString('uuid');
+    return myuuid;
   }
-}
 
+  Future<int> GetMyPrincipleData() async {
+    var myuuid = await getUuid();
+    print('begin GetMyPrincipleData');
+    Response response;
+    try {
+      var data = {'uuid': myuuid};
+      print(data);
+      response = await post(
+        "http://47.107.117.59/fff/getPrinciples.php",
+        body: data,
+      );
+      var principleMapFromJson = json.decode(response.body);
+      listOfBarePrinciple.removeRange(0, listOfBarePrinciple.length);
 
-//https://javiercbk.github.io/json_to_dart/
-//最基本的最重要的五步方法数据结构,包括从JSON到类和创建JSON
-class BarePrincipleList {
-  List<BarePrinciple> barePrinciples;
+      if (principleMapFromJson['status'] == 10000) {
+        for (int i = 0; i < (principleMapFromJson['sum'] as int); i++) {
+          listOfBarePrinciple.add(BarePrinciple(
+            puid: 'default puid',
+            principleText: ' ',
+            principleDescription: ' ',
+          ));
+        }
+        for (int i = 0; i < (principleMapFromJson['sum'] as int); i++) {
+          listOfBarePrinciple[i].puid =
+              principleMapFromJson['results'][i]['puid'];
+          listOfBarePrinciple[i].principleText =
+              principleMapFromJson['results'][i]['title'];
+          listOfBarePrinciple[i].principleDescription =
+              principleMapFromJson['results'][i]['description'];
+        }
+        print('我的原则列表存储结束,长度为：');
+        print(listOfBarePrinciple.length);
+      } else if (principleMapFromJson['status'] == 20000) {
+        print('失败码');
+        Failure();
+      }
+    } on Error catch (e) {
+      print(e);
+      print('出错');
 
-  BarePrincipleList({this.barePrinciples});
-
-  BarePrincipleList.fromJson(Map<String, dynamic> json) {
-    if (json['BarePrinciple'] != null) {
-      barePrinciples = new List<BarePrinciple>();
-      json['BarePrinciple'].forEach((v) {
-        barePrinciples.add(new BarePrinciple.fromJson(v));
-      });
+      Failure();
     }
+    return listOfBarePrinciple.length;
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.barePrinciples != null) {
-      data['BarePrinciple'] =
-          this.barePrinciples.map((v) => v.toJson()).toList();
+  Future DeletePrinciple(String puid) async {
+    print('开始删除原则');
+    Response response;
+    try {
+      var data = {'puid': puid};
+
+      response = await post(
+        "http://47.107.117.59/fff/deletePrinciple.php",
+        body: data,
+      );
+      var mapFromJson = json.decode(response.body);
+      if (mapFromJson['status'] == 10000) {
+        print('删除成功');
+      } else if (mapFromJson['status'] == 20000) {
+        print('失败码');
+        Failure();
+      }
+    } on Error catch (e) {
+      print(e);
+      print('出错');
+      Failure();
     }
-    return data;
+    
+    
   }
-}
+  Widget futureWidget() {
+      return new FutureBuilder(
+          future: GetMyPrincipleData(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return new Text('未请求');
+              case ConnectionState.waiting:
+                {
+                  return new Text('Awaiting result...');
+                } 
+              default: 
+                if (snapshot.hasError) {
+                  print('snapshot.hasError');
+                  return new Text('Error: ${snapshot.error}');
+                } 
+                else {
+                  return new Scaffold(
+                    body: new ListView.builder(
+                        itemCount: snapshot.data,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Dismissible(
+                              key: Key('keyOfFullPrincipleCard$index'),
+                              onDismissed: (direction) {
+                                var _snackStr = '删除了一个原则';
+                                if (direction == DismissDirection.endToStart) {
+                                  // 从右向左
+                                  _snackStr = '从右向左删除了原则';
+                                } else if (direction ==
+                                    DismissDirection.startToEnd) {
+                                  _snackStr = '从左向右删除了原则';
+                                }
+                                DeletePrinciple(listOfBarePrinciple[index].puid);
+                                // 展示 SnackBar
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text(_snackStr),
+                                ));
+                                setState(() {});
+                              },
+                              background: Container(
+                                color: Colors.red,
+                                child: ListTile(
+                                  leading: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                  trailing: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              secondaryBackground: Container(
+                                color: Colors.blue,
+                                child: ListTile(
+                                  title: Text(
+                                    '            你是删不掉我的',
+                                    textScaleFactor: 2.0,
+                                  ),
+                                  trailing: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              child: FullPrincipleCard(
+                                principleText:
+                                    listOfBarePrinciple[index].principleText,
+                                principleDescription: listOfBarePrinciple[index]
+                                    .principleDescription,
+                              ),
+                            ),
+                          );
+                        }),
+                    floatingActionButton: FloatingActionButton.extended(
+                        label: Text('新的目标'),
+                        icon: Icon(Icons.add_circle_outline),
+                        onPressed: () {
+                          Navigator.pushNamed(context, 'NewPrinciple');
+                        }),
+                  );
+                }
+            }
+          });
+    }
 
-
-//两行字(最多四行)
-class SmallPrincipleDescription extends StatelessWidget {
-  SmallPrincipleDescription({
-    Key key,
-    this.principleText,
-    this.principleDescription,
-  }) : super(key: key);
-  final String principleText;
-  final String principleDescription;
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              '$principleText',
-              textScaleFactor: 1.4,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Padding(padding: EdgeInsets.only(bottom: 2.0)),
-            Text(
-              '$principleDescription',
-              textScaleFactor: 1,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-//可以放很多行
-class FullPrincipleDescription extends StatelessWidget {
-  FullPrincipleDescription({
-    Key key,
-    this.principleText,
-    this.principleDescription,
-  }) : super(key: key);
-  final String principleText;
-  final String principleDescription;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              '$principleText',
-              textScaleFactor: 2.2,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 100,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Padding(padding: EdgeInsets.only(bottom: 2.0)),
-            Text(
-              '$principleDescription',
-              textScaleFactor: 1.5,
-              maxLines: 100,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-//给两行字加上圆角矩形
-class PrincipleCard extends StatelessWidget {
-  PrincipleCard({
-    Key key,
-    this.principleText,
-    this.principleDescription,
-  }) : super(key: key);
-  final String principleText;
-  final String principleDescription;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            //color: Colors.grey,
-            width: 0,
-          ),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-          child: SmallPrincipleDescription(
-            principleDescription: principleDescription,
-            principleText: principleText,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-//可以变长的卡片
-class FullPrincipleCard extends StatelessWidget {
-  FullPrincipleCard({
-    Key key,
-    this.principleText,
-    this.principleDescription,
-  }) : super(key: key);
-  final String principleText;
-  final String principleDescription;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey,
-            width: 0,
-          ),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 20, 20, 20),
-          child: FullPrincipleDescription(
-            principleText: principleText,
-            principleDescription: principleDescription,
-          ),
-        ),
-      ),
-    );
-  }
+    Widget build(BuildContext context) {
+      return futureWidget();
+    }
+  
 }

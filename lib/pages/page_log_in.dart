@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
 
 //登陆操作
   Future<Null> LogIn() async {
-    print('begin async');
+    print('开始登陆');
     Response response;
     try {
       var data = {'mail': _email, 'password': _password};
@@ -51,7 +51,6 @@ class _LoginPageState extends State<LoginPage> {
         body: data,
       );
       Map<String, dynamic> mapFromJson = json.decode(response.body);
-      print(response.bodyBytes.toString());
       if (mapFromJson['status'] == 10000) {
         uuid = mapFromJson['uuid'];
         print('请求成功');
@@ -170,7 +169,6 @@ class _LoginPageState extends State<LoginPage> {
     return TextFormField(
       onChanged: (text) {
         _password = text;
-        print('password:$_password');
       },
       //onSaved: (String value) => _password = value,
       obscureText: _isObscure,
@@ -213,7 +211,6 @@ class _LoginPageState extends State<LoginPage> {
       },
       onChanged: (text) {
         _email = text;
-        print('email:$_email');
       },
       //onSaved: (String value) => _email = value,
     );
