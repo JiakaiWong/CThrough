@@ -1,8 +1,4 @@
-import 'page_discover_following.dart';
-
 import 'package:flutter/material.dart';
-import 'widget_discovery_card.dart';
-import 'page_discover_nearby.dart';
 import 'page_discover_recommend.dart';
 
 class DiscoverPage extends StatefulWidget {

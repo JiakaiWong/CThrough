@@ -30,7 +30,7 @@ class _InitPageTwoState extends State<InitPageTwo> {
   }
 
   void navigationPageWel() {
-    Navigator.of(context).pushReplacementNamed('WelcomePage');
+    Navigator.of(context).pushReplacementNamed('LogIn');
   }
 
   @override

@@ -12,8 +12,6 @@ import 'pages/page_create_account.dart';
 import 'bottom_navigation_widget.dart';
 import 'pages/page_about_us.dart';
 import 'pages/page_log_in.dart';
-import 'pages/page_change_password.dart';
-import 'pages/z_init_direction.dart';
 import 'pages/init_direction_two.dart';
 
 // void main() {
@@ -44,10 +42,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      initialRoute: 'LogIn',
+      initialRoute: 'WelcomPage2',
       routes: {
         'Navigator': (context) => BottomNavigationWidget(),
-        'WelcomePage': (context) => InitPage(),
         'WelcomePage2': (context) => InitPageTwo(),
         'AboutPage': (context) => AboutPage(),
         'NewGoal1': (context) => NewGoalDirectionPageOne(),
@@ -59,7 +56,6 @@ class MyApp extends StatelessWidget {
         'EditGoal': (context) => EditGoal(),
         
         'Register': (context) => CreateAccountPage(),
-        'ChangePassword': (context) => ChangePasswordPage(),
         
         'EditProfileScreen': (context) => EditProfilePage(),
 

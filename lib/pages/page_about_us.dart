@@ -25,7 +25,7 @@ class AboutPage extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'About us',
+                          '关于我们',
                           textScaleFactor: 1.5,
                           style: TextStyle(
                               fontSize: 42.0, fontWeight: FontWeight.bold),
@@ -134,7 +134,7 @@ class AboutPage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.fromLTRB(30, 40, 20, 30),
                   child: Text(
-                    'app intro',
+                    '应用介绍',
                     textScaleFactor: 2,
                   ),
                 ),
@@ -147,7 +147,7 @@ class AboutPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width - 100,
                   child: Text(
                     '''
-    We provide a platform for people to find and share the failures they experienced during the trip toward success, toward transcending themselves, or simply toward a peaceful mind. We hope this platform can accelerate your evolution.
+    我们希望用户在CThrough能够深思熟虑地思考自己所追寻地目标究竟是什么，并且一旦认清目标，不遗余力地去实现它。任何来自自身的阻碍都反应了目标与用户核心价值的偏差。我们希望用户通过实现目标，得到自己真正向往的人生。
                     ''',
                     maxLines: 999,
                     textScaleFactor: 1,
@@ -312,20 +312,33 @@ class AboutPage extends StatelessWidget {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width * 3 / 5,
-                  child: Text(
-                    '''
-    希望大家和我一样，把自己的失败经验，失败的人生，一字一句，仔仔细细的总结起来，和盘托出，毫无保留的，实名制的告诉全世界，告诉世界上的每一个人。    ————曾博                ''',
-                    maxLines: 999,
-                    textScaleFactor: 1,
-                  ),
-                ),
-              ],
+            Container(
+              width: MediaQuery.of(context).size.width * 3 / 4,
+              child: Text(
+                '''
+史铁生说过：
+        “人与人的交往多半肤浅，或只有在较为肤浅的层面上，交往才是容易的，一旦走进深处，人与人就是相互的迷宫。”
+        如今的互联网已经发展到后下沉阶段，其去中心化和互联网内容管制的结局是许多地方社群对网上内容价值贡献的降低以及社交媒体对个人成长促进作用的遗失，在Cthrough,我们谦卑而真诚地提供用户反思自己头脑深处迷宫的契机，并试图使广泛观察对比别人的迷宫成为可能，我们先要帮助用户成为尼采所构思的Übermensch。这，便是Cthrough,一款移动端个人决策辅助系统的存在价值.
+              ''',
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w600),
+                textScaleFactor: 1.6,
+              ),
             ),
+            //         Row(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: <Widget>[
+            //             Container(
+            //               width: MediaQuery.of(context).size.width * 3 / 5,
+            //               child: Text(
+            //                 '''
+            // 希望大家和我一样，把自己的失败经验，失败的人生，一字一句，仔仔细细的总结起来，和盘托出，毫无保留的，实名制的告诉全世界，告诉世界上的每一个人。    ————曾博                ''',
+            //                 maxLines: 999,
+            //                 textScaleFactor: 1,
+            //               ),
+            //             ),
+            //           ],
+            // ),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
             //   children: <Widget>[

@@ -1,10 +1,4 @@
-import 'dart:convert';
-
-import 'widget_principle_card.dart';
 import 'package:flutter/material.dart';
-import 'widget_discovery_card.dart';
-import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
 
 // Future<String> _loadPrincipleFile() async {
 //   return await rootBundle.loadString('lib/assets/Goals.json');
@@ -28,7 +22,7 @@ class DiscoverRecommended extends StatefulWidget {
 
 class _DiscoverRecommendedState extends State<DiscoverRecommended> {
   Widget futureWidget() {
-    return Text('s');
+    return Center(child: Text('等待功能推出'));
     //   new FutureBuilder<BarePrinciple>(
     //       future: loadPrinciple(),
     //       builder: (context, snapshot) {
