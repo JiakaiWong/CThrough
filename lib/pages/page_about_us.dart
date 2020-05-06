@@ -14,124 +14,178 @@ class AboutPage extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
         child: ListView(
           children: <Widget>[
-            // Column(
-            //   children: <Widget>[
-            //     Row(
-            //       children: <Widget>[
-            //         AspectRatio(
-            //           aspectRatio: 1,
-            //           child: InkWell(
-            //             onTap: () {
-            //               //TODO
-            //             },
-            //             child: Container(
-            //              // height: 60,
-            //               decoration: BoxDecoration(
-            //                 image: DecorationImage(
-            //                     image: AssetImage('lib/assets/avatar/1.png')),
-            //                 shape: BoxShape.circle,
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //         AspectRatio(
-            //           aspectRatio: 1,
-            //           child: InkWell(
-            //             onTap: () {
-            //               //TODO
-            //             },
-            //             child: Container(
-            //              // height: 60,
-            //               decoration: BoxDecoration(
-            //                 image: DecorationImage(
-            //                     image: AssetImage('lib/assets/avatar/2.png')),
-            //                 shape: BoxShape.circle,
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //     Row(
-            //       children: <Widget>[
-            //         AspectRatio(
-            //           aspectRatio: 1,
-            //           child: InkWell(
-            //             onTap: () {
-            //               //TODO
-            //             },
-            //             child: Container(
-            //               //height: 60,
-            //               decoration: BoxDecoration(
-            //                 image: DecorationImage(
-            //                     image: AssetImage('lib/assets/avatar/3.png')),
-            //                 shape: BoxShape.circle,
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //         AspectRatio(
-            //           aspectRatio: 1,
-            //           child: InkWell(
-            //             onTap: () {
-            //               //TODO
-            //             },
-            //             child: Container(
-            //              // height: 60,
-            //               decoration: BoxDecoration(
-            //                 image: DecorationImage(
-            //                     image: AssetImage('lib/assets/avatar/4.png')),
-            //                 shape: BoxShape.circle,
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //     Row(
-            //       children: <Widget>[
-            //         AspectRatio(
-            //           aspectRatio: 1,
-            //           child: InkWell(
-            //             onTap: () {
-            //               //TODO
-            //             },
-            //             child: Container(
-            //              // height: 60,
-            //               decoration: BoxDecoration(
-            //                 image: DecorationImage(
-            //                     image: AssetImage('lib/assets/avatar/5.png')),
-            //                 shape: BoxShape.circle,
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //         AspectRatio(
-            //           aspectRatio: 1,
-            //           child: InkWell(
-            //             onTap: () {
-            //               //TODO
-            //             },
-            //             child: Container(
-            //             //  height: 60,
-            //               decoration: BoxDecoration(
-            //                 image: DecorationImage(
-            //                     image: AssetImage('lib/assets/avatar/6.png')),
-            //                 shape: BoxShape.circle,
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ],
-            // ),
+            Column(
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 1 / 6,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  //TODO
+                                },
+                                child: Container(
+                                  //height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'lib/assets/avatar/1.png')),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 1 / 15,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  //TODO
+                                },
+                                child: Container(
+                                  // height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'lib/assets/avatar/2.png')),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 1 / 6,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  //TODO
+                                },
+                                child: Container(
+                                  //height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'lib/assets/avatar/3.png')),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 1 / 15,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  //TODO
+                                },
+                                child: Container(
+                                  // height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'lib/assets/avatar/4.png')),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 1 / 6,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  //TODO
+                                },
+                                child: Container(
+                                  //height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'lib/assets/avatar/5.png')),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 1 / 15,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  //TODO
+                                },
+                                child: Container(
+                                  // height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'lib/assets/avatar/6.png')),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  width: MediaQuery.of(context).size.width - 200,
+                  width: MediaQuery.of(context).size.width * 2 / 3,
                   child: Text(
                     '''
     希望大家和我一样，把自己的失败经验，失败的人生，一字一句，仔仔细细的总结起来，和盘托出，毫无保留的，实名制的告诉全世界，告诉世界上的每一个人。    ————曾博                ''',

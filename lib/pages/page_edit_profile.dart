@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'widget_discovery_card.dart';
@@ -95,11 +92,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         print('when try:');
         print(myuuid);
         response = await post(
-          "http://47.107.117.59/fff/getUserInof.php",
+          "http://47.107.117.59/fff/getUserInfo.php",
           body: data,
         );
-        Map<String, dynamic> mapFromJson =
-            json.decode(response.body.toString());
+        Map<String, dynamic> mapFromJson = json.decode(response.body);
         print(mapFromJson);
         print(data);
         print(personTileData.uuid);
@@ -140,7 +136,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         };
         print(data);
         response = await post(
-          "http://47.107.117.59/fff/setUserInof.php",
+          "http://47.107.117.59/fff/setUserInfo.php",
           body: data,
         );
         Map<String, dynamic> mapFromJson =
@@ -285,13 +281,192 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               )),
                           maxLength: 100,
                         ),
-                        // FlatButton(
-                        //     color: Colors.grey,
-                        //     onPressed: () {
-                        //       //TODO
-                        //       Navigator.pop(context);
-                        //     },
-                        //     child: Text('完成'))
+                        Text('点击选择头像'),
+
+                        Column(
+                          children: <Widget>[
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      1 /
+                                      8,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: AspectRatio(
+                                          aspectRatio: 1,
+                                          child: InkWell(
+                                            onTap: () {
+                                              personTileData.avatarId = 1;
+                                            },
+                                            child: Container(
+                                              //height: 60,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'lib/assets/avatar/1.png')),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                1 /
+                                                15,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: AspectRatio(
+                                          aspectRatio: 1,
+                                          child: InkWell(
+                                            onTap: () {
+                                              personTileData.avatarId = 2;
+                                            },
+                                            child: Container(
+                                              // height: 60,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'lib/assets/avatar/2.png')),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      1 /
+                                      8,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: AspectRatio(
+                                          aspectRatio: 1,
+                                          child: InkWell(
+                                            onTap: () {
+                                              personTileData.avatarId = 3;
+                                            },
+                                            child: Container(
+                                              //height: 60,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'lib/assets/avatar/3.png')),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                1 /
+                                                15,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: AspectRatio(
+                                          aspectRatio: 1,
+                                          child: InkWell(
+                                            onTap: () {
+                                              personTileData.avatarId = 4;
+                                            },
+                                            child: Container(
+                                              // height: 60,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'lib/assets/avatar/4.png')),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      1 /
+                                      8,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: AspectRatio(
+                                          aspectRatio: 1,
+                                          child: InkWell(
+                                            onTap: () {
+                                              personTileData.avatarId = 5;
+                                            },
+                                            child: Container(
+                                              //height: 60,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'lib/assets/avatar/5.png')),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                1 /
+                                                15,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: AspectRatio(
+                                          aspectRatio: 1,
+                                          child: InkWell(
+                                            onTap: () {
+                                              personTileData.avatarId = 6;
+                                            },
+                                            child: Container(
+                                              // height: 60,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'lib/assets/avatar/6.png')),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),

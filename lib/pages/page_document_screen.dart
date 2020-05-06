@@ -74,7 +74,7 @@ class _MypersonTileState extends State<MyPersonTile> {
         print('when try:');
         print(myuuid);
         response = await post(
-          "http://47.107.117.59/fff/getUserInof.php",
+          "http://47.107.117.59/fff/getUserInfo.php",
           body: data,
         );
         Map<String, dynamic> mapFromJson =
@@ -171,7 +171,7 @@ class DocumentPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.alternate_email),
             onPressed: () {
-              Navigator.pushNamed(context, 'NewGoal1');
+              Navigator.pushNamed(context, 'AboutPage');
             },
           )
         ],

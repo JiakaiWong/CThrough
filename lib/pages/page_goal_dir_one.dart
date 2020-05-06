@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
+import 'widget_edit_goal_utility.dart';
 class NewGoalDirectionPageOne extends StatefulWidget {
   @override
   _NewGoalDirectionPageOneState createState() =>
@@ -38,6 +39,32 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
       prefs.setString('currentGoalSetted', "$goal_setted");
     }
 
+
+    void getCurrentGoalSetted() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //set uuid
+      goal_setted = prefs.getString('currentGoalSetted');
+    }
+    void getCurrentProblemsIdentified() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //set uuid
+      problems_identified = prefs.getString('currentProblemsIdentified');
+    }
+    void getCurrentRootCausesIdentified() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //set uuid
+      root_causes_identified = prefs.getString('currentRootCausesIdentified');
+    }
+    void getCurrentPlanDesigned() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //set uuid
+      plan_designed = prefs.getString('currentPlanDesigned');
+    }
+    void getCurrentActionPerformed() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //set uuid
+      action_performed = prefs.getString('currentActionPerformed');
+    }
 //init
     Future<String> getThingsDone() async {
       getUuid();
@@ -87,6 +114,8 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
             json.decode(response.body.toString());
         print(response.body.toString());
         if (mapFromJson['status'] == 10000) {
+          print('新建目标成功');
+
           changeCurrentGoalSetted();
           Navigator.pushReplacementNamed(context, 'NewGoal2');
           print('请求成功');
@@ -158,92 +187,3 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
   }
 }
 
-class NewGoal1Direction extends StatelessWidget {
-  const NewGoal1Direction({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text('请描述您的目标'),
-        RichText(
-          text: TextSpan(
-            style: DefaultTextStyle.of(context).style,
-            children: <TextSpan>[
-              TextSpan(
-                text: '无论目标大或小，请让您的目标符合你的核心价值，并具体的描述您的目标。',
-                style: TextStyle(
-                    height: 1,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.none,
-                    color: Theme.of(context).iconTheme.color),
-              ),
-              TextSpan(
-                text: '例如：“成为一个老师”比“改变这个世界”更为具体.',
-                style: TextStyle(
-                    height: 1,
-                    fontSize: 18,
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.none,
-                    color: Theme.of(context).iconTheme.color),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            style: DefaultTextStyle.of(context).style,
-            children: <TextSpan>[
-              TextSpan(
-                text: '请不要将“目标”与“欲望”混淆。',
-                style: TextStyle(
-                    height: 2,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.none,
-                    color: Theme.of(context).iconTheme.color),
-              ),
-              TextSpan(
-                text: '请确保您写下的目标符合您的核心价值实现。例如“获得好身材”是一个目标，而“吃好吃的垃圾食品”无益于目标的实现.',
-                style: TextStyle(
-                    height: 1,
-                    fontSize: 18,
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.none,
-                    color: Theme.of(context).iconTheme.color),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            style: DefaultTextStyle.of(context).style,
-            children: <TextSpan>[
-              TextSpan(
-                text: '请不要按照“我觉得我可以达到”来限制您设定的目标.',
-                style: TextStyle(
-                    height: 2,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.none,
-                    color: Theme.of(context).iconTheme.color),
-              ),
-              TextSpan(
-                text: '，不要因为您未充分分析的障碍而限制你的目标实现。',
-                style: TextStyle(
-                    height: 1,
-                    fontSize: 18,
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.none,
-                    color: Theme.of(context).iconTheme.color),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}

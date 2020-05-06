@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart';
@@ -7,16 +6,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MyGoalPage extends StatefulWidget {
   MyGoalPage({Key key}) : super(key: key);
+
   @override
   _MyGoalPageState createState() => _MyGoalPageState();
 }
 
 class _MyGoalPageState extends State<MyGoalPage>
     with AutomaticKeepAliveClientMixin {
+  var itemCount = 0;
+  Map<String, dynamic> mapFromJson;
+
+  List listOfBareFiveStep = List<BareFiveStep>();
+//List<BareFiveStep> listOfBareFiveStep = List<BareFiveStep>();//如果这样写就是fixed sized list, 无法增加item
+
+  void printlength() {
+    print(listOfBareFiveStep.length);
+  }
+
   @override
   bool get wantKeepAlive => true;
 
-  Future<bool> Faliure() async {
+  Future<bool> Failure() async {
     return (await showDialog(
           context: context,
           builder: (context) => new AlertDialog(
@@ -40,106 +50,161 @@ class _MyGoalPageState extends State<MyGoalPage>
     return myuuid;
   }
 
-  Future<Null> GetMyGoalData() async {
+  Future<int> GetMyGoalData() async {
     var myuuid = await getUuid();
     print('begin GetMyGoalData');
     print(myuuid);
     Response response;
     try {
       var data = {'uuid': myuuid};
-      
+
       response = await post(
         "http://47.107.117.59/fff/getTargets.php",
         body: data,
       );
-      print('body: [${response.body}]');
-      Map<String, dynamic> mapFromJson = json.decode(response.body);
-      print(mapFromJson);
+      //print('body: [${response.body}]');
+      mapFromJson = json.decode(response.body);
+      // print(mapFromJson);
       // print(data);
-      // print(personTileData.uuid);
-      // if (mapFromJson['status'] == 10000) {
-      //   print('请求成功');
-      //   personTileData.avatarId = mapFromJson['avartarId'];
-      //   personTileData.followed = mapFromJson['followed'];
-      //   personTileData.userIdentity = mapFromJson['identity'];
-      //   personTileData.userName = mapFromJson['nick'];
-      //   print(personTileData.avatarId);
-      //   print(personTileData.userName);
-      // } else if (mapFromJson['status'] == 20000) {
-      //   Scaffold.of(context).showSnackBar(new SnackBar(
-      //     content: new Text("请求失败"),
-      //     action: new SnackBarAction(
-      //       label: "OK",
-      //       onPressed: () {},
-      //     ),
-      //   ));
-      // }
+      if (mapFromJson['status'] == 10000) {
+        print('sum:');
+        print(mapFromJson['sum']);
+        //print('results');
+        //print(mapFromJson['results'][0]);
+
+        //print(mapFromJson['results'][1]);
+
+        itemCount = await mapFromJson['sum'] as int;
+        print('开始初始化');
+        print(myuuid);
+        printlength();
+        for (int i = 0; i < (mapFromJson['sum'] as int); i++) {
+          print(i);
+          listOfBareFiveStep.add(BareFiveStep(
+            goal_setted: '默认目标',
+            problems_identified: ' ',
+            root_causes_identified: ' ',
+            plan_designed: ' ',
+            action_performed: ' ',
+          ));
+          print(listOfBareFiveStep[i].goal_setted);
+        }
+        print('初始化结束');
+        for (int i = 0; i < (mapFromJson['sum'] as int); i++) {
+          print(i);
+          print("before:  " + listOfBareFiveStep[i].goal_setted);
+          print('############'+mapFromJson['results'][i]['reason']);
+          listOfBareFiveStep[i].uuid = mapFromJson['results'][i]['tuid'];
+          listOfBareFiveStep[i].problems_identified =
+              mapFromJson['results'][i]['problem'];
+          listOfBareFiveStep[i].root_causes_identified =
+              mapFromJson['results'][i]['reason'];
+          listOfBareFiveStep[i].goal_setted = mapFromJson['results'][i]['goal'];
+          listOfBareFiveStep[i].plan_designed =
+              mapFromJson['results'][i]['plan'];
+          listOfBareFiveStep[i].action_performed =
+              mapFromJson['results'][i]['action'];
+          print(listOfBareFiveStep[i].goal_setted +
+              "   " +
+              listOfBareFiveStep[i].problems_identified +
+              "   " +
+              listOfBareFiveStep[i].root_causes_identified +
+              "end");
+        }
+        print('赋值结束');
+        //printlength();
+      } else if (mapFromJson['status'] == 20000) {
+        print('失败码');
+        Failure();
+      }
     } on Error catch (e) {
+      //print(mapFromJson);
+
       print(e);
-      Faliure();
+      print('出错');
+
+      Failure();
     }
-    return;
+    printlength();
+    return itemCount;
   }
 
   Widget futureWidget() {
     return new FutureBuilder(
         future: GetMyGoalData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          print('enter builder');
+          print(snapshot.data);
           switch (snapshot.connectionState) {
             case ConnectionState.none:
-              return new Text(
-                  'Press button to start'); //如果_calculation未执行则提示：请点击开始
+              return new Text('未请求'); //如果_calculation未执行则提示：请点击开始
             case ConnectionState.waiting:
-              return new Text('Awaiting result...'); //如果_calculation正在执行则提示：加载中
+              {
+                return new Text('Awaiting result...');
+              } //如果_calculation正在执行则提示：加载中
             default: //如果_calculation执行完毕
-              if (snapshot.hasError) //若_calculation执行出现异常
+              if (snapshot.hasError) {
+                print('snapshot.hasError');
                 return new Text('Error: ${snapshot.error}');
-              else //若_calculation执行正常完成
+              } //若_calculation执行出现异常
+              else {
+                print('return scaffold');
+                printlength();
+                for (int i = 0; i < (mapFromJson['sum'] as int); i++) {
+                  print(i);
+                  print(listOfBareFiveStep[i].goal_setted);
+                }
+                print(snapshot.data);
                 return new Scaffold(
-                  body: ListView.builder(
-                      itemCount: null,
+                  body: new ListView.builder(
+                      itemCount: snapshot.data,
                       // itemExtent: 50.0, //强制高度为50.0
-                      itemBuilder: (BuildContext context, int index) {
-                        return FiveStepCard(
-                          goal_setted: '',
-                          problems_identified: '别看了，这个功能还没实现。',
-                          root_causes_identified: '',
-                          plan_designed: '',
-                          action_performed: '',
+                      itemBuilder: (context, index) {
+                        //return Text(listOfBareFiveStep[index].goal_setted);
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FiveStepCard(
+                            goal_setted: listOfBareFiveStep[index].goal_setted,
+                            problems_identified:
+                                listOfBareFiveStep[index].problems_identified,
+                            root_causes_identified: listOfBareFiveStep[index]
+                                .root_causes_identified,
+                            plan_designed:
+                                listOfBareFiveStep[index].plan_designed,
+                            action_performed:
+                                listOfBareFiveStep[index].action_performed,
+                            uuid: listOfBareFiveStep[index].uuid,
+                          ),
                         );
                       }),
                   floatingActionButton: FloatingActionButton.extended(
                       label: Text('新的目标'),
                       icon: Icon(Icons.add_circle_outline),
                       onPressed: () {
-                        //TODO:
-
                         Navigator.pushNamed(context, 'NewGoal1');
                       }),
                 );
+              }
           }
         });
   }
 
   @override
   Widget build(BuildContext context) {
+    print('begin build');
     return futureWidget();
   }
-}
-
-Future<String> NewGoalRequest() async {
-  return await ('http://47.107.117.59/fff/set_target.php');
 }
 
 //最基本的最重要的五步方法数据结构
 class BareFiveStep {
   BareFiveStep(
-      {this.uuid,
-      this.goal_setted,
-      this.action_performed,
-      this.plan_designed,
-      this.problems_identified,
-      this.root_causes_identified});
+      {this.uuid = '',
+      this.goal_setted = '',
+      this.action_performed = '',
+      this.plan_designed = '',
+      this.problems_identified = '',
+      this.root_causes_identified = ''});
   String uuid;
   String goal_setted;
   String problems_identified;
@@ -334,8 +399,7 @@ class MiniFiveStep extends StatelessWidget {
                         decoration: TextDecoration.none,
                       )),
                   TextSpan(
-                      text: (problems_identified == null ||
-                              problems_identified == '')
+                      text: (goal_setted == null || goal_setted == '')
                           ? '未设定目标'
                           : '$goal_setted',
                       style: TextStyle(
@@ -476,14 +540,21 @@ class MiniFiveStep extends StatelessWidget {
 
 //放进圆角矩形里
 class FiveStepCard extends StatelessWidget {
+  changeCurrentGoal() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('currentGoal', "$uuid");
+  }
+
   FiveStepCard({
     Key key,
+    this.uuid,
     this.goal_setted,
     this.problems_identified,
     this.root_causes_identified,
     this.plan_designed,
     this.action_performed,
   }) : super(key: key);
+  final String uuid;
   final String goal_setted;
   final String problems_identified;
   final String root_causes_identified;
@@ -504,6 +575,7 @@ class FiveStepCard extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
+            changeCurrentGoal();
             Navigator.pushNamed(context, 'EditGoal');
           },
           child: Padding(
@@ -531,39 +603,6 @@ class FiveStepCard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-//这是一个stateful widget
-class FiveStepCardScrollView extends StatelessWidget {
-  FiveStepCardScrollView({
-    Key key,
-    this.goal_setted,
-    this.problems_identified,
-    this.root_causes_identified,
-    this.plan_designed,
-    this.action_performed,
-  }) : super(key: key); //constructor?
-
-  final String goal_setted;
-  final String problems_identified;
-  final String root_causes_identified;
-  final String plan_designed;
-  final String action_performed;
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(10.0),
-      children: <Widget>[
-        FiveStepCard(
-          goal_setted: goal_setted,
-          problems_identified: problems_identified,
-          root_causes_identified: root_causes_identified,
-          plan_designed: plan_designed,
-          action_performed: action_performed,
-        ),
-      ],
     );
   }
 }
