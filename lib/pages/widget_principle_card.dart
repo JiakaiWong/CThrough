@@ -155,6 +155,10 @@ class _MyPrinciplePageState extends State<MyPrinciplePage>
                               background: Container(
                                 color: Colors.red,
                                 child: ListTile(
+                                  title: Text(
+                                    '你快                    删除我啊',
+                                    textScaleFactor: 2.0,
+                                  ),
                                   leading: Icon(
                                     Icons.delete,
                                     color: Colors.white,
@@ -169,7 +173,10 @@ class _MyPrinciplePageState extends State<MyPrinciplePage>
                                 color: Colors.blue,
                                 child: ListTile(
                                   title: Text(
-                                    '            你是删不掉我的',
+                                    '''
+                  你快
+                  删除我啊
+                                    ''',
                                     textScaleFactor: 2.0,
                                   ),
                                   trailing: Icon(
@@ -189,9 +196,11 @@ class _MyPrinciplePageState extends State<MyPrinciplePage>
                         }),
                     floatingActionButton: FloatingActionButton.extended(
                         label: Text('新的目标'),
+                        heroTag: 'addPrinciple',
                         icon: Icon(Icons.add_circle_outline),
                         onPressed: () {
                           Navigator.pushNamed(context, 'NewPrinciple');
+                          print(" Navigator.pushNamed(context, 'NewPrinciple');");
                         }),
                   );
                 }

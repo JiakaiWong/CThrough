@@ -125,13 +125,12 @@ class _MyGoalPageState extends State<MyGoalPage>
             case ConnectionState.waiting:
               {
                 return new Text('Awaiting result...');
-              } 
-            default: 
+              }
+            default:
               if (snapshot.hasError) {
                 print('snapshot.hasError');
                 return new Text('Error: ${snapshot.error}');
-              } 
-              else {
+              } else {
                 return new Scaffold(
                   body: new ListView.builder(
                       itemCount: snapshot.data,
@@ -159,6 +158,13 @@ class _MyGoalPageState extends State<MyGoalPage>
                             background: Container(
                               color: Colors.red,
                               child: ListTile(
+                                title: Text(
+                                  '''
+你快
+删除我啊
+                                    ''',
+                                  textScaleFactor: 2.0,
+                                ),
                                 leading: Icon(
                                   Icons.delete,
                                   color: Colors.white,
@@ -173,7 +179,9 @@ class _MyGoalPageState extends State<MyGoalPage>
                               color: Colors.blue,
                               child: ListTile(
                                 title: Text(
-                                  '            你是删不掉我的',
+                                  '''
+        说实话我觉得你这个挫人要完成点目标还真不容易呢，要不你就把它放删除了好了。
+''',
                                   textScaleFactor: 2.0,
                                 ),
                                 trailing: Icon(
@@ -201,8 +209,10 @@ class _MyGoalPageState extends State<MyGoalPage>
                   floatingActionButton: FloatingActionButton.extended(
                       label: Text('新的目标'),
                       icon: Icon(Icons.add_circle_outline),
+                      heroTag: 'addGoal',
                       onPressed: () {
                         Navigator.pushNamed(context, 'NewGoal1');
+                        print("Navigator.pushNamed(context, 'NewGoal1');");
                       }),
                 );
               }
