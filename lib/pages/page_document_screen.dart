@@ -130,7 +130,7 @@ class _MypersonTileState extends State<MyPersonTile> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
-                          'lib/assets/avatar/${personTileData.avatarId}.png'),
+                          'lib/assets/avatar/${personTileData.avatarId}.jpg'),
                     ),
                     shape: BoxShape.circle,
                   ),

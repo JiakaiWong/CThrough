@@ -47,13 +47,20 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/assets/avatar/0.png
-    - lib/assets/avatar/1.png
-    - lib/assets/avatar/2.png
-    - lib/assets/avatar/3.png
-    - lib/assets/avatar/4.png
-    - lib/assets/avatar/5.png
-    - lib/assets/avatar/6.png
+    - lib/assets/avatar/0.jpg
+    - lib/assets/avatar/1.jpg
+    - lib/assets/avatar/2.jpg
+    - lib/assets/avatar/3.jpg
+    - lib/assets/avatar/4.jpg
+    - lib/assets/avatar/5.jpg
+    - lib/assets/avatar/6.jpg
+    - lib/assets/avatar/a0.png
+    - lib/assets/avatar/a1.png
+    - lib/assets/avatar/a2.png
+    - lib/assets/avatar/a3.png
+    - lib/assets/avatar/a4.png
+    - lib/assets/avatar/a5.png
+    - lib/assets/avatar/a6.png
 
 
     - lib/assets/background1.jpg

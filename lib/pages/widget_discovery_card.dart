@@ -84,7 +84,7 @@ class SmallPersonalTile extends StatelessWidget {
                   child: Container(
             decoration: new BoxDecoration(
               image: DecorationImage(
-                image: new AssetImage('lib/assets/avatar/$avatarId.png'),
+                image: new AssetImage('lib/assets/avatar/$avatarId.jpg'),
                 fit: BoxFit.fill,
               ),
               shape: BoxShape.circle,

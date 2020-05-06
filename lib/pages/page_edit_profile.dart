@@ -242,7 +242,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: AssetImage(
-                                                'lib/assets/avatar/${personTileData.avatarId.toString()}.png')),
+                                                'lib/assets/avatar/${personTileData.avatarId.toString()}.jpg')),
                                         shape: BoxShape.circle,
                                       ),
                                     ),
@@ -311,7 +311,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
-                                                        'lib/assets/avatar/1.png')),
+                                                        'lib/assets/avatar/1.jpg')),
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
@@ -337,7 +337,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
-                                                        'lib/assets/avatar/2.png')),
+                                                        'lib/assets/avatar/2.jpg')),
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
@@ -369,7 +369,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
-                                                        'lib/assets/avatar/3.png')),
+                                                        'lib/assets/avatar/3.jpg')),
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
@@ -395,7 +395,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
-                                                        'lib/assets/avatar/4.png')),
+                                                        'lib/assets/avatar/4.jpg')),
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
@@ -427,7 +427,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
-                                                        'lib/assets/avatar/5.png')),
+                                                        'lib/assets/avatar/5.jpg')),
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
@@ -453,7 +453,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
-                                                        'lib/assets/avatar/6.png')),
+                                                        'lib/assets/avatar/6.jpg')),
                                                 shape: BoxShape.circle,
                                               ),
                                             ),

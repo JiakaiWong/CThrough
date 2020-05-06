@@ -10,7 +10,7 @@ import 'widget_discovery_card.dart';
 //           thumbnail: Container(
 //             decoration: new BoxDecoration(
 //               image: DecorationImage(
-//                 image: new AssetImage('lib/assets/figure1.png'),
+//                 image: new AssetImage('lib/assets/figure1.jpg'),
 //                 fit: BoxFit.fill,
 //               ),
 //               shape: BoxShape.circle,
@@ -27,7 +27,7 @@ import 'widget_discovery_card.dart';
 //           thumbnail: Container(
 //             decoration: new BoxDecoration(
 //               image: DecorationImage(
-//                 image: new AssetImage('lib/assets/figure2.png'),
+//                 image: new AssetImage('lib/assets/figure2.jpg'),
 //                 fit: BoxFit.fill,
 //               ),
 //               shape: BoxShape.circle,
@@ -44,7 +44,7 @@ import 'widget_discovery_card.dart';
 //           thumbnail: Container(
 //             decoration: new BoxDecoration(
 //               image: DecorationImage(
-//                 image: new AssetImage('lib/assets/figure3.png'),
+//                 image: new AssetImage('lib/assets/figure3.jpg'),
 //                 fit: BoxFit.fill,
 //               ),
 //               shape: BoxShape.circle,
