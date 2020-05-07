@@ -63,9 +63,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
         ),
         body: TabBarView(
           children: <Widget>[
-            DiscoverRecommended(),
-            DiscoverRecommended(),
-            DiscoverRecommended(),
+            DiscoverNewGoals(),
+            Text('功能未完成'),
+            Text('功能未完成'),
           ],
         ),
       ),

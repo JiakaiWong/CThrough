@@ -2,6 +2,8 @@
 
 import 'package:date_matching/pages/widget_edit_principle_utility.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'widget_principle_card.dart';
 
 //个人基本数据结构
@@ -37,7 +39,7 @@ class PersonTileData {
     userName = json['userName'];
     userIdentity = json['userIdentity'];
     followed = int.parse(json['followed']);
-    avatarId = int.parse(json['avatarId']) ;
+    avatarId = int.parse(json['avatarId']);
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -49,7 +51,6 @@ class PersonTileData {
     return data;
   }
 }
-
 
 //头像昵称签名和关注的一小条个人信息还会显示认证信息(小号)
 class SmallPersonalTile extends StatelessWidget {
@@ -83,14 +84,15 @@ class SmallPersonalTile extends StatelessWidget {
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: Container(
-            decoration: new BoxDecoration(
-              image: DecorationImage(
-                image: new AssetImage('lib/assets/avatar/$avatarId.jpg'),
-                fit: BoxFit.fill,
-              ),
-              shape: BoxShape.circle,
-            ),
-          ),
+                    decoration: new BoxDecoration(
+                      image: DecorationImage(
+                        image:
+                            new AssetImage('lib/assets/avatar/$avatarId.jpg'),
+                        fit: BoxFit.fill,
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                 ),
               ),
             ),

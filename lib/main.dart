@@ -6,6 +6,7 @@ import 'pages/page_goal_dir_one.dart';
 import 'pages/page_goal_dir_two.dart';
 import 'pages/page_goal_dir_three.dart';
 import 'pages/page_goal_dir_four.dart';
+import 'pages/page_view_other_people.dart';
 
 import 'pages/page_edit_goal.dart';
 import 'pages/page_create_account.dart';
@@ -23,7 +24,7 @@ import 'pages/init_direction_two.dart';
 //     'To impact the world',
 //     'To learn/evolve',
 //   );
-  
+
 //   runApp(
 //     Provider<NameAndMessage>.value(
 //       value: myNameAndMessage,
@@ -35,7 +36,6 @@ import 'pages/init_direction_two.dart';
 //   );
 // }
 
-
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -44,21 +44,20 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       initialRoute: 'LogIn',
       routes: {
-        'Navigator': (context) => BottomNavigationWidget(),
-        'WelcomePage2': (context) => InitPageTwo(),
-        'AboutPage': (context) => AboutPage(),
-        'NewGoal1': (context) => NewGoalDirectionPageOne(),
+        'Navigator': (context) => BottomNavigationWidget(), //底部导航栏
+        'WelcomePage2': (context) => InitPageTwo(), //欢迎页面
+        'AboutPage': (context) => AboutPage(), //关于我们
+        'EditGoal': (context) => EditGoal(), //编辑目标
+        'NewGoal1': (context) => NewGoalDirectionPageOne(), //新建目标
         'NewGoal2': (context) => NewGoalDirectionPageTwo(),
         'NewGoal3': (context) => NewGoalDirectionPageThree(),
         'NewGoal4': (context) => NewGoalDirectionPageFour(),
-        'NewPrinciple': (context) => NewPrinciplePage(),
-        'LogIn': (context) => LoginPage(),
-        'EditGoal': (context) => EditGoal(),
-        
-        'Register': (context) => CreateAccountPage(),
-        
-        'EditProfileScreen': (context) => EditProfilePage(),
-
+        'NewPrinciple': (context) => NewPrinciplePage(), //新建原则
+        'LogIn': (context) => LoginPage(), //登陆
+        'Register': (context) => CreateAccountPage(), //创建账号
+        'EditProfileScreen': (context) => EditProfilePage(), //编辑用户资料
+        'OtherPeopleDocumentPage': (context) =>
+            OtherPeopleDocumentPage(), //查看其他用户
       },
       title: 'Flutter bottomNavigationBar',
       theme: ThemeData(

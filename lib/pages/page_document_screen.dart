@@ -25,10 +25,10 @@ import 'widget_discovery_card.dart';
 //我的个人信息标签
 class MyPersonTile extends StatefulWidget {
   @override
-  _MypersonTileState createState() => _MypersonTileState();
+  _MyPersonTileState createState() => _MyPersonTileState();
 }
 
-class _MypersonTileState extends State<MyPersonTile> {
+class _MyPersonTileState extends State<MyPersonTile> {
   Widget futureWidget() {
     PersonTileData personTileData = PersonTileData(
       uuid: 'default',

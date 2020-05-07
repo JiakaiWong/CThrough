@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,6 +45,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   onPressed: () {
                     Navigator.popUntil(
                         context, ModalRoute.withName('Navigator'));
+                  },
+                  child: new Text('确定'),
+                ),
+              ],
+            ),
+          )) ??
+          false;
+    }
+
+    Future<bool> PickAvatarSuccess() async {
+      return (await showDialog(
+            context: context,
+            builder: (context) => new AlertDialog(
+              title: new Text('已选择新头像'),
+              content: new Text(''),
+              actions: <Widget>[
+                new FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
                   },
                   child: new Text('确定'),
                 ),
@@ -303,7 +321,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 1;
-                                              
+                                              PickAvatarSuccess();
                                             },
                                             child: Container(
                                               //height: 60,
@@ -330,7 +348,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 2;
-                                              
+                                              PickAvatarSuccess();
                                             },
                                             child: Container(
                                               // height: 60,
@@ -363,7 +381,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 3;
-                                              
+                                              PickAvatarSuccess();
                                             },
                                             child: Container(
                                               //height: 60,
@@ -390,7 +408,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 4;
-                                              
+                                              PickAvatarSuccess();
                                             },
                                             child: Container(
                                               // height: 60,
@@ -423,7 +441,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 5;
-                                              
+                                              PickAvatarSuccess();
                                             },
                                             child: Container(
                                               //height: 60,
@@ -440,7 +458,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                1 /15,
+                                                1 /
+                                                15,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -449,6 +468,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 6;
+                                              PickAvatarSuccess();
                                             },
                                             child: Container(
                                               // height: 60,
@@ -477,7 +497,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         });
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return futureWidget();
   }
