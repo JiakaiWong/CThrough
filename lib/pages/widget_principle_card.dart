@@ -195,7 +195,7 @@ class _MyPrinciplePageState extends State<MyPrinciplePage>
                           );
                         }),
                     floatingActionButton: FloatingActionButton.extended(
-                        label: Text('新的目标'),
+                        label: Text('新的原则'),
                         heroTag: 'addPrinciple',
                         icon: Icon(Icons.add_circle_outline),
                         onPressed: () {

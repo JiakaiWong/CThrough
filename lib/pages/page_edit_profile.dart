@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'widget_discovery_card.dart';
 
 // Future<String> _loadDocumentFile() async {
@@ -282,7 +281,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           maxLength: 100,
                         ),
                         Text('点击选择头像'),
-
                         Column(
                           children: <Widget>[
                             Column(
@@ -305,14 +303,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 1;
-                                              Scaffold.of(context)
-                                                  .showSnackBar(new SnackBar(
-                                                content: new Text("设置成功"),
-                                                action: new SnackBarAction(
-                                                  label: "OK",
-                                                  onPressed: () {},
-                                                ),
-                                              ));
+                                              
                                             },
                                             child: Container(
                                               //height: 60,
@@ -339,14 +330,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 2;
-                                              Scaffold.of(context)
-                                                  .showSnackBar(new SnackBar(
-                                                content: new Text("设置成功"),
-                                                action: new SnackBarAction(
-                                                  label: "OK",
-                                                  onPressed: () {},
-                                                ),
-                                              ));
+                                              
                                             },
                                             child: Container(
                                               // height: 60,
@@ -379,14 +363,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 3;
-                                              Scaffold.of(context)
-                                                  .showSnackBar(new SnackBar(
-                                                content: new Text("设置成功"),
-                                                action: new SnackBarAction(
-                                                  label: "OK",
-                                                  onPressed: () {},
-                                                ),
-                                              ));
+                                              
                                             },
                                             child: Container(
                                               //height: 60,
@@ -413,14 +390,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 4;
-                                              Scaffold.of(context)
-                                                  .showSnackBar(new SnackBar(
-                                                content: new Text("设置成功"),
-                                                action: new SnackBarAction(
-                                                  label: "OK",
-                                                  onPressed: () {},
-                                                ),
-                                              ));
+                                              
                                             },
                                             child: Container(
                                               // height: 60,
@@ -453,14 +423,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 5;
-                                              Scaffold.of(context)
-                                                  .showSnackBar(new SnackBar(
-                                                content: new Text("设置成功"),
-                                                action: new SnackBarAction(
-                                                  label: "OK",
-                                                  onPressed: () {},
-                                                ),
-                                              ));
+                                              
                                             },
                                             child: Container(
                                               //height: 60,
@@ -477,8 +440,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                1 /
-                                                15,
+                                                1 /15,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -487,14 +449,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           child: InkWell(
                                             onTap: () {
                                               personTileData.avatarId = 6;
-                                              Scaffold.of(context)
-                                                  .showSnackBar( SnackBar(
-                                                content:  Text("设置成功"),
-                                                // action: new SnackBarAction(
-                                                //   label: "OK",
-                                                //   onPressed: () {},
-                                                // ),
-                                              ));
                                             },
                                             child: Container(
                                               // height: 60,
@@ -523,7 +477,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         });
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return futureWidget();
   }

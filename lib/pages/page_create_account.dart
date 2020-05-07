@@ -105,6 +105,7 @@ class CreateAccountPageState extends State<CreateAccountPage> {
                   buildTextFormField(),
                   SizedBox(height: 30.0),
                   buildPasswordTextField(context),
+                  Text('密码：千万不要输入其他网站使用过的密码，此应用程式没有使用加密传输，推荐在此使用“password”'),
                   SizedBox(height: 60.0),
                   buildLoginButton(context),
                   SizedBox(height: 30.0),
@@ -170,7 +171,7 @@ class CreateAccountPageState extends State<CreateAccountPage> {
         }
       },
       decoration: InputDecoration(
-          labelText: '密码',
+          labelText: '密码：千万不要输入其他网站使用过的密码，此应用程式没有使用加密传输，推荐在此使用“password”',
           suffixIcon: IconButton(
               icon: Icon(
                 Icons.remove_red_eye,

@@ -19,9 +19,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   provider: ^4.0.5+1
   uuid: ^2.0.4
   shared_preferences: ^0.5.7
@@ -30,6 +27,8 @@ dependencies:
   path_provider: "^0.4.0"
   flutter_launcher_icons: ^0.7.5
   flutter_launcher_name: ^0.0.1
+  
+#flushbar和其他的有冲突
 
 dev_dependencies:
   flutter_test:

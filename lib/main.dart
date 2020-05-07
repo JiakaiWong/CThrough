@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      initialRoute: 'WelcomPage2',
+      initialRoute: 'LogIn',
       routes: {
         'Navigator': (context) => BottomNavigationWidget(),
         'WelcomePage2': (context) => InitPageTwo(),
