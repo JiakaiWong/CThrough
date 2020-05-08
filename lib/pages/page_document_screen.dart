@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'widget_discovery_card.dart';
+import 'package:date_matching/pages/widget_persontile_utility.dart';
 
 //用于异步读取本地json
 
@@ -119,24 +119,22 @@ class _MyPersonTileState extends State<MyPersonTile> {
               if (snapshot.hasError) //若_calculation执行出现异常
                 return new Text('Error: ${snapshot.error}');
               else //若_calculation执行正常完成
-                return new BigPersonalTile(
-              //在futur builder 中返回一个个人资料栏
-              userName: personTileData.userName,
-              userIdentity: personTileData.userIdentity,
-              followed: personTileData.followed,
-              thumbnail: AspectRatio(
-                aspectRatio: 1,
-                child: Container(
+                return Container(
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'lib/assets/avatar/${personTileData.avatarId}.jpg'),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 0,
                     ),
-                    shape: BoxShape.circle,
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                ),
-              ),
-            );
+                  child: new BigPersonalTile(
+                    //在futur builder 中返回一个个人资料栏
+                    userName: personTileData.userName,
+                    userIdentity: personTileData.userIdentity,
+                    followed: personTileData.followed,
+                    avatarId: personTileData.avatarId,
+                  ),
+                );
           }
         });
   }

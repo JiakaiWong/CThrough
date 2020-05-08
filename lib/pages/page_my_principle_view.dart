@@ -16,7 +16,6 @@ class _MyPrinciplePageState extends State<MyPrinciplePage>
   @override
   bool get wantKeepAlive => true;
   
-
   Future<bool> Failure() async {
     return (await showDialog(
           context: context,

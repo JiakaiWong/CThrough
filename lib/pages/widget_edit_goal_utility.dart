@@ -907,7 +907,7 @@ class NewGoal4Direction extends StatelessWidget {
             style: DefaultTextStyle.of(context).style,
             children: <TextSpan>[
               TextSpan(
-                text: '计划可以又笼统到具体',
+                text: '计划可以由笼统到具体',
                 style: TextStyle(
                     height: 2,
                     fontSize: 20,

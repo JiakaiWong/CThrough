@@ -1,5 +1,7 @@
+import 'package:date_matching/pages/page_discover_principle.dart';
+import 'package:date_matching/pages/page_my_following.dart';
 import 'package:flutter/material.dart';
-import 'page_discover_recommend.dart';
+import 'page_discover_goal.dart';
 
 class DiscoverPage extends StatefulWidget {
   @override
@@ -48,10 +50,10 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 isScrollable: true,
                 tabs: [
                   Tab(
-                    text: "推荐的原则",
+                    text: "别人的目标",
                   ),
                   Tab(
-                    text: "推荐的经历",
+                    text: "别人的原则",
                   ),
                   Tab(
                     text: "关注的人",
@@ -64,8 +66,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
         body: TabBarView(
           children: <Widget>[
             DiscoverNewGoals(),
-            Text('功能未完成'),
-            Text('功能未完成'),
+            DiscoverPrinciples(),
+            DiscoverMyFollowing(),
           ],
         ),
       ),

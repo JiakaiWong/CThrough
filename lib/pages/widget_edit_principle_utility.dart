@@ -1,13 +1,21 @@
 import 'package:date_matching/pages/widget_my_goals_view.dart';
 import 'package:flutter/material.dart';
-
-
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 List listOfBarePrinciple = List<BarePrinciple>();
+List listOfOthersBarePrinciple = List<OthersBarePrinciple>();
+
+class OthersBarePrinciple {
+  OthersBarePrinciple(
+      {this.uuid, this.principleText, this.principleDescription});
+
+  String uuid; //原则的uuid
+  String principleText;
+  String principleDescription;
+}
 
 class BarePrinciple {
-  String puid;
+  String puid; //原则的uuid
   String principleText;
   String principleDescription;
   factory BarePrinciple.fromJson(Map<String, dynamic> parsedJson) {
@@ -29,6 +37,69 @@ class BarePrinciple {
   }
 }
 
+//别人的目标卡片
+class TheirPrincipleCard extends StatelessWidget {
+  Future<Null> changeCurrentViewingPerson() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('currentViewingPerson', "$uuid");
+  }
+
+  TheirPrincipleCard({
+    Key key,
+    this.uuid, //人的uuid
+    this.principleText,
+    this.principleDescription,
+  }) : super(key: key);
+  final String uuid;
+  final String principleText;
+  final String principleDescription;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey,
+            width: 0,
+          ),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: InkWell(
+          onTap: () {
+            print('进入别人的信息界面');
+            changeCurrentViewingPerson().then((response) {
+              Navigator.pushNamed(context, 'OtherPeopleDocumentPage');
+            }).then((response) {
+              print('跳转');
+            });
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    flex: 8,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
+                      child: FullPrincipleDescription(
+                        principleText: principleText,
+                        principleDescription: principleDescription,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 //https://javiercbk.github.io/json_to_dart/
 //最基本的最重要的五步方法数据结构,包括从JSON到类和创建JSON
@@ -55,7 +126,6 @@ class BarePrincipleList {
     return data;
   }
 }
-
 
 //两行字(最多四行)
 class SmallPrincipleDescription extends StatelessWidget {

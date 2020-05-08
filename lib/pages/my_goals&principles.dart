@@ -1,6 +1,6 @@
+import 'package:date_matching/pages/page_my_principle_view.dart';
 import 'package:flutter/material.dart';
 import 'widget_my_goals_view.dart';
-import 'widget_principle_card.dart';
 
 class MyGoalsAndPrinciplesPage extends StatelessWidget {
   @override

@@ -2,10 +2,10 @@
 
 import 'dart:convert';
 import 'package:date_matching/pages/widget_edit_goal_utility.dart';
+import 'package:date_matching/pages/widget_persontile_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'widget_discovery_card.dart';
 
 //用于异步读取本地json
 
@@ -289,24 +289,25 @@ class _OtherPeopleTileState extends State<OtherPeoplePersonTile> {
                       userName: personTileData.userName,
                       userIdentity: personTileData.userIdentity,
                       followed: personTileData.followed,
-                      thumbnail: AspectRatio(
-                        aspectRatio: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'lib/assets/avatar/${personTileData.avatarId}.jpg'),
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
+                      avatarId: personTileData.avatarId,
                     ),
-                    FlatButton(
-                        onPressed: () {
-                          FollowHim();
-                        },
-                        child: Text('关注'))
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        FlatButton(
+                            color: Colors.grey,
+                            onPressed: () {
+                              FollowHim();
+                            },
+                            child: Text('关注')),
+                        FlatButton(
+                            color: Colors.grey,
+                            onPressed: () {
+                              UnFollowHim();
+                            },
+                            child: Text('取消关注')),
+                      ],
+                    )
                   ],
                 );
           }
@@ -328,24 +329,58 @@ class _OtherPeopleTileState extends State<OtherPeoplePersonTile> {
     return prefs.getString('currentViewingPerson');
   }
 
-  Future<Null> FollowHim() async {
-    Future<bool> Failure() async {
-      return (await showDialog(
-            context: context,
-            builder: (context) => new AlertDialog(
-              title: new Text('关注失败'),
-              content: new Text('请稍后再试'),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: new Text('确定'),
-                ),
-              ],
-            ),
-          )) ??
-          false;
-    }
+  Future<bool> Failure() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('无法获取个人信息'),
+            content: new Text('请稍后再试'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text('确定'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
 
+  Future<bool> FollowSucceed() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('成功关注了Ta'),
+            content: new Text('他的被关注数将在重新进入页面后更新'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text('确定'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
+  Future<bool> UnFollowSucceed() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('成功取消关注了Ta'),
+            content: new Text('他的被关注数将在重新进入页面后更新'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text('确定'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
+  Future<Null> FollowHim() async {
     othersUuid = await getHisUuid();
     myUuid = await getUuid();
     Response response;
@@ -357,6 +392,37 @@ class _OtherPeopleTileState extends State<OtherPeoplePersonTile> {
       );
       Map<String, dynamic> mapFromJson = json.decode(response.body.toString());
       if (mapFromJson['status'] == 10000) {
+        FollowSucceed();
+        print('请求成功');
+      } else if (mapFromJson['status'] == 20000) {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text("请求失败"),
+          action: new SnackBarAction(
+            label: "OK",
+            onPressed: () {},
+          ),
+        ));
+      }
+    } on Error catch (e) {
+      print(e);
+      Failure();
+    }
+    return;
+  }
+
+  Future<Null> UnFollowHim() async {
+    othersUuid = await getHisUuid();
+    myUuid = await getUuid();
+    Response response;
+    try {
+      var data = {'uuid': myUuid, 'touid': othersUuid};
+      response = await post(
+        "http://47.107.117.59/fff/fuckfollow.php",
+        body: data,
+      );
+      Map<String, dynamic> mapFromJson = json.decode(response.body.toString());
+      if (mapFromJson['status'] == 10000) {
+        UnFollowSucceed();
         print('请求成功');
       } else if (mapFromJson['status'] == 20000) {
         Scaffold.of(context).showSnackBar(new SnackBar(

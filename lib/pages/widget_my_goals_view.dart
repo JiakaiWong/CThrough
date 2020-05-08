@@ -17,7 +17,6 @@ class _MyGoalPageState extends State<MyGoalPage>
   bool get wantKeepAlive => true;
   Map<String, dynamic> mapFromJson;
 
-
   Future<bool> Failure() async {
     return (await showDialog(
           context: context,
@@ -26,7 +25,9 @@ class _MyGoalPageState extends State<MyGoalPage>
             content: new Text('请稍后再试'),
             actions: <Widget>[
               new FlatButton(
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () {
+                  Navigator.popUntil(context, ModalRoute.withName('Navigator'));
+                },
                 child: new Text('确定'),
               ),
             ],
@@ -62,7 +63,6 @@ class _MyGoalPageState extends State<MyGoalPage>
           print(mapFromJson['sum']);
           listOfBareFiveStep.add(BareFiveStep(
             uuid: 'new uuid',
-
           ));
         }
         print('第一遍覆盖结束');
@@ -104,6 +104,7 @@ class _MyGoalPageState extends State<MyGoalPage>
       );
       var mapFromJson = json.decode(response.body);
       if (mapFromJson['status'] == 10000) {
+        Navigator.popUntil(context, ModalRoute.withName('Navigator'));
         print('删除成功');
       } else if (mapFromJson['status'] == 20000) {
         print('失败码');
@@ -114,6 +115,30 @@ class _MyGoalPageState extends State<MyGoalPage>
       print('出错');
       Failure();
     }
+  }
+
+  Future DeleteGoalWithWarning(String tuid) async {
+    print('开始有警告的删除目标');
+    return (await showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('确定要删除这个目标吗'),
+            content: new Text(''),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () {
+                  DeleteGoal(tuid);
+                },
+                child: new Text('确定'),
+              ),
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text('取消'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
   }
 
   Widget futureWidget() {
@@ -150,7 +175,8 @@ class _MyGoalPageState extends State<MyGoalPage>
                                   DismissDirection.startToEnd) {
                                 _snackStr = '从左向右删除了目标';
                               }
-                              DeleteGoal(listOfBareFiveStep[index].uuid);
+                              DeleteGoalWithWarning(
+                                  listOfBareFiveStep[index].uuid);
                               // 展示 SnackBar
                               Scaffold.of(context).showSnackBar(SnackBar(
                                 content: Text(_snackStr),
