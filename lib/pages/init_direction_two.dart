@@ -11,27 +11,23 @@ class InitPageTwo extends StatefulWidget {
 class _InitPageTwoState extends State<InitPageTwo> {
   startTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool firstTime = prefs.getBool('first_time');
+    String uuid = prefs.getString('uuid');
+    print('uuid:');
+    print(uuid);
 
-    var _duration = new Duration(seconds: 15);
+    var _someDuration = new Duration(seconds: 2);
+    var _zeroDuration = new Duration(seconds: 1);
 
-    if (firstTime != null && !firstTime) {
-      // Not first time
-      return new Timer(_duration, navigationPageHome);
-    } else {
-      // First time
-      prefs.setBool('first_time', false);
-      return new Timer(_duration, navigationPageWel);
-    }
+    if (uuid != null) {
+//已经登陆了
+      return new Timer(_zeroDuration, navigationPageHome);
+    } 
   }
 
   void navigationPageHome() {
-    Navigator.of(context).pushReplacementNamed('LogIn');
+    Navigator.of(context).pushReplacementNamed('Navigator');
   }
 
-  void navigationPageWel() {
-    Navigator.of(context).pushReplacementNamed('LogIn');
-  }
 
   @override
   void initState() {
@@ -41,51 +37,55 @@ class _InitPageTwoState extends State<InitPageTwo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: Container(
-                decoration: new BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  // image: DecorationImage(
-                  //   image: new AssetImage('lib/assets/background2.jpg'),
-                  //   fit: BoxFit.fill,
-                  // ),
-                ),
-                child: Column(children: <Widget>[
-                  Expanded(flex: 3,child: SizedBox()),
-                  Expanded(
-                      flex: 9,
-                      child: Center(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 3 / 4,
-                          child: Text(
-                            '''
-        人与人的交往多半肤浅，或只有在较为肤浅的层面上，交往才是容易的，一旦走进深处，人与人就是相互的迷宫。   这是史铁生的名言，如今的互联网已经发展到后下沉阶段，其去中心化和互联网内容管制的结局是社群互联网价值贡献的降低以及社交媒体对个人成长促进作用的遗失，在Cthrough,我们赋予用户反思自己头脑深处迷宫的契机，并使广泛观察对比别人的迷宫成为可能，我们促使用户成为尼采所构思的Übermensch。这，便是Cthrough,一款移动端个人决策辅助系统的存在价值.
-                ''',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600),
-                            textScaleFactor: 1.6,
-                          ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushReplacementNamed(context, 'LogIn');
+      },
+      child: Scaffold(
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(flex: 2, child: Container()),
+              Expanded(
+                  flex: 3,
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Icon(Icons.gps_fixed,
+                            size: MediaQuery.of(context).size.width / 2),
+                      ),
+                      Center(
+                        child: Text(
+                          'CThrough',
+                          textScaleFactor: 1.5,
+                          style: TextStyle(
+                              fontSize: 30.0,
+                              fontFamily: 'Cinzel',
+                              fontWeight: FontWeight.w100),
                         ),
-                      )),
-                  Expanded(
-                      flex: 3,
-                      child: Center(
-                          child: IconButton(
-                              icon: Icon(Icons.arrow_forward_ios),
-                              iconSize: 50,
-                              color: Colors.white,
-                              onPressed: () {
-                                Navigator.pushReplacementNamed(
-                                    context, 'LogIn');
-                              }))),
-                ])),
-          ),
-        ],
+                      ),
+                      Center(
+                        child: Text(
+                          '助你洞穿真相',
+                          textScaleFactor: 1.5,
+                          style: TextStyle(
+                              fontSize: 15.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  )),
+              Expanded(flex: 2, child: Container()),
+              Center(
+                child: Text(
+                  '点击继续',
+                  textScaleFactor: 2,
+                  style:
+                      TextStyle(fontSize: 10.0, fontWeight: FontWeight.normal),
+                ),
+              ),
+              Expanded(flex: 1, child: Container()),
+            ]),
       ),
     );
   }

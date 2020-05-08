@@ -131,9 +131,17 @@ class _LoginPageState extends State<LoginPage> {
         height: 45.0,
         width: 170.0,
         child: FlatButton(
-            child: Text(
-              '登陆',
-              style: Theme.of(context).primaryTextTheme.headline,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Center(
+                child: Text(
+                  '登陆',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                ),
+              ),
             ),
             onPressed: () {
               if (!_formKey.currentState.validate()) {

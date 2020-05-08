@@ -25,12 +25,13 @@ dependencies:
   http: ^0.12.1
   json_model: ^0.0.2
   path_provider: "^0.4.0"
-  flutter_launcher_icons: ^0.7.5
-  flutter_launcher_name: ^0.0.1
   
 #flushbar和其他的有冲突
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.7.5
+  flutter_launcher_name: ^0.0.1
+  flutter_native_splash: ^0.1.9
   flutter_test:
     sdk: flutter
 flutter_icons:
@@ -40,7 +41,9 @@ flutter_icons:
 
 flutter_launcher_name:
   name: "CThrough"
-
+flutter_native_splash:
+  image: assets/images/splash.png
+  color: "ffffff"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,17 +79,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: SourceHanseriCN-Regular
-  #     fonts:
-  #       - asset: lib/assets/SourceHanSerifCN-Regular.otf
-  #       # - asset: assets/Schyler-Italic.ttf
-  #         style: normal
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: PDI
+      fonts:
+        - asset: assets/PlayfairDisplay-VariableFont_wght.ttf
+     # style: normal
+        - asset: assets/PlayfairDisplay-VariableFont_wght.ttf
+        #  weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -13,19 +13,21 @@ class BottomNavigationWidget extends StatefulWidget {
 
 class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   int _currentIndex = 1;
+  PageController _controller = PageController();
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   List<Widget> list = List();
-  //在退出程序时自动删除保存的账号信息
-removeUuid() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  //Remove String
-  prefs.remove("uuid");
-  // //Remove bool
-  // prefs.remove("boolValue");
-  // //Remove int
-  // prefs.remove("intValue");
-  // //Remove double
-  // prefs.remove("doubleValue");
-}
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      _controller.jumpToPage(index);
+    });
+  }
+
   Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,
@@ -38,8 +40,9 @@ removeUuid() async {
                 child: new Text('取消'),
               ),
               new FlatButton(
-                onPressed: () {removeUuid();
-                  Navigator.of(context).pop(true);},
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
                 child: new Text('退出程序'),
               ),
             ],
@@ -48,21 +51,34 @@ removeUuid() async {
         false;
   }
 
-  @override
-  void initState() {
-    list
-      ..add(MyGoalsAndPrinciplesPage())
-      ..add(DiscoverPage())
-      ..add(DocumentPage());
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   list
+  //     ..add(MyGoalsAndPrinciplesPage())
+  //     ..add(DiscoverPage())
+  //     ..add(DocumentPage());
+  //   super.initState();
+  // }
+  final _widgetOptions = [
+    MyGoalsAndPrinciplesPage(),
+    DiscoverPage(),
+    DocumentPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        body: list[_currentIndex],
+        //body: list[_currentIndex],
+        body: PageView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (BuildContext context, int index) {
+            return _widgetOptions.elementAt(index);
+          },
+          itemCount: _widgetOptions.length,
+          controller: _controller,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Theme.of(context).accentColor,
           unselectedItemColor: Colors.grey,
@@ -93,11 +109,7 @@ removeUuid() async {
                 )),
           ],
           currentIndex: _currentIndex,
-          onTap: (int index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
+          onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
         ),
       ),

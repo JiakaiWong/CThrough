@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:date_matching/pages/widget_persontile_utility.dart';
@@ -147,6 +148,7 @@ class _MyPersonTileState extends State<MyPersonTile> {
 
 //我的个人信息页面
 class DocumentPage extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     //below are only for Provider-Consumer
@@ -178,14 +180,8 @@ class DocumentPage extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         children: <Widget>[
           MyPersonTile(),
-          //   TODO :
-          //   我的目标原则左
-          //   滑打开菜单添加删除，
-          //   floating 添加原则。
-          //   添加原则=》向服务器申请=》服务器生成用户的新原则，向手机发送UUID=》手机编辑原则，向服务器提交文本和UUID=》服务器存储信息=》向手机发送成功信号=》应用自动刷新“我的原则”界面。
-          //   ''',
-          //   textScaleFactor: 2,
-          // ),
+          
+          
         ],
       ),
     );

@@ -273,16 +273,18 @@ class CreateAccountPageState extends State<CreateAccountPage> {
                             });
                           },
                           child: Container(
-                            //height: 30,
-                            //width: 80,
+                            height: 35.0,
+                            width: 120.0,
                             decoration: BoxDecoration(
-                              //color: Colors.grey,
+                              color: Colors.grey,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                             ),
                             child: Center(
                               child: Text(
                                 '发送验证码',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),
@@ -309,9 +311,19 @@ class CreateAccountPageState extends State<CreateAccountPage> {
         height: 45.0,
         width: 170.0,
         child: FlatButton(
-            child: Text(
-              '注册',
-              style: Theme.of(context).primaryTextTheme.headline,
+            child: Container(
+              height: 45.0,
+              width: 170.0,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Center(
+                child: Text(
+                  '注册',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                ),
+              ),
             ),
             onPressed: () {
               if (!formKey.currentState.validate()) {

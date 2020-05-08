@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      initialRoute: 'LogIn',
+      initialRoute: 'WelcomePage2',
       routes: {
         'Navigator': (context) => BottomNavigationWidget(), //底部导航栏
         'WelcomePage2': (context) => InitPageTwo(), //欢迎页面
@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
       },
       title: 'Flutter bottomNavigationBar',
       theme: ThemeData(
+        //fontFamily: 'Cinzel',
         brightness: Brightness.light,
         primaryColor: Colors.white,
         accentColor: Colors.black,
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
         canvasColor: Colors.white,
       ),
       darkTheme: ThemeData(
+        //fontFamily: 'PDI',
         brightness: Brightness.dark,
         primaryColor: Colors.black,
         accentColor: Colors.white,

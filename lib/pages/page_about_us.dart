@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AboutPage extends StatelessWidget {
+  Future deleteUuid() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('uuid', null);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,6 +15,17 @@ class AboutPage extends StatelessWidget {
         title: Text(
           '',
         ),
+        actions: <Widget>[
+          FlatButton(
+              onPressed: () {
+                deleteUuid();
+                SchedulerBinding.instance.addPostFrameCallback((_) async {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      'LogIn', (Route<dynamic> route) => false);
+                });
+              },
+              child: Text('退出登录'))
+        ],
         elevation: 0.0,
       ),
       body: Padding(
@@ -128,6 +146,7 @@ class AboutPage extends StatelessWidget {
                 Expanded(flex: 4, child: Text('1.0'))
               ],
             ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -155,174 +174,16 @@ class AboutPage extends StatelessWidget {
                 ),
               ],
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  '原画欣赏',
-                  textScaleFactor: 1.2,
-                  style: TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 1 / 6,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: InkWell(
-                        onTap: () {
-                          //TODO
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('lib/assets/avatar/1.jpg')),
-                            shape: BoxShape.rectangle,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 1 / 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('lib/assets/avatar/2.jpg')),
-                            shape: BoxShape.rectangle,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 1 / 6,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: InkWell(
-                        onTap: () {
-                          //TODO
-                        },
-                        child: Container(
-                          //height: 60,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('lib/assets/avatar/3.jpg')),
-                            shape: BoxShape.rectangle,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 1 / 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: InkWell(
-                        onTap: () {
-                          //TODO
-                        },
-                        child: Container(
-                          // height: 60,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('lib/assets/avatar/4.jpg')),
-                            shape: BoxShape.rectangle,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 1 / 6,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: InkWell(
-                        onTap: () {
-                          //TODO
-                        },
-                        child: Container(
-                          //height: 60,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('lib/assets/avatar/5.jpg')),
-                            shape: BoxShape.rectangle,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 1 / 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: InkWell(
-                        onTap: () {
-                          //TODO
-                        },
-                        child: Container(
-                          // height: 60,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('lib/assets/avatar/6.jpg')),
-                            shape: BoxShape.rectangle,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Container(
-              width: MediaQuery.of(context).size.width * 3 / 4,
+              width: MediaQuery.of(context).size.width - 100,
               child: Text(
                 '''
 史铁生说过：
         “人与人的交往多半肤浅，或只有在较为肤浅的层面上，交往才是容易的，一旦走进深处，人与人就是相互的迷宫。”
         如今的互联网已经发展到后下沉阶段，其去中心化和互联网内容管制的结局是许多地方社群对网上内容价值贡献的降低以及社交媒体对个人成长促进作用的遗失，在Cthrough,我们谦卑而真诚地提供用户反思自己头脑深处迷宫的契机，并试图使广泛观察对比别人的迷宫成为可能，我们先要帮助用户成为尼采所构思的Übermensch。这，便是Cthrough,一款移动端个人决策辅助系统的存在价值.
               ''',
-                style: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.w600),
-                textScaleFactor: 1.6,
+                style: TextStyle(fontWeight: FontWeight.w600),
+                textScaleFactor: 1.1,
               ),
             ),
             //         Row(
