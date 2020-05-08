@@ -282,7 +282,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey),
                               )),
-                          maxLength: 100,
+                          maxLength: 10,
                         ),
                         TextField(
                           onChanged: (text) {
@@ -296,7 +296,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey),
                               )),
-                          maxLength: 100,
+                          maxLength: 20,
                         ),
                         Text('点击选择头像'),
                         Column(

@@ -44,7 +44,6 @@ class _DiscoverMyFollowingState extends State<DiscoverMyFollowing>
   Future<int> GetMyFollowingUuid() async {
     print('begin GetMyFollowingUuid');
     var myuuid = await getUuid();
-
     Response response;
     try {
       var data = {'num': '$sum', 'uuid': myuuid};

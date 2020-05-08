@@ -278,7 +278,6 @@ class MiniFiveStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Padding(padding: EdgeInsets.only(bottom: 2.0)),
         Column(
@@ -287,6 +286,7 @@ class MiniFiveStep extends StatelessWidget {
             const Padding(padding: EdgeInsets.only(bottom: 2.0)),
             RichText(
               text: TextSpan(
+                
                 style: DefaultTextStyle.of(context).style,
                 children: <TextSpan>[
                   TextSpan(
@@ -349,7 +349,7 @@ class MiniFiveStep extends StatelessWidget {
                 style: DefaultTextStyle.of(context).style,
                 children: <TextSpan>[
                   TextSpan(
-                      text: '障碍:',
+                      text: '根本原因:',
                       style: TextStyle(
                         height: 1.0,
                         fontStyle: FontStyle.normal,

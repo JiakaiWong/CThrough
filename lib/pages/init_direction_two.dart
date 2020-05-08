@@ -30,13 +30,11 @@ class _InitPageTwoState extends State<InitPageTwo> {
 
   void navigationPageWel() {
     Navigator.of(context).pushReplacementNamed('LogIn');
-  
   }
 
   void navigationPageHome() {
     Navigator.of(context).pushReplacementNamed('Navigator');
   }
-
 
   @override
   void initState() {
@@ -60,9 +58,11 @@ class _InitPageTwoState extends State<InitPageTwo> {
                   flex: 3,
                   child: Column(
                     children: <Widget>[
-                      Center(
-                        child: Icon(Icons.gps_fixed,
-                            size: MediaQuery.of(context).size.width / 2),
+                      SizedBox(
+                        height: 200,
+                        child: Center(
+                          child: Image(image: AssetImage('assets/Icon.jpg')),
+                        ),
                       ),
                       Center(
                         child: Text(
@@ -84,7 +84,7 @@ class _InitPageTwoState extends State<InitPageTwo> {
                       ),
                     ],
                   )),
-              Expanded(flex: 2, child: Container()),
+              Expanded(flex: 1, child: Container()),
               Center(
                 child: Text(
                   '点击继续',

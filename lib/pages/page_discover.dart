@@ -65,8 +65,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
         ),
         body: TabBarView(
           children: <Widget>[
-            DiscoverNewGoals(),
-            DiscoverPrinciples(),
+            DiscoverNewGoalsWithPersonInfo(),
+            DiscoverPrinciplesWithPersonInfo(),
             DiscoverMyFollowing(),
           ],
         ),

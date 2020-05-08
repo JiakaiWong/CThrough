@@ -65,7 +65,7 @@ flutter:
     - lib/assets/avatar/4.jpg
     - lib/assets/avatar/5.jpg
     - lib/assets/avatar/6.jpg
-
+    - assets/Icon.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
