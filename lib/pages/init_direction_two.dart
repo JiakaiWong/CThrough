@@ -21,7 +21,16 @@ class _InitPageTwoState extends State<InitPageTwo> {
     if (uuid != null) {
 //已经登陆了
       return new Timer(_zeroDuration, navigationPageHome);
-    } 
+    } else {
+      // First time
+      prefs.setBool('first_time', false);
+      return new Timer(_someDuration, navigationPageWel);
+    }
+  }
+
+  void navigationPageWel() {
+    Navigator.of(context).pushReplacementNamed('LogIn');
+  
   }
 
   void navigationPageHome() {
@@ -61,13 +70,13 @@ class _InitPageTwoState extends State<InitPageTwo> {
                           textScaleFactor: 1.5,
                           style: TextStyle(
                               fontSize: 30.0,
-                              fontFamily: 'Cinzel',
+                              //fontFamily: 'Cinzel',
                               fontWeight: FontWeight.w100),
                         ),
                       ),
                       Center(
                         child: Text(
-                          '助你洞穿真相',
+                          '帮助你的决策',
                           textScaleFactor: 1.5,
                           style: TextStyle(
                               fontSize: 15.0, fontWeight: FontWeight.bold),

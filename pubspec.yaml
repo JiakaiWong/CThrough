@@ -37,7 +37,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon.jpeg"
+  image_path: "assets/Icon.jpg"
 
 flutter_launcher_name:
   name: "CThrough"
@@ -79,12 +79,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: PDI
-      fonts:
-        - asset: assets/PlayfairDisplay-VariableFont_wght.ttf
-     # style: normal
-        - asset: assets/PlayfairDisplay-VariableFont_wght.ttf
+  # fonts:
+  #   - family: PDI
+  #     fonts:
+  #       - asset: assets/PlayfairDisplay-VariableFont_wght.ttf
+  #    # style: normal
+  #       - asset: assets/PlayfairDisplay-VariableFont_wght.ttf
         #  weight: 700
   #
   # For details regarding fonts from package dependencies,
