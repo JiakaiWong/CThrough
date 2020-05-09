@@ -24,7 +24,14 @@ class AboutPage extends StatelessWidget {
                       'LogIn', (Route<dynamic> route) => false);
                 });
               },
-              child: Text('退出登录'))
+              child: Text('退出登录')),
+          FlatButton(
+              onPressed: () {
+                  Navigator.of(context).pushNamed(
+                      'AdminPage');
+                },
+              
+              child: Text('进入管理员界面'))
         ],
         elevation: 0.0,
       ),

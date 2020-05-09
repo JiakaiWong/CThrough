@@ -7,35 +7,14 @@ import 'pages/page_goal_dir_two.dart';
 import 'pages/page_goal_dir_three.dart';
 import 'pages/page_goal_dir_four.dart';
 import 'pages/page_view_other_people.dart';
+import 'pages/page_admin.dart';
 
 import 'pages/page_edit_goal.dart';
 import 'pages/page_create_account.dart';
 import 'bottom_navigation_widget.dart';
 import 'pages/page_about_us.dart';
 import 'pages/page_log_in.dart';
-import 'pages/init_direction_two.dart';
-
-// void main() {
-//   final myProfileNotifier = ProfileNotifier();
-//   var myNameAndMessage = NameAndMessage(
-//     '默认用户名',
-//     '',
-//     'To understand the world',
-//     'To impact the world',
-//     'To learn/evolve',
-//   );
-
-//   runApp(
-//     Provider<NameAndMessage>.value(
-//       value: myNameAndMessage,
-//       child: ChangeNotifierProvider.value(
-//         value: myProfileNotifier,
-//         child: MyApp(),
-//       ),
-//     ),
-//   );
-// }
-
+import 'pages/page_init.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -58,6 +37,7 @@ class MyApp extends StatelessWidget {
         'EditProfileScreen': (context) => EditProfilePage(), //编辑用户资料
         'OtherPeopleDocumentPage': (context) =>
             OtherPeopleDocumentPage(), //查看其他用户
+        'AdminPage': (context) => AdminPage(), //管理员模式
       },
       title: 'Flutter bottomNavigationBar',
       theme: ThemeData(

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'pages/page_document_screen.dart';
 import 'pages/page_discover.dart';
@@ -18,6 +21,64 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  String title;
+  String content;
+  String time;
+  String uuid;
+
+//用shared_preference存储uuid
+  setTime(String time) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('NotificationTime', time);
+  }
+
+//登陆操作
+  Future<Null> GetNotificatinon() async {
+    Response response;
+    try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+    String prevTime = prefs.getString('NotificationTime');
+      response = await post("http://47.107.117.59/fff/getNotice.php");
+      Map<String, dynamic> mapFromJson = json.decode(response.body);
+      if (mapFromJson['status'] == 10000) {
+        uuid = mapFromJson['uuid'];
+        title = mapFromJson['title'];
+        content = mapFromJson['content'];
+        time = mapFromJson['time'];
+        setTime(time);
+        print('接下来是时间时间接下来是时间时间接下来是时间时间');
+        print(prevTime);
+        print(time);
+        if(prevTime != time){
+          await showDialog(
+            context: context,
+            builder: (context) => new AlertDialog(
+                  title: new Text('通知:$title'),
+                  content: new Text(content),
+                  actions: <Widget>[
+                    new FlatButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: new Text('确定'),
+                    ),
+                  ],
+                ));
+        }
+        
+      } else if (mapFromJson['status'] == 20000) {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text("请求失败"),
+          action: new SnackBarAction(
+            label: "网络错误",
+            onPressed: () {},
+          ),
+        ));
+      }
+    } on Error catch (e) {
+      //Faliure();
+    }
+    return;
   }
 
   List<Widget> list = List();
@@ -51,14 +112,6 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         false;
   }
 
-  // @override
-  // void initState() {
-  //   list
-  //     ..add(MyGoalsAndPrinciplesPage())
-  //     ..add(DiscoverPage())
-  //     ..add(DocumentPage());
-  //   super.initState();
-  // }
   final _widgetOptions = [
     MyGoalsAndPrinciplesPage(),
     DiscoverPage(),
@@ -67,6 +120,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    GetNotificatinon();
     return new WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(

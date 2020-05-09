@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
