@@ -5,14 +5,14 @@ import 'package:date_matching/pages/widget_persontile_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-class DiscoverAbroad extends StatefulWidget {
-  DiscoverAbroad({Key key}) : super(key: key);
+class DiscoverKaoyan extends StatefulWidget {
+  DiscoverKaoyan({Key key}) : super(key: key);
 
   @override
-  _DiscoverAbroadState createState() => _DiscoverAbroadState();
+  _DiscoverBaoyanState createState() => _DiscoverBaoyanState();
 }
 
-class _DiscoverAbroadState extends State<DiscoverAbroad>
+class _DiscoverBaoyanState extends State<DiscoverKaoyan>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -28,7 +28,7 @@ class _DiscoverAbroadState extends State<DiscoverAbroad>
     print('begin GerSearchedGoals');
     Response response;
     try {
-      var data = {'tag': '留学'};
+      var data = {'tag': '保研'};
       response = await post(
         "http://47.107.117.59/fff/getTTag.php",
         body: data,

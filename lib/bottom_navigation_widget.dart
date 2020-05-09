@@ -38,8 +38,8 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   Future<Null> GetNotificatinon() async {
     Response response;
     try {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-    String prevTime = prefs.getString('NotificationTime');
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String prevTime = prefs.getString('NotificationTime');
       response = await post("http://47.107.117.59/fff/getNotice.php");
       Map<String, dynamic> mapFromJson = json.decode(response.body);
       if (mapFromJson['status'] == 10000) {
@@ -51,21 +51,20 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         print('接下来是时间时间接下来是时间时间接下来是时间时间');
         print(prevTime);
         print(time);
-        if(prevTime != time){
+        if (prevTime != time) {
           await showDialog(
-            context: context,
-            builder: (context) => new AlertDialog(
-                  title: new Text('通知:$title'),
-                  content: new Text(content),
-                  actions: <Widget>[
-                    new FlatButton(
-                      onPressed: () => Navigator.of(context).pop(true),
-                      child: new Text('确定'),
-                    ),
-                  ],
-                ));
+              context: context,
+              builder: (context) => new AlertDialog(
+                    title: new Text('通知:$title'),
+                    content: new Text(content),
+                    actions: <Widget>[
+                      new FlatButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        child: new Text('确定'),
+                      ),
+                    ],
+                  ));
         }
-        
       } else if (mapFromJson['status'] == 20000) {
         Scaffold.of(context).showSnackBar(new SnackBar(
           content: new Text("请求失败"),
@@ -113,8 +112,8 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   }
 
   final _widgetOptions = [
-    MyGoalsAndPrinciplesPage(),
     DiscoverPage(),
+    MyGoalsAndPrinciplesPage(),
     DocumentPage(),
   ];
 
@@ -142,17 +141,17 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
           items: [
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.directions_run,
-                ),
-                title: Text(
-                  '我的目标原则',
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(
                   Icons.open_with,
                 ),
                 title: Text(
                   '发现',
+                )),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.directions_run,
+                ),
+                title: Text(
+                  '我的目标原则',
                 )),
             BottomNavigationBarItem(
                 icon: Icon(

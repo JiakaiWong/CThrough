@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:date_matching/pages/page_discover_KAOYAN.dart';
+import 'package:date_matching/pages/page_discover_Baoyan.dart';
+
 import 'package:date_matching/pages/page_discover_masterdegree.dart';
 import 'package:date_matching/pages/page_discover_principle.dart';
 import 'package:date_matching/pages/page_my_following.dart';
@@ -20,7 +22,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 6,
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80.0),
@@ -69,6 +71,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     text: '留学申请',
                   ),
                   Tab(
+                    text: '考研专区',
+                  ),
+                  Tab(
                     text: '保研专区',
                   ),
                 ],
@@ -81,8 +86,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
             DiscoverNewGoalsWithPersonInfo(),
             DiscoverPrinciplesWithPersonInfo(),
             DiscoverMyFollowing(),
-            FakeDiscoverGoal(),
-            FakeDiscoverKaoYan(),
+            DiscoverAbroad(),
+            DiscoverKaoyan(),
+            DiscoverBaoyan(),
           ],
         ),
       ),

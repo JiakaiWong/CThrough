@@ -75,30 +75,20 @@ class _InitPageTwoState extends State<InitPageTwo> {
                         ),
                       ),
                       Center(
-                        child: RichText(
-                          text: TextSpan(
-                            style: DefaultTextStyle.of(context).style,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'evolotion ',
-                                style: TextStyle(
-                                    height: 1,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.normal,
-                                    decoration: TextDecoration.none,
-                                    color: Theme.of(context).iconTheme.color),
-                              ),
-                              TextSpan(
-                                text: ' incited',
-                                style: TextStyle(
-                                    height: 1,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.none,
-                                    color: Theme.of(context).iconTheme.color),
-                              ),
-                            ],
-                          ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'evolution',
+                              textScaleFactor: 1.3,
+                            ),
+                            Text(
+                              ' incited',
+                              textScaleFactor: 1.3,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                       ),
                     ],
