@@ -19,9 +19,9 @@ class _EditGoalState extends State<EditGoal> {
     String root_causes_identified;
     String plan_designed;
     String action_performed;
-    String tag1;
-    String tag2;
-    String tag3;
+    // String tag1;
+    // String tag2;
+    // String tag3;
 
     Future<bool> Failure1() async {
       return (await showDialog(
@@ -91,15 +91,15 @@ class _EditGoalState extends State<EditGoal> {
 
     Future<Null> EditGoal() async {
       Response response;
-      if (tag1 != null && tag1 != '') {
-        AddTag(tag1);
-      }
-      if (tag2 != null && tag2 != '') {
-        AddTag(tag2);
-      }
-      if (tag3 != null && tag3 != '') {
-        AddTag(tag3);
-      }
+      // if (tag1 != null && tag1 != '') {
+      //   AddTag(tag1);
+      // }
+      // if (tag2 != null && tag2 != '') {
+      //   AddTag(tag2);
+      // }
+      // if (tag3 != null && tag3 != '') {
+      //   AddTag(tag3);
+      // }
 
       try {
         var data = {
@@ -129,44 +129,44 @@ class _EditGoalState extends State<EditGoal> {
       return;
     }
 
-    Future<Null> GetTag() async {
-      Response response;
-      try {
-        var data = {
-          'tuid': tuid,
-        };
-        response = await post(
-          "http://47.107.117.59/fff/getTagsT.php", //TODO
-          body: data,
-        );
-        Map<String, dynamic> mapFromJson =
-            json.decode(response.body.toString());
+    // Future<Null> GetTag() async {
+    //   Response response;
+    //   try {
+    //     var data = {
+    //       'tuid': tuid,
+    //     };
+    //     response = await post(
+    //       "http://47.107.117.59/fff/getTagsT.php", //TODO
+    //       body: data,
+    //     );
+    //     Map<String, dynamic> mapFromJson =
+    //         json.decode(response.body.toString());
 
-        print(
-            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        print(tuid);
-        print(mapFromJson['sum']);
-        if (mapFromJson['status'] == 10000) {
-          if (mapFromJson['sum'] as int == 1) {
-            tag1 = mapFromJson['results'][0]['tag'];
-          }
-          if (mapFromJson['sum'] as int == 2) {
-            tag1 = mapFromJson['results'][0]['tag'];
-            tag2 = mapFromJson['results'][1]['tag'];
-          }
-          if (mapFromJson['sum'] as int >= 3) {
-            tag1 = mapFromJson['results'][0]['tag'];
-            tag2 = mapFromJson['results'][1]['tag'];
-            tag3 = mapFromJson['results'][2]['tag'];
-          }
-        } else if (mapFromJson['status'] == 20000) {
-          Failure1();
-        }
-      } on Error catch (e) {
-        Failure1();
-      }
-      return;
-    }
+    //     print(
+    //         '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    //     print(tuid);
+    //     print(mapFromJson['sum']);
+    //     if (mapFromJson['status'] == 10000) {
+    //       if (mapFromJson['sum'] as int == 1) {
+    //         tag1 = mapFromJson['results'][0]['tag'];
+    //       }
+    //       if (mapFromJson['sum'] as int == 2) {
+    //         tag1 = mapFromJson['results'][0]['tag'];
+    //         tag2 = mapFromJson['results'][1]['tag'];
+    //       }
+    //       if (mapFromJson['sum'] as int >= 3) {
+    //         tag1 = mapFromJson['results'][0]['tag'];
+    //         tag2 = mapFromJson['results'][1]['tag'];
+    //         tag3 = mapFromJson['results'][2]['tag'];
+    //       }
+    //     } else {
+    //       Failure1();
+    //     }
+    //   } on Error catch (e) {
+    //     Failure1();
+    //   }
+    //   return;
+    // }
 
     //get uuid from local shared_preference
     Future<String> getUuid() async {
@@ -210,10 +210,10 @@ class _EditGoalState extends State<EditGoal> {
     //   // Create list of multiple futures
     //   var futures = List<Future>();
     //   futures.add(getThingsDone());
+    //   await Future.wait(futures);
     //   futures.add(Future.delayed(const Duration(milliseconds: 1000), () {
     //     futures.add(GetTag());
     //   }));
-    //   // Waif for all futures to complete
     //   await Future.wait(futures);
     //   print('All the futures has completed');
     // }
