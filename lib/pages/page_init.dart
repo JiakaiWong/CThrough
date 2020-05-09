@@ -75,11 +75,30 @@ class _InitPageTwoState extends State<InitPageTwo> {
                         ),
                       ),
                       Center(
-                        child: Text(
-                          '帮助你的决策',
-                          textScaleFactor: 1.5,
-                          style: TextStyle(
-                              fontSize: 15.0, fontWeight: FontWeight.bold),
+                        child: RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'evolotion ',
+                                style: TextStyle(
+                                    height: 1,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal,
+                                    decoration: TextDecoration.none,
+                                    color: Theme.of(context).iconTheme.color),
+                              ),
+                              TextSpan(
+                                text: ' incited',
+                                style: TextStyle(
+                                    height: 1,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.none,
+                                    color: Theme.of(context).iconTheme.color),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -87,8 +106,8 @@ class _InitPageTwoState extends State<InitPageTwo> {
               Expanded(flex: 1, child: Container()),
               Center(
                 child: Text(
-                  '点击继续',
-                  textScaleFactor: 2,
+                  'click to continue',
+                  textScaleFactor: 1.4,
                   style:
                       TextStyle(fontSize: 10.0, fontWeight: FontWeight.normal),
                 ),

@@ -7,49 +7,23 @@ import 'package:uuid/uuid.dart';
 
 import 'widget_edit_goal_utility.dart';
 
-class NewGoalDirectionPageOne extends StatefulWidget {
+class addTagPage extends StatefulWidget {
   @override
-  _NewGoalDirectionPageOneState createState() =>
-      _NewGoalDirectionPageOneState();
+  _AddTagPageState createState() =>
+      _AddTagPageState();
 }
 
-class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
+class _AddTagPageState extends State<addTagPage> {
   Widget futureWidget() {
-    String goal_setted = '';
-    String problems_identified = '';
-    String root_causes_identified = '';
-    String plan_designed = '';
-    String action_performed = '';
-    var tuid;
-    var uuid;
-    //get uuid from local shared_preference
-    Future<String> getUuid() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //set uuid
-      uuid = prefs.getString('uuid');
-      return uuid;
-    }
-
+    String tag = '';
+    final tuid = Uuid().v1();
     changeCurrentGoal() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('currentGoal', "$tuid");
     }
-
-    changeCurrentGoalSetted() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('currentGoalSetted', "$goal_setted");
-    }
-
-    void getCurrentGoal() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //set tuid
-      tuid = prefs.getString('currentGoal');
-    }
-
 //init
     Future<String> getThingsDone() async {
-      getUuid();
-      getCurrentGoal();
+      changeCurrentGoal();
     }
 
     Future<bool> Failure() async {
@@ -71,33 +45,28 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
           false;
     }
 
-    Future<Null> EditGoal() async {
-      print('开始第一部分的传输');
+    Future<Null> AddTag() async {
+      print('开始传Tag');
       Response response;
       try {
         var data = {
-          'uuid': uuid,
+        
           'tuid': tuid,
-          'goal': goal_setted,
-          'problem': problems_identified,
-          'reason': root_causes_identified,
-          'plan': plan_designed,
-          'action': action_performed
+          'tag': tag,
         };
         print(data);
         response = await post(
-          "http://47.107.117.59/fff/setTarget.php", //TODO
+          "http://47.107.117.59/fff/setTagT.php", //TODO
           body: data,
         );
+
         print('response got');
         Map<String, dynamic> mapFromJson =
             json.decode(response.body.toString());
         print(response.body.toString());
         if (mapFromJson['status'] == 10000) {
-          print('新建目标成功');
-          changeCurrentGoalSetted();
-          Navigator.pushReplacementNamed(context, 'NewGoal2');
-          print('请求成功');
+          print('新建Tag成功');
+          Navigator.pushReplacementNamed(context, 'NewGoal1');
         }
       } on Error catch (e) {
         print(e);
@@ -121,22 +90,22 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
               else //若_calculation执行正常完成
                 return new Scaffold(
                   appBar: AppBar(
-                    leading: Container(),
-                    // IconButton(
-                    //   icon: Icon(Icons.arrow_back_ios),
-                    //   tooltip: '取消编辑并且返回',
-                    //   onPressed: () {
-                    //     Navigator.popUntil(
-                    //         context, ModalRoute.withName('Navigator'));
-                    //   },
-                    // ),
+                    title: Text('先设定一个分类标签吧'),
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      tooltip: '取消编辑并且返回',
+                      onPressed: () {
+                        Navigator.popUntil(
+                            context, ModalRoute.withName('Navigator'));
+                      },
+                    ),
                     elevation: 0,
                     actions: <Widget>[
                       IconButton(
                         tooltip: '继续',
                         icon: Icon(Icons.arrow_forward),
                         onPressed: () {
-                          EditGoal();
+                          AddTag();
                         },
                       )
                     ],
@@ -146,19 +115,19 @@ class _NewGoalDirectionPageOneState extends State<NewGoalDirectionPageOne> {
                     child: Center(
                       child: ListView(
                         children: <Widget>[
-                          NewGoal1Direction(),
                           TextField(
                             onChanged: (text) {
-                              goal_setted = text;
+                              tag = text;
                             },
                             decoration: InputDecoration(
-                                hintText: '目标',
+                                hintText: '标签',
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 )),
-                            maxLength: 1000,
-                            maxLines: 10,
+                            maxLength: 10,
+                            maxLines: 1,
                           ),
+                          Text('请为这个目标添加一个标签用于分类，如‘留学申请’、‘考研’'),
                         ],
                       ),
                     ),

@@ -182,7 +182,7 @@ class _NewGoalDirectionPageFourState extends State<NewGoalDirectionPageFour> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 )),
-                            maxLength: 300,
+                            maxLength: 1000,
                             maxLines: 10,
                           ),
                         ],

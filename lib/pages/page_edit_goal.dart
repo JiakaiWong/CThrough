@@ -19,6 +19,10 @@ class _EditGoalState extends State<EditGoal> {
     String root_causes_identified;
     String plan_designed;
     String action_performed;
+    String tag1;
+
+    String tag2;
+    String tag3;
 
     Future<bool> Failure1() async {
       return (await showDialog(
@@ -59,8 +63,39 @@ class _EditGoalState extends State<EditGoal> {
           false;
     }
 
+    Future<Null> AddTag(String tag) async {
+      print('开始传Tag');
+      Response response;
+      try {
+        var data = {
+          'tuid': tuid,
+          'tag': tag,
+        };
+        print(data);
+        response = await post(
+          "http://47.107.117.59/fff/setTagT.php", //TODO
+          body: data,
+        );
+        print('response got');
+        Map<String, dynamic> mapFromJson =
+            json.decode(response.body.toString());
+        print(response.body.toString());
+        if (mapFromJson['status'] == 10000) {
+          print('新建Tag成功');
+        }
+      } on Error catch (e) {
+        print(e);
+        Failure2();
+      }
+      return;
+    }
+
     Future<Null> EditGoal() async {
       Response response;
+      AddTag(tag1);
+      AddTag(tag2);
+      AddTag(tag3);
+
       try {
         var data = {
           'uuid': uuid,
@@ -89,6 +124,43 @@ class _EditGoalState extends State<EditGoal> {
       return;
     }
 
+    Future<Null> GetTag() async {
+      Response response;
+      try {
+        var data = {
+          'tuid': tuid,
+        };
+        print(
+            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        print(tuid);
+        response = await post(
+          "http://47.107.117.59/fff/getTagsT.php", //TODO
+          body: data,
+        );
+        Map<String, dynamic> mapFromJson =
+            json.decode(response.body.toString());
+        if (mapFromJson['status'] == 10000) {
+          if (mapFromJson['sum'] as int == 1) {
+            tag1 = mapFromJson['results'][0]['tag'];
+          }
+          if (mapFromJson['sum'] as int == 2) {
+            tag1 = mapFromJson['results'][0]['tag'];
+            tag2 = mapFromJson['results'][1]['tag'];
+          }
+          if (mapFromJson['sum'] as int == 3) {
+            tag1 = mapFromJson['results'][0]['tag'];
+            tag2 = mapFromJson['results'][1]['tag'];
+            tag3 = mapFromJson['results'][2]['tag'];
+          }
+        } else if (mapFromJson['status'] == 20000) {
+          Failure1();
+        }
+      } on Error catch (e) {
+        Failure1();
+      }
+      return;
+    }
+
     //get uuid from local shared_preference
     Future<String> getUuid() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -107,6 +179,8 @@ class _EditGoalState extends State<EditGoal> {
       print('编辑页面开始读取信息');
       getUuid();
       getTheGoal().then((response) {
+        GetTag();
+
         print('找到目标，开始给文本框内容赋值');
         var foundTarget = false;
         for (int i = 0; i < listOfBareFiveStep.length; i++) {
@@ -147,13 +221,6 @@ class _EditGoalState extends State<EditGoal> {
                 return new Text('Error: ${snapshot.error}');
               else //若_calculation执行正常完成
               {
-                print('开始生成编辑目标的页面');
-                print(tuid);
-                print(goal_setted);
-                print(problems_identified);
-                print(root_causes_identified);
-                print(plan_designed);
-                print(action_performed);
                 return new Scaffold(
                   appBar: AppBar(
                     title: Text('编辑目标'),
@@ -171,7 +238,71 @@ class _EditGoalState extends State<EditGoal> {
                     child: Center(
                       child: ListView(
                         children: <Widget>[
-                          NewGoal1Direction(),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                '标签',
+                                textScaleFactor: 1.2,
+                                style: TextStyle(
+                                    fontSize: 21.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          TextField(
+                            controller: TextEditingController(text: tag1),
+                            onChanged: (text) {
+                              tag1 = text;
+                            },
+                            decoration: InputDecoration(
+                                hintText: '标签1',
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                )),
+                            maxLength: 10,
+                            maxLines: 1,
+                          ),
+                          TextField(
+                            controller: TextEditingController(text: tag2),
+                            onChanged: (text) {
+                              tag2 = text;
+                            },
+                            decoration: InputDecoration(
+                                hintText: '标签2',
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                )),
+                            maxLength: 10,
+                            maxLines: 1,
+                          ),
+                          TextField(
+                            controller: TextEditingController(text: tag3),
+                            onChanged: (text) {
+                              tag3 = text;
+                            },
+                            decoration: InputDecoration(
+                                hintText: '标签3',
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                )),
+                            maxLength: 10,
+                            maxLines: 1,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                '目标',
+                                textScaleFactor: 1.2,
+                                style: TextStyle(
+                                    fontSize: 21.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
                           TextField(
                             controller:
                                 TextEditingController(text: goal_setted),
@@ -183,10 +314,22 @@ class _EditGoalState extends State<EditGoal> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 )),
-                            maxLength: 300,
-                            maxLines: 10,
+                            maxLength: 1000,
+                            maxLines: 5,
                           ),
-                          NewGoal2Direction(),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                '障碍识别',
+                                textScaleFactor: 1.2,
+                                style: TextStyle(
+                                    fontSize: 21.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
                           TextField(
                             controller: TextEditingController(
                                 text: problems_identified),
@@ -198,10 +341,22 @@ class _EditGoalState extends State<EditGoal> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 )),
-                            maxLength: 300,
-                            maxLines: 10,
+                            maxLength: 1000,
+                            maxLines: 5,
                           ),
-                          NewGoal3Direction(),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                '障碍背后的根本原因',
+                                textScaleFactor: 1.2,
+                                style: TextStyle(
+                                    fontSize: 21.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
                           TextField(
                             controller: TextEditingController(
                                 text: root_causes_identified),
@@ -213,10 +368,22 @@ class _EditGoalState extends State<EditGoal> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 )),
-                            maxLength: 300,
-                            maxLines: 10,
+                            maxLength: 1000,
+                            maxLines: 5,
                           ),
-                          NewGoal4Direction(),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                '计划',
+                                textScaleFactor: 1.2,
+                                style: TextStyle(
+                                    fontSize: 21.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
                           TextField(
                             controller:
                                 TextEditingController(text: plan_designed),
@@ -228,8 +395,8 @@ class _EditGoalState extends State<EditGoal> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 )),
-                            maxLength: 300,
-                            maxLines: 10,
+                            maxLength: 1000,
+                            maxLines: 5,
                           ),
                           Align(
                             alignment: Alignment.centerLeft,
@@ -239,7 +406,7 @@ class _EditGoalState extends State<EditGoal> {
                                 '计划执行情况',
                                 textScaleFactor: 1.2,
                                 style: TextStyle(
-                                    fontSize: 42.0,
+                                    fontSize: 21.0,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -255,7 +422,7 @@ class _EditGoalState extends State<EditGoal> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 )),
-                            maxLength: 300,
+                            maxLength: 1000,
                             maxLines: 10,
                           ),
                         ],

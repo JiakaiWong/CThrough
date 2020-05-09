@@ -8,6 +8,8 @@ import 'pages/page_goal_dir_three.dart';
 import 'pages/page_goal_dir_four.dart';
 import 'pages/page_view_other_people.dart';
 import 'pages/page_admin.dart';
+import 'pages/page_add_tag.dart';
+
 
 import 'pages/page_edit_goal.dart';
 import 'pages/page_create_account.dart';
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
         'OtherPeopleDocumentPage': (context) =>
             OtherPeopleDocumentPage(), //查看其他用户
         'AdminPage': (context) => AdminPage(), //管理员模式
+        'addTagPage': (context) => addTagPage(),
       },
       title: 'Flutter bottomNavigationBar',
       theme: ThemeData(

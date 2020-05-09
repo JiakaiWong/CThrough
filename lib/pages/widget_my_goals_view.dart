@@ -239,8 +239,7 @@ class _MyGoalPageState extends State<MyGoalPage>
                       icon: Icon(Icons.add_circle_outline),
                       heroTag: 'addGoal',
                       onPressed: () {
-                        Navigator.pushNamed(context, 'NewGoal1');
-                        print("Navigator.pushNamed(context, 'NewGoal1');");
+                        Navigator.pushNamed(context, 'addTagPage');
                       }),
                 );
               }

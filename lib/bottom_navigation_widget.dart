@@ -15,7 +15,7 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   PageController _controller = PageController();
   @override
   void dispose() {

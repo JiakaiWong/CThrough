@@ -168,7 +168,7 @@ class _NewGoalDirectionPageTwoState extends State<NewGoalDirectionPageTwo> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 )),
-                            maxLength: 300,
+                            maxLength: 1000,
                             maxLines: 10,
                           ),
                         ],

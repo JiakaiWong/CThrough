@@ -291,8 +291,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           controller: TextEditingController(
                               text: personTileData.userIdentity),
                           decoration: InputDecoration(
-                              labelText: '认证信息（所属高中/大学/在读学历)',
-                              hintText: '认证信息（所属高中/大学/在读学历）',
+                              labelText: '认证信息（所属高中/大学与在读学历)',
+                              hintText: '认证信息（所属高中/大学与在读学历）',
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey),
                               )),

@@ -120,7 +120,7 @@ class AboutPage extends StatelessWidget {
                     height: 100,
                   ),
                 ),
-                Expanded(flex: 4, child: Text('广州'))
+                Expanded(flex: 4, child: Text('华南理工大学'))
               ],
             ),
             Row(
@@ -150,7 +150,7 @@ class AboutPage extends StatelessWidget {
                     height: 100,
                   ),
                 ),
-                Expanded(flex: 4, child: Text('1.0'))
+                Expanded(flex: 4, child: Text('1.0.1'))
               ],
             ),
 
