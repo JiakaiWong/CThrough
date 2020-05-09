@@ -20,7 +20,6 @@ class _EditGoalState extends State<EditGoal> {
     String plan_designed;
     String action_performed;
     String tag1;
-
     String tag2;
     String tag3;
 
@@ -92,9 +91,15 @@ class _EditGoalState extends State<EditGoal> {
 
     Future<Null> EditGoal() async {
       Response response;
-      AddTag(tag1);
-      AddTag(tag2);
-      AddTag(tag3);
+      if (tag1 != null && tag1 != '') {
+        AddTag(tag1);
+      }
+      if (tag2 != null && tag2 != '') {
+        AddTag(tag2);
+      }
+      if (tag3 != null && tag3 != '') {
+        AddTag(tag3);
+      }
 
       try {
         var data = {
@@ -130,15 +135,17 @@ class _EditGoalState extends State<EditGoal> {
         var data = {
           'tuid': tuid,
         };
-        print(
-            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        print(tuid);
         response = await post(
           "http://47.107.117.59/fff/getTagsT.php", //TODO
           body: data,
         );
         Map<String, dynamic> mapFromJson =
             json.decode(response.body.toString());
+
+        print(
+            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        print(tuid);
+        print(mapFromJson['sum']);
         if (mapFromJson['status'] == 10000) {
           if (mapFromJson['sum'] as int == 1) {
             tag1 = mapFromJson['results'][0]['tag'];
@@ -147,7 +154,7 @@ class _EditGoalState extends State<EditGoal> {
             tag1 = mapFromJson['results'][0]['tag'];
             tag2 = mapFromJson['results'][1]['tag'];
           }
-          if (mapFromJson['sum'] as int == 3) {
+          if (mapFromJson['sum'] as int >= 3) {
             tag1 = mapFromJson['results'][0]['tag'];
             tag2 = mapFromJson['results'][1]['tag'];
             tag3 = mapFromJson['results'][2]['tag'];
@@ -173,24 +180,16 @@ class _EditGoalState extends State<EditGoal> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //set tuid
       tuid = prefs.getString('currentGoal');
+      //await GetTag();
     }
 
     Future<String> getThingsDone() async {
       print('编辑页面开始读取信息');
       getUuid();
       getTheGoal().then((response) {
-        GetTag();
-
         print('找到目标，开始给文本框内容赋值');
         var foundTarget = false;
         for (int i = 0; i < listOfBareFiveStep.length; i++) {
-          print(listOfBareFiveStep[i].uuid);
-          print(listOfBareFiveStep[i].goal_setted);
-          print(listOfBareFiveStep[i].problems_identified);
-          print(listOfBareFiveStep[i].root_causes_identified);
-          print(listOfBareFiveStep[i].plan_designed);
-          print(listOfBareFiveStep[i].action_performed);
-
           if (listOfBareFiveStep[i].uuid == tuid) {
             goal_setted = listOfBareFiveStep[i].goal_setted;
             problems_identified = listOfBareFiveStep[i].problems_identified;
@@ -206,6 +205,18 @@ class _EditGoalState extends State<EditGoal> {
         }
       });
     }
+
+    // Future runMultipleFutures() async {
+    //   // Create list of multiple futures
+    //   var futures = List<Future>();
+    //   futures.add(getThingsDone());
+    //   futures.add(Future.delayed(const Duration(milliseconds: 1000), () {
+    //     futures.add(GetTag());
+    //   }));
+    //   // Waif for all futures to complete
+    //   await Future.wait(futures);
+    //   print('All the futures has completed');
+    // }
 
     return new FutureBuilder(
         future: getThingsDone(),
@@ -238,58 +249,58 @@ class _EditGoalState extends State<EditGoal> {
                     child: Center(
                       child: ListView(
                         children: <Widget>[
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                '标签',
-                                textScaleFactor: 1.2,
-                                style: TextStyle(
-                                    fontSize: 21.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          TextField(
-                            controller: TextEditingController(text: tag1),
-                            onChanged: (text) {
-                              tag1 = text;
-                            },
-                            decoration: InputDecoration(
-                                hintText: '标签1',
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                )),
-                            maxLength: 10,
-                            maxLines: 1,
-                          ),
-                          TextField(
-                            controller: TextEditingController(text: tag2),
-                            onChanged: (text) {
-                              tag2 = text;
-                            },
-                            decoration: InputDecoration(
-                                hintText: '标签2',
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                )),
-                            maxLength: 10,
-                            maxLines: 1,
-                          ),
-                          TextField(
-                            controller: TextEditingController(text: tag3),
-                            onChanged: (text) {
-                              tag3 = text;
-                            },
-                            decoration: InputDecoration(
-                                hintText: '标签3',
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                )),
-                            maxLength: 10,
-                            maxLines: 1,
-                          ),
+                          // Align(
+                          //   alignment: Alignment.centerLeft,
+                          //   child: Padding(
+                          //     padding: EdgeInsets.all(8.0),
+                          //     child: Text(
+                          //       '标签',
+                          //       textScaleFactor: 1.2,
+                          //       style: TextStyle(
+                          //           fontSize: 21.0,
+                          //           fontWeight: FontWeight.bold),
+                          //     ),
+                          //   ),
+                          // ),
+                          // TextField(
+                          //   controller: TextEditingController(text: tag1),
+                          //   onChanged: (text) {
+                          //     tag1 = text;
+                          //   },
+                          //   decoration: InputDecoration(
+                          //       hintText: '标签1',
+                          //       enabledBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.grey),
+                          //       )),
+                          //   maxLength: 10,
+                          //   maxLines: 1,
+                          // ),
+                          // TextField(
+                          //   controller: TextEditingController(text: tag2),
+                          //   onChanged: (text) {
+                          //     tag2 = text;
+                          //   },
+                          //   decoration: InputDecoration(
+                          //       hintText: '标签2',
+                          //       enabledBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.grey),
+                          //       )),
+                          //   maxLength: 10,
+                          //   maxLines: 1,
+                          // ),
+                          // TextField(
+                          //   controller: TextEditingController(text: tag3),
+                          //   onChanged: (text) {
+                          //     tag3 = text;
+                          //   },
+                          //   decoration: InputDecoration(
+                          //       hintText: '标签3',
+                          //       enabledBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.grey),
+                          //       )),
+                          //   maxLength: 10,
+                          //   maxLines: 1,
+                          // ),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(

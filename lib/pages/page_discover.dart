@@ -215,6 +215,16 @@ class searchBarDelegate extends SearchDelegate<String> {
     }
   }
 
+  Future runMultipleFutures(int i) async {
+    var futures = List<Future>();
+    futures.add(GetFullBareFiveStepData(i));
+    await Future.wait(futures);
+    futures.add(Future.delayed(const Duration(milliseconds: 1000), () {
+      futures.add(GetPersonTileData(i));
+    }));
+    await Future.wait(futures);
+  }
+
   Widget futureWidget() {
     return new FutureBuilder(
         future: GerSearchedGoals(), //第一层：得到了一个tuid数组，保存在listOfSearchedTuid
@@ -232,8 +242,8 @@ class searchBarDelegate extends SearchDelegate<String> {
                 return new Text('Error: ${snapshot.error}');
               } else {
                 return new FutureBuilder(
-                    future: GetFullBareFiveStepData(
-                        snapshot.data), //这里开始用目标的信息获取人的信息
+                    future:
+                        runMultipleFutures(snapshot.data), //这里开始用目标的信息获取人的信息
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none:
@@ -251,84 +261,47 @@ class searchBarDelegate extends SearchDelegate<String> {
                                 body: new ListView.builder(
                                     itemCount: listOfSearchedTuid.length,
                                     itemBuilder: (context, index) {
-                                      return new FutureBuilder(
-                                          future: GetPersonTileData(index),
-                                          builder: (BuildContext context,
-                                              AsyncSnapshot snapshot) {
-                                            switch (snapshot.connectionState) {
-                                              case ConnectionState.none:
-                                                return new Text('未请求');
-                                              case ConnectionState.waiting:
-                                                {
-                                                  return new Text(
-                                                      'Awaiting result...');
-                                                }
-                                              case ConnectionState.active:
-                                                {
-                                                  return new Text(
-                                                      'Awaiting result...');
-                                                }
-                                                
-                                              default:
-                                                if (snapshot.hasError) {
-                                                  print('snapshot.hasError');
-                                                  return new Text(
-                                                      'Error: ${snapshot.error}');
-                                                } else {
-                                                  print('开始build卡片');
-                                                  return new Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child:
-                                                        TheirPersonTileWithGoal(
-                                                      key: Key(
-                                                          'SearchedPersonTileWith$index'),
-                                                      uuid:
-                                                          listOfSearchedPersonTileData[
-                                                                  index]
-                                                              .uuid,
-                                                      userIdentity:
-                                                          listOfSearchedPersonTileData[
-                                                                  index]
-                                                              .userIdentity,
-                                                      userName:
-                                                          listOfSearchedPersonTileData[
-                                                                  index]
-                                                              .userName,
-                                                      avatarId:
-                                                          listOfSearchedPersonTileData[
-                                                                  index]
-                                                              .avatarId,
-                                                      followed:
-                                                          listOfSearchedPersonTileData[
-                                                                  index]
-                                                              .followed,
-                                                      goal_setted:
-                                                          listOfSearchedBareFiveStep[
-                                                                  index]
-                                                              .goal_setted,
-                                                      problems_identified:
-                                                          listOfSearchedBareFiveStep[
-                                                                  index]
-                                                              .problems_identified,
-                                                      root_causes_identified:
-                                                          listOfSearchedBareFiveStep[
-                                                                  index]
-                                                              .root_causes_identified,
-                                                      plan_designed:
-                                                          listOfSearchedBareFiveStep[
-                                                                  index]
-                                                              .plan_designed,
-                                                      action_performed:
-                                                          listOfSearchedBareFiveStep[
-                                                                  index]
-                                                              .action_performed,
-                                                    ),
-                                                  );
-                                                }
-                                            }
-                                          });
+                                      return new Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TheirPersonTileWithGoal(
+                                          key: Key(
+                                              'SearchedPersonTileWith$index'),
+                                          uuid: listOfSearchedPersonTileData[
+                                                  index]
+                                              .uuid,
+                                          userIdentity:
+                                              listOfSearchedPersonTileData[
+                                                      index]
+                                                  .userIdentity,
+                                          userName:
+                                              listOfSearchedPersonTileData[
+                                                      index]
+                                                  .userName,
+                                          avatarId:
+                                              listOfSearchedPersonTileData[
+                                                      index]
+                                                  .avatarId,
+                                          followed:
+                                              listOfSearchedPersonTileData[
+                                                      index]
+                                                  .followed,
+                                          goal_setted:
+                                              listOfSearchedBareFiveStep[index]
+                                                  .goal_setted,
+                                          problems_identified:
+                                              listOfSearchedBareFiveStep[index]
+                                                  .problems_identified,
+                                          root_causes_identified:
+                                              listOfSearchedBareFiveStep[index]
+                                                  .root_causes_identified,
+                                          plan_designed:
+                                              listOfSearchedBareFiveStep[index]
+                                                  .plan_designed,
+                                          action_performed:
+                                              listOfSearchedBareFiveStep[index]
+                                                  .action_performed,
+                                        ),
+                                      );
                                     }));
                           }
                       }
@@ -374,11 +347,24 @@ class searchBarDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Text('dsadsa');
+    return Center(
+      child: Text(
+        '''
+      试试搜索“保研”、“留学”
+      ''',
+        textScaleFactor: 1.6,
+      ),
+    );
   }
 
   @override
   ThemeData appBarTheme(BuildContext context) {
-    return super.appBarTheme(context);
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      primaryColor: theme.primaryColor,
+      primaryIconTheme: theme.primaryIconTheme,
+      primaryColorBrightness: theme.primaryColorBrightness,
+      primaryTextTheme: theme.primaryTextTheme,
+    );
   }
 }
