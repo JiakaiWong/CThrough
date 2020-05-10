@@ -5,14 +5,14 @@ import 'package:date_matching/pages/widget_persontile_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-class DiscoverKaoyan extends StatefulWidget {
-  DiscoverKaoyan({Key key}) : super(key: key);
+class DiscoverBaoyan extends StatefulWidget {
+  DiscoverBaoyan({Key key}) : super(key: key);
 
   @override
   _DiscoverBaoyanState createState() => _DiscoverBaoyanState();
 }
 
-class _DiscoverBaoyanState extends State<DiscoverKaoyan>
+class _DiscoverBaoyanState extends State<DiscoverBaoyan>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;

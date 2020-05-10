@@ -108,7 +108,7 @@ class CreateAccountPageState extends State<CreateAccountPage> {
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('已发送验证码'),
-            content: new Text('邮件编号：$verificationEmailCode'),
+           // content: new Text('邮件编号：$verificationEmailCode'),
             actions: <Widget>[
               new FlatButton(
                 onPressed: () => Navigator.pop(context),
