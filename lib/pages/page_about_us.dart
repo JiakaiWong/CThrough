@@ -18,20 +18,18 @@ class AboutPage extends StatelessWidget {
         actions: <Widget>[
           FlatButton(
               onPressed: () {
+                Navigator.of(context).pushNamed('AdminPage');
+              },
+              child: Text('*')),
+          FlatButton(
+              onPressed: () {
                 deleteUuid();
                 SchedulerBinding.instance.addPostFrameCallback((_) async {
                   Navigator.of(context).pushNamedAndRemoveUntil(
                       'LogIn', (Route<dynamic> route) => false);
                 });
               },
-              child: Text('退出登录')),
-          FlatButton(
-              onPressed: () {
-                  Navigator.of(context).pushNamed(
-                      'AdminPage');
-                },
-              
-              child: Text('进入管理员界面'))
+              child: Text('退出登录'))
         ],
         elevation: 0.0,
       ),
