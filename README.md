@@ -7,4 +7,4 @@
     - 前端采用flutter 框架
     - 后端采用php + mysql 
 - 发布
-    - [打包后的安装包](https://github.com/callmebg/CThrough/releases)
+    - [安装包下载](http://47.107.117.59/fff/uploads/CThrough%20v1.0.1.apk)
