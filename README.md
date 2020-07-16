@@ -6,4 +6,5 @@
 - 架构
     - 前端采用flutter 框架
     - 后端采用php + mysql 
-
+- 发布
+    - [打包后的安装包](https://github.com/callmebg/CThrough/releases)
