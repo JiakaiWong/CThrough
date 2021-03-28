@@ -77,11 +77,6 @@ If particularly interested in a certain user, users can use the follow function.
 
 (1) Discovery interface: Users can view the latest goals set by other users in the discovery interface
 
-![img](./photos/图片8.png)
-![img](./photos/图片9.png)
-![img](./photos/图片10.png)
-
-
 (2) 用户个人信息界面:用户可以更改自己的昵称和身份来让大家更好地认识就自己。 
 
 (2) User personal information interface: Users can change their nickname and identity to let everyone know themselves better.
@@ -91,7 +86,10 @@ CThrough 目前采用邮箱验证方式注册用户
 
 Other interfaces:
 CThrough currently uses email verification to register users
- 
+
+![img](./photos/图片8.png)
+![img](./photos/图片9.png)
+![img](./photos/图片10.png)
 
 ##  6 盈利模式展望:
 ## 6 Profit model outlook:
