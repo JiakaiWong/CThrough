@@ -2,8 +2,9 @@
 # 软件设计大赛时的设计稿：
 # Design during the software design competition:
 
-#（写于2020年5月，很不成熟。）
-#(Written in May 2020, very immature.)
+# 写于2020年5月,时值大一，很不成熟。
+
+# (Written in May 2020, very immature.
 
 ## 1 项目初衷:
 ## 1 The original intention of the project:
