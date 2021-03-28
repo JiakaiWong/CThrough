@@ -39,29 +39,37 @@ CThrough 的 logo 是一扇微微开启的门，门内黑暗、门外为光明
 
 在 CThrough 中，我们采取类似的方法论指导，将目标的实现过程分解为 5 步:制定目标、分析目标实现的障碍、分析造成障碍根本原因、制定消除障碍的 计划、执行计划。用户在应用中每创建一个目标，都会在反复的提醒下进行这个 步骤中的前四步、当有所行动后，可以返回 CThrough 记录。 
 
-![img](file:////private/var/folders/2c/2g3m4k617790hd75mb87pyf40000gn/T/com.kingsoft.wpsoffice.mac/wps-karhoi/ksohtml/wpsVwl74K.png)
+![img](./photos/图片2.png)
 
-![img](file:////private/var/folders/2c/2g3m4k617790hd75mb87pyf40000gn/T/com.kingsoft.wpsoffice.mac/wps-karhoi/ksohtml/wpshnnPGG.jpg)
+![img](./photos/图片3.png)
+
 
 其次，在 Principles 一书中，作者提到人应该使用原则来简化决策步骤、将从以往经验中获得的原则直接运用于今后的决策中、为此，CThrough 提供了原则记录和分享功能，可以创建自己的原则，查看自己的原则列表，看到别人的原则: 
 
-![img](file:////private/var/folders/2c/2g3m4k617790hd75mb87pyf40000gn/T/com.kingsoft.wpsoffice.mac/wps-karhoi/ksohtml/wpsH9oyzA.png) 
+![img](./photos/图片4.png)
 
-![img](file:////private/var/folders/2c/2g3m4k617790hd75mb87pyf40000gn/T/com.kingsoft.wpsoffice.mac/wps-karhoi/ksohtml/wpsnzxOQO.jpg)
+
+![img](./photos/图片5.png)
+
 特色功能:
 1 每个设定的目标都对应了一个标签，可以用于搜索，而“留学”、“保研”、“考研”三个标签由于最受关注，所以会自动显示在发现页面:
 
-![img](file:////private/var/folders/2c/2g3m4k617790hd75mb87pyf40000gn/T/com.kingsoft.wpsoffice.mac/wps-karhoi/ksohtml/wpsjpAKRw.png) 
+![img](./photos/图片6.png)
+ 
 
 通过发现页面顶部的搜索按钮可进进入搜索页面，服务器会返回所有此标签下的目标。点击某个目标，可以查看详情（并且阅读评论、添加评论（未实现）) 
 
 如果对某个用户特别有兴趣， 可以使用关注功能。被关注的用户会显示在发现页上。 
 
-![img](file:////private/var/folders/2c/2g3m4k617790hd75mb87pyf40000gn/T/com.kingsoft.wpsoffice.mac/wps-karhoi/ksohtml/wpsUQkt6e.png) 
+![img](./photos/图片7.png)
+
 
 (1)发现界面:用户可以在发现界面查看最新的其他用户制定的目标 
 
-![img](file:////private/var/folders/2c/2g3m4k617790hd75mb87pyf40000gn/T/com.kingsoft.wpsoffice.mac/wps-karhoi/ksohtml/wps3ItYVj.png) 
+![img](./photos/图片8.png)
+![img](./photos/图片9.png)
+![img](./photos/图片10.png)
+
 
 (2) 用户个人信息界面:用户可以更改自己的昵称和身份来让大家更好地认识就自己。 
 
