@@ -19,7 +19,7 @@ CThrough 的意思是 See Through，即 not be deceived by and detect the true n
 CThrough 的 logo 是一扇微微开启的门，门内黑暗、门外为光明 
 
 
-![img](file:/photos/图片1.png)
+![图片1](./photos/图片1.png)
 
 我们希望用户在 CThrough 能够深思熟虑地思考自己所追寻地目标究竟是什么，并且一旦认清目标，不遗余力地去实现它，赢得自己向往的人生。 
 
